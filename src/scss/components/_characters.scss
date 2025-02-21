@@ -1,0 +1,129 @@
+.ability {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*width: 272px;*/
+}
+
+.ability-npc {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ability label {
+    /*margin-left: 35px;*/
+    font-size: large;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.ability input {
+   
+    max-width: 50px;
+    /*margin-left: -130px;*/
+    border: 0px;
+    height: 20px;
+}
+
+.big-circle {
+    width: 5vh;
+    height: 5vh;
+    /*background: #70AAD4;*/
+    border: 2px solid $c-pk-border;
+    border-radius: 50%;
+    position: relative;
+    /* For presentation */
+    /*margin-left: 30px;
+    margin-top: 30px;*/
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .resource-balas {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    position: relative;
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle-profile-npc {
+    width: 150px;
+    height: 150px;
+    /*background: #70AAD4;*/
+    border: 2px solid $c-pk-border;
+    border-radius: 50%;
+    position: relative;
+    /* For presentation */
+    /*margin-left: 30px;
+    margin-top: 30px;*/
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  
+  .value {
+    border: 0px solid;
+    
+    
+  }
+  input[type=text] {
+    font-size:25px;
+    width: 50px;
+    background: none;
+    border: 0;
+     text-align: center; 
+  }
+  
+  .small-circle {
+    /*background: #70aad4 none repeat scroll 0 0;*/
+    /*border: 2px solid $c-pk-border;*/
+    border-radius: 50%;
+    height: 43%;
+    position: absolute;
+    width: 43%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle-profile-left {
+    left: -5%;
+    top: 70%;
+    border-bottom: 2px solid $c-pk-border;
+    border-left: 2px solid $c-pk-border;
+    backdrop-filter: blur(2px);
+  }
+
+  .circle-profile-right {
+    left: 70%;
+    top: 70%;
+    border-bottom: 2px solid $c-pk-border;
+    border-right: 2px solid $c-pk-border;
+    backdrop-filter: blur(2px);
+  }
+  
+  .small-circle2 {
+    /*background: #70aad4 none repeat scroll 0 0;*/
+    border: 2px solid $c-pk-border;
+    border-radius: 50%;
+    height: 43%;
+    
+    position: absolute;
+    
+    width: 43%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

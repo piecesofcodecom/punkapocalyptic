@@ -1,0 +1,59 @@
+{
+  "PUNKAPOCALYPTIC": {
+    "Ability": {
+      "Muscles": { "long": "Músculos", "abbr": "mus" },
+      "Meat": { "long": "Carne", "abbr": "car" },
+      "Hands": { "long": "Mãos", "abbr": "mao" },
+      "Feet": { "long": "Pés", "abbr": "pes" },
+      "Brains": { "long": "Miolos", "abbr": "mio" },
+      "Eyes": { "long": "Olhos", "abbr": "olh" },
+      "Mouth": { "long": "Boca", "abbr": "boc" },
+      "Guts": { "long": "Tripas", "abbr": "tri" },
+      "Education": { "long": "Educação", "abbr": "edu" }
+    },
+    "Resource": {
+      "Balas": { "long": "Balas", "abbr": "balas" },
+      "Comida": { "long": "Comida", "abbr": "comida" },
+      "Agua": { "long": "Água", "abbr": "agua" },
+      "Remedio": { "long": "Remédio", "abbr": "remedio" },
+      "Energia": { "long": "Energia", "abbr": "energia" },
+      "Combustivel": { "long": "Combustível", "abbr": "combustivel" }
+    },
+    "SheetLabels": {
+      "Actor": "Punkapocalyptic Actor Sheet",
+      "Item": "Punkapocalyptic Item Sheet",
+      "Caminhos": "Caminhos",
+      "Coisas": "Coisas",
+      "Efeitos": "Efeitos",
+      "Preferidos": "Preferidos",
+      "Descricao": "Descrição"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}"
+      }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Feature",
+      "spell": "Spell",
+      "caminho": "Caminho",
+      "weapon": "Arma"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{{! This template is a fallback for when items don't have more specific templates. }}
+{{! Generally, you'll want to make more specific templates when possible. }}
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}' />
+    <div class='header-fields'>
+
+      <div class='grid grid-3col'>
+        <div class="grid-span-3">
+          <h1 class="resource flexcol flex-group-center">
+            <input name="name" type="text" value="{{item.name}}" placeholder="Name">
+          </h1>
+        </div>
+        <div class='resource flexcol flex-group-center grid-span-1'>
+          <label class='resource-label'>Atributo</label>
+          <select name="system.ability.id" type="text" data-dtype='String'>
+            {{#comparestring system.ability.id ""}}
+            <option value="" selected>Nenhuma</option>
+            {{/comparestring}}
+            {{#each abilities as |ability id|}}
+            <option value="{{id}}" {{#comparestring @root/system.ability.id id }} selected {{/comparestring}}>{{localize
+              ability}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class='resource flexcol flex-group-center grid-span-1'>
+          <label class='resource-label'>Bonus</label>
+          <input type='text' name='system.ability.bonus' value='{{system.ability.bonus}}' data-dtype='Number' />
+        </div>
+        <div class='resource flexcol flex-group-center grid-span-1'>
+          <label class='resource-label'>Idiomas</label>
+          <input type='text' name='system.languages' value='{{system.languages}}' data-dtype='Number' />
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Descrição</a>
+    <a class='item' data-tab='attributes'>Configuração</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+      enrichedDescription
+      target='system.description'
+      engine='prosemirror'
+      button=true
+      editable=editable
+      }}
+    </div>
+
+    {{! Attributes Tab }}
+    <div class='tab attributes' data-group='primary' data-tab='attributes'>
+      <div class="resources grid grid-4col">
+      {{#each system.resources as |resource key|}}
+          <div class="resource flex-group-center">
+            <!--label for="system.resources.{{key}}.value" class="resource-label flexlarge align-left"
+              data-label="{{localize (lookup @root.config.resources key)}}">{{localize (lookup @root.config.resources
+              key)}}</label-->
+            <div class="resource-content flexrow flex-center flex-between">
+              <div class="resource-balas" data-tooltip="{{localize (lookup @root.config.resources key)}}" style="background-image: url({{resource.icon}}); background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;">
+              <input type="text" name="system.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number" style="z-index:9999;" />
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          </div>
+      {{! As you add new fields, add them in here! }}
+    </div>
+  </section>
+</form>

@@ -1,0 +1,67 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}' />
+    <div class='header-fields'>
+      <h1 class='charname'><input name='name' type='text' value='{{item.name}}' placeholder='Name' /></h1>
+      <div class='grid grid-4col'>
+        <div class='resource flexcol flex-group-center grid-span-2'>
+          <!--label class='resource-label'>Weight</label>
+          <input
+            type='text'
+            name='system.weight'
+            value='{{system.weight}}'
+            data-dtype='Number'
+          /-->
+          <label class='resource-label'>Habilidade</label>
+          <select name="system.roll.ability" type="text" data-dtype='String'>
+            {{#comparestring system.roll.ability ""}}
+            <option value="" selected>Nenhuma</option> {{/comparestring}}
+            {{#each abilities as |ability id|}}
+            <option value="{{id}}"
+            {{#comparestring @root/system.roll.ability id }}
+              selected
+            {{/comparestring}}
+            >{{localize ability}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>Dano <i class="fa-solid fa-gear editable" data-dialog="true" data-path="system.formula"></i></label>
+          <span class="resource-value">{{system.formula}}</span>
+        </div>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>Quantity</label>
+          <input type='text' name='system.quantity' value='{{system.quantity}}' data-dtype='Number' />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <!--a class='item' data-tab='description'>Description</a-->
+    <a class='item' data-tab='attributes'>Descrição</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <!--div class='tab' data-group='primary' data-tab='description'>
+      
+    </div-->
+
+    {{! Attributes Tab }}
+    <div class='tab attributes' data-group='primary' data-tab='attributes'>
+      {{! As you add new fields, add them in here! }}
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+      enrichedDescription
+      target='system.description'
+      engine='prosemirror'
+      button=true
+      editable=editable
+      }}
+    </div>
+  </section>
+</form>

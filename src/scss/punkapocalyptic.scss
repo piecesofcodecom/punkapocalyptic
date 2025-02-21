@@ -1,0 +1,42 @@
+// Add custom fonts by visiting and search https://fonts.google.com
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+// Custom fonts
+//@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Rubik+Dirt&display=swap');
+@font-face {
+  font-family: 'VKB KonQa';
+  src: url('/systems/punkapocalyptic/assets/fonts/VKBKonQa_Capitalist_acento.otf') format('opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+// Import utilities.
+@import 'utils/typography';
+@import 'utils/colors';
+@import 'utils/mixins';
+@import 'utils/variables';
+
+/* Global styles */
+@import 'global/window';
+@import 'global/grid';
+@import 'global/flex';
+@import 'components/messages';
+
+/* Styles limited to punkapocalyptic sheets */
+.punkapocalyptic {
+  @import 'components/forms';
+  @import 'components/resource';
+  @import 'components/items';
+  @import 'components/effects';
+  @import 'components/characters';
+}
+
+.punkapocalyptic.sheet.actor {
+  @import 'components/sheet';
+}
+
+.punkapocalyptic.sheet.item {
+  @import 'components/item';
+}
+

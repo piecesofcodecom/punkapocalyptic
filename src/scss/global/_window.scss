@@ -1,0 +1,82 @@
+.window-app {
+  font-family: $font-primary;
+}
+
+/*
+.punkapocalyptic.sheet.actor {
+  background-image: url('/systems/punkapocalyptic/assets/sheet/bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: none !important
+}
+
+.punkapocalyptic.sheet.actor > section {
+  background: none !important;
+}
+
+.punkapocalyptic.sheet.actor {
+  .resource-content > input {
+    background-image: url('/systems/punkapocalyptic/assets/sheet/resources.png');
+    background-position: center;
+    background-size: cover;
+    height: 69px;
+    border: 0px;
+    font-size: xx-large;
+  }
+
+  .derived-stat {
+    
+    background-position: center;
+    background-size: cover;
+    border: 0px;
+    font-size: xx-large;
+    min-height: 102px;
+    margin-top: -15px;
+  }
+
+  .derived-stat.defesa {
+    background-image: url('/systems/punkapocalyptic/assets/sheet/defesa.png');
+  }
+
+  .derived-stat.vida {
+    background-image: url('/systems/punkapocalyptic/assets/sheet/vida.png');
+  }
+
+  .derived-stat-content {
+    margin-top: 17px;
+  }
+
+  .derived-stat-content > input {
+    width: 50px;
+    height: 70px;
+    border: none;
+    background: none;
+  }
+
+  .derived-content > input {
+    max-width: 80px;
+    margin-left: 25%;
+    background-image: url(/systems/punkapocalyptic/assets/sheet/resources.png);
+    background-position: center;
+    background-size: cover;
+    height: 69px;
+    border: 0px;
+    font-size: xx-large;
+  }
+
+  .header-tab {
+    font-size: large;
+    font-weight: bold;
+  }
+
+}
+*/
+.rollable {
+  &:hover,
+  &:focus {
+    color: #000;
+    text-shadow: 0 0 10px red;
+    cursor: pointer;
+  }
+}

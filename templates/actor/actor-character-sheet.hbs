@@ -1,0 +1,184 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style="height: 318px;
+    width: 217px;" />
+    <div class="header-fields">
+      
+      <div class="grid grid-2col">
+        <div class="flex-group-left grid-span-1">
+          <h1 class="charname">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+          </h1>
+        </div>
+        <div class="flex-group-left grid-span-1">
+          <h1 class="historico">
+            <input name="system.background.value" type="text" value="{{background.name}}" data-dtype="String"
+              placeholder="Historico" readonly />
+          </h1>
+        </div>
+      </div>
+      <div class="grid grid-2col">
+      <div class="grid-span-1 row-span-2" style="grid-row: span 2;">
+        {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+        use both the "grid" and "grid-Ncol" class where "N" can be any number
+        from 1 to 12 and will create that number of columns. --}}
+        <div class="abilities flexcol">
+          {{#each system.abilities as |ability key|}}
+          <div class="ability flexrow flex-group-center {{key}}">
+            <label for="system.abilities.{{key}}.value" class="ability-name rollable flexlarge align-left"
+              data-roll="d20+@abilities.{{key}}.mod"
+              data-label="{{localize (lookup @root.config.abilities key)}}" data-tooltip="{{ability.tooltip}}">{{localize (lookup @root.config.abilities
+              key)}}</label>
+            <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+            <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod"
+              data-label="{{localize (lookup @root.config.abilities key)}}">{{numberFormat ability.mod decimals=0
+              sign=true}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div> 
+      
+      <div class="grid-span-1 ">
+        {{!-- <div class="derived-stats grid grid-2col">
+          <div class="derived-stat defesa-container flex-group-center">
+            <div class="big-circle">
+              <div class="value"><input type="text" title="Valor atual" class="vida" value="{{system.defense.current}}">
+              </div>
+              <div class="small-circle circle-left">
+                <div class="value"><input type="text" class="vida" value="{{system.defense.mod}}"></div>
+              </div>
+              <div class="small-circle circle-right">
+                <div class="value"><input type="text" class="vida" value="{{system.defense.value}}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="derived-stat vida-container flex-group-center">
+            <div class="big-circle">
+              <div class="value"><input type="text" class="vida" value="{{system.health.current}}"></div>
+              <div class="small-circle circle-left">
+                <div class="value"><input type="text" class="vida" value="{{system.health.mod}}"></div>
+              </div>
+              <div class="small-circle circle-right">
+                <div class="value"><input type="text" class="vida" value="{{system.health.value}}"></div>
+              </div>
+            </div>
+          </div>
+        </div> --}}
+        <div class="resources grid grid-4col">
+          {{#each system.resources as |resource key|}}
+          <div class="resource flex-group-center">
+            <!--label for="system.resources.{{key}}.value" class="resource-label flexlarge align-left"
+              data-label="{{localize (lookup @root.config.resources key)}}">{{localize (lookup @root.config.resources
+              key)}}</label-->
+            <div class="resource-content flexrow flex-center flex-between">
+              <div class="resource-balas" data-tooltip="{{localize (lookup @root.config.resources key)}}" style="background-image: url({{resource.icon}}); background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;">
+              <input type="text" name="system.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number" style="z-index:9999;" />
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      <!--div class="grid-span-1">
+        <div class="abilities flexcol">
+          
+          <div class="ability flexrow flex-group-center ">
+            <label for="system.abilities.grit.value" class="resource-label flexlarge align-left">
+              {{localize 'PUNKAPOCALYPTIC.Statuses.Determinacao'}}</label>
+            <input type="text" name="" value="3" data-dtype="Number" />
+          </div>
+          <div class="ability flexrow flex-group-center ">
+            <label for="system.abilities.grit.value" class="resource-label flexlarge align-left">
+              {{localize 'PUNKAPOCALYPTIC.Statuses.Velocidade'}}</label>
+            <input type="text" name="" value="2" data-dtype="Number" />
+          </div>
+          <div class="ability flexrow flex-group-center ">
+            <label for="system.abilities.grit.value" class="resource-label flexlarge align-left">
+              {{localize 'PUNKAPOCALYPTIC.Statuses.Mutagenico'}}</label>
+            <input type="text" name="" value="7" data-dtype="Number" />
+          </div>
+          <div class="ability flexrow flex-group-center ">
+            <label for="system.abilities.grit.value" class="resource-label flexlarge align-left">
+              {{localize 'PUNKAPOCALYPTIC.Statuses.Missoes'}}</label>
+            <input type="text" name="" value="0" data-dtype="Number" />
+          </div>
+          
+        </div>
+      </div-->
+    </div>
+    </div>
+    
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Sheet Tab Navigation --}}
+
+    
+
+    <div>
+      <nav class="sheet-tabs tabs" data-group="primary">
+        {{!-- Default tab is specified in actor-sheet.mjs --}}
+        <a class="item header-tab" data-tab="features">Preferidos</a>
+        <a class="item header-tab" data-tab="coisas">{{localize "PUNKAPOCALYPTIC.SheetLabels.Coisas" }}</a>
+        <a class="item header-tab" data-tab="caminhos">Caminhos</a>
+        <a class="item header-tab" data-tab="description">Descrição</a>
+        <a class="item header-tab" data-tab="effects">Effects</a>
+      </nav>
+      {{!-- Owned Features Tab --}}
+      <div class="tab features grid-span-2" data-group="primary" data-tab="features">
+        {{> "systems/punkapocalyptic/templates/actor/parts/actor-features.hbs"}}
+      </div>
+
+      {{!-- Biography Tab --}}
+      <div class="tab biography grid-span-2" data-group="primary" data-tab="description">
+        {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
+        <div class="resources grid grid-3col">
+          <div class="resource flex-group-center">
+            <label for="system.paths.novice" class="resource-label">Novato</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.paths.novice" value="{{system.paths.novice}}" data-dtype="String">
+            </div>
+          </div>
+
+          <div class="resource flex-group-center">
+            <label for="system.paths.expert" class="resource-label">Especialista</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.paths.expert" value="{{system.paths.expert}}" data-dtype="String">
+            </div>
+          </div>
+          <div class="resource flex-group-center">
+            <label for="system.paths.master" class="resource-label">Mestre</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.paths.master" value="{{system.paths.master}}" data-dtype="Strinng">
+            </div>
+          </div>
+        </div>
+        {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+      </div>
+
+      {{!-- Owned Items Tab --}}
+      <div class="tab items grid-span-2" data-group="primary" data-tab="coisas">
+        {{> "systems/punkapocalyptic/templates/actor/parts/actor-coisas.hbs"}}
+      </div>
+
+      {{!-- Owned Spells Tab --}}
+      <div class="tab spells grid-span-2" data-group="primary" data-tab="caminhos">
+        {{> "systems/punkapocalyptic/templates/actor/parts/actor-caminhos.hbs"}}
+      </div>
+
+      {{!-- Active Effects Tab --}}
+      <div class="tab effects grid-span-2" data-group="primary" data-tab="effects">
+        {{> "systems/punkapocalyptic/templates/actor/parts/actor-effects.hbs"}}
+      </div>
+    </div>
+
+
+
+  </section>
+</form>

@@ -1,0 +1,89 @@
+{
+  "PUNKAPOCALYPTIC": {
+    "Ability": {
+      "Muscles": { "long": "Músculos", "abbr": "mus", "Tooltip": "Página 27" },
+      "Meat": { "long": "Carne", "abbr": "car", "Tooltip": "Página 27" },
+      "Hands": { "long": "Mãos", "abbr": "mao", "Tooltip": "Página 27" },
+      "Feet": { "long": "Pés", "abbr": "pes", "Tooltip": "Página 27" },
+      "Brains": { "long": "Miolos", "abbr": "mio", "Tooltip": "Página 28" },
+      "Eyes": { "long": "Olhos", "abbr": "olh", "Tooltip": "Página 28" },
+      "Mouth": { "long": "Boca", "abbr": "boc", "Tooltip": "Página 28" },
+      "Guts": { "long": "Tripas", "abbr": "tri", "Tooltip": "Página 28" },
+      "Education": { "long": "Educação", "abbr": "edu", "Tooltip": "Página 15" }
+    },
+    "Resource": {
+      "Balas": { "long": "Balas", "abbr": "balas" },
+      "Comida": { "long": "Comida", "abbr": "comida" },
+      "Agua": { "long": "Água", "abbr": "agua" },
+      "Remedio": { "long": "Remédio", "abbr": "remedio" },
+      "Energia": { "long": "Energia", "abbr": "energia" },
+      "Combustivel": { "long": "Combustível", "abbr": "combustivel" },
+      "Distancia": { "long": "Distância", "abbr": "Dis" },
+      "Sorte": { "long": "Sorte", "abbr": "Sor"},
+      "Defesa": { "long": "Defesa", "abbr": "Def" },
+      "Vida": { "long": "Vida", "abbr": "Vid" }
+    },
+    "Statuses": {
+      "Determinacao": "Determinação",
+      "Velocidade": "Velocidade",
+      "Mutagenico": "Mutagênico",
+      "Missoes": "Missões"
+    },
+    "SheetLabels": {
+      "Actor": "Punkapocalyptic Actor Sheet",
+      "Item": "Punkapocalyptic Item Sheet",
+      "Caminhos": "Caminhos",
+      "Coisas": "Coisas",
+      "Efeitos": "Efeitos",
+      "Preferidos": "Preferidos",
+      "Descricao": "Descrição"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}"
+      },
+      "SpecialActivity": {"long": "Atividade Especial", "abbr": "AE" }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    },
+    "Other": {
+      "Pag": "Página",
+      "Tamanho": { "long": "Tamanho", "abbr": "Tam" },
+      "None": { "long": "", "abbr": "", "Tooltip": "" },
+      "Damage": {"long": "Dano", "abbr": "D" }
+    },
+    "New": {
+      "Weapon": "Arma Nova",
+      "Trait": "Traço Novo",
+      "Item": "Coisa Nova",
+      "Special_activity": "Nova Atividade Especial"
+    },
+    "NewItemMasc": "Novo {type}",
+    "NewItemFem": "Nova {type}",
+    "CreateNewItemFem": "Criar Nova {type}",
+    "CreateNewItemMasc": "Criar Novo {type}"
+  },
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Coisa",
+      "feature": "Feature",
+      "spell": "Spell",
+      "caminho": "Caminho",
+      "weapon": "Arma",
+      "trait": "Traço",
+      "special_activity": "Atividade Especial",
+      "gear": "Equipamento",
+      "background": "Histórico"
+    }
+  }
+}
