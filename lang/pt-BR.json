@@ -8,35 +8,64 @@
       "Brains": { "long": "Miolos", "abbr": "mio", "Tooltip": "Página 28" },
       "Eyes": { "long": "Olhos", "abbr": "olh", "Tooltip": "Página 28" },
       "Mouth": { "long": "Boca", "abbr": "boc", "Tooltip": "Página 28" },
-      "Guts": { "long": "Tripas", "abbr": "tri", "Tooltip": "Página 28" },
-      "Education": { "long": "Educação", "abbr": "edu", "Tooltip": "Página 15" }
+      "Guts": { "long": "Tripas", "abbr": "tri", "Tooltip": "Página 28" }
+    },
+    "OtherAttributes": {
+      "Education": { "long": "Educação", "abbr": "edu", "Tooltip": "Página 15" },
+      "Grit": { "long": "Determinacão", "abbr": "DET", "Tooltip": "Página 15" },
+      "Reach": { "long": "Alcance", "abbr": "ALC", "Tooltip": "Página 15" },
+      "Size": { "long": "Tamanho", "abbr": "TAM", "Tooltip": "Página 15" },
+      "Mutations": { "long": "Mutacões", "abbr": "MUT", "Tooltip": "Página 15" },
+      "Luck": { "long": "Sorte", "abbr": "SOR", "Tooltip": "Página 15" }
     },
     "Resource": {
-      "Balas": { "long": "Balas", "abbr": "balas" },
-      "Comida": { "long": "Comida", "abbr": "comida" },
-      "Agua": { "long": "Água", "abbr": "agua" },
-      "Remedio": { "long": "Remédio", "abbr": "remedio" },
-      "Energia": { "long": "Energia", "abbr": "energia" },
-      "Combustivel": { "long": "Combustível", "abbr": "combustivel" },
-      "Distancia": { "long": "Distância", "abbr": "Dis" },
-      "Sorte": { "long": "Sorte", "abbr": "Sor"},
-      "Defesa": { "long": "Defesa", "abbr": "Def" },
-      "Vida": { "long": "Vida", "abbr": "Vid" }
+      "Bullets": { "long": "Balas", "abbr": "balas" },
+      "Food": { "long": "Comida", "abbr": "comida" },
+      "Water": { "long": "Água", "abbr": "agua" },
+      "Medicine": { "long": "Remédio", "abbr": "remedio" },
+      "Power": { "long": "Energia", "abbr": "energia" },
+      "Fuel": { "long": "Combustível", "abbr": "combustivel" },
+      "Luck": { "long": "Sorte", "abbr": "Sor"}
     },
     "Statuses": {
-      "Determinacao": "Determinação",
-      "Velocidade": "Velocidade",
-      "Mutagenico": "Mutagênico",
-      "Missoes": "Missões"
+      "Frightened":   { "long": "Assustado", "abbr": "" },
+      "Stunned":      { "long": "Atordoado", "abbr": "" },
+      "Blinded":      { "long": "Cego", "abbr": "" },
+      "Confused":     { "long": "Confuso", "abbr": "" },
+      "Impaired":     { "long": "Debilitado", "abbr": "" },
+      "Sickened":     { "long": "Enjoado", "abbr": "" },
+      "Fatigued":     { "long": "Fatigado", "abbr": "" },
+      "Immobilized":  { "long": "Imobilizado", "abbr": "" },
+      "Unconscious":  { "long": "Inconsciente", "abbr": "" },
+      "Insane":       { "long": "Insano", "abbr": "" },
+      "Proned":       { "long": "prostado", "abbr": "" },
+      "Slowed":       { "long": "lento", "abbr": "" }
     },
     "SheetLabels": {
       "Actor": "Punkapocalyptic Actor Sheet",
       "Item": "Punkapocalyptic Item Sheet",
-      "Caminhos": "Caminhos",
-      "Coisas": "Coisas",
-      "Efeitos": "Efeitos",
+      "Paths": "Caminhos",
       "Preferidos": "Preferidos",
-      "Descricao": "Descrição"
+      "Description": "Descrição",
+      "Quantity": "Quantidade",
+      "Price": "Preço",
+      "Damage": "Dano",
+      "Range": "Alcance",
+      "RollDamage": "Rolar Dano",
+      "RollRange": "Rolar Alcance",
+      "Name": "Nome",
+      "Type": "Tipo",
+      "Mission": "Missão",
+      "Mojo": "Mojo",
+      "Resources": "Mercadorias",
+      "Main": "Principal",
+      "Inventory": "Coisas",
+      "Benefits": "Benefícios",
+      "Effects": "Efeitos",
+      "Mutations": "Mutações",
+      "Background": "Histórico",
+      "Traits": "Traços",
+      "SpecialActivities": "Atividades Especiais"
     },
     "Item": {
       "Spell": {
@@ -45,24 +74,79 @@
       },
       "SpecialActivity": {"long": "Atividade Especial", "abbr": "AE" }
     },
+    "Mutation": {
+      "Physic": { "long": "Físico"},
+      "Mental": { "long": "Mental"}
+    },
     "Effect": {
-      "Source": "Source",
-      "Toggle": "Toggle Effect",
-      "Temporary": "Temporary Effects",
-      "Passive": "Passive Effects",
-      "Inactive": "Inactive Effects"
+      "Source": "Fonte",
+      "Toggle": "Alternar efeito",
+      "Temporary": "Efeitos temporários",
+      "Passive": "Efeitos passivos",
+      "Inactive": "Efeitos inativos",
+      "TabDuration": "Duração"
     },
     "Other": {
       "Pag": "Página",
-      "Tamanho": { "long": "Tamanho", "abbr": "Tam" },
+      "Size": { "long": "Tamanho", "abbr": "Tam" },
       "None": { "long": "", "abbr": "", "Tooltip": "" },
-      "Damage": {"long": "Dano", "abbr": "D" }
+      "Damage": {"long": "Dano", "abbr": "D" },
+      "Reach": {"long": "Alcance", "abbr": "Alc" },
+      "Speed": {"long": "Velocidade", "abbr": "Vel" }
     },
     "New": {
+      "Armor": "Veste Nova",
       "Weapon": "Arma Nova",
       "Trait": "Traço Novo",
       "Item": "Coisa Nova",
-      "Special_activity": "Nova Atividade Especial"
+      "Special_activity": "Nova Atividade Especial",
+      "Talent": "Talento Novo",
+      "Benefit": "Benefício novo",
+      "Mutation": "Mutação nova",
+      "Background": "Background Novo",
+      "Effect": "Efeito"
+    },
+    "ChatMessage": {
+      "AttackMessage": "Atacando com {weapon}",
+      "TitleDamageRoll": "Rolando dano para {weapon}"
+    },
+    "WeaponTrait": {
+    "AreaAttack": { "long": "Ataque de Área", "abbr": "AdA", "tooltip": "Página 77 do livro de regras" },
+    "BurstFire": { "long": "Rajada", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Cumbersome": { "long": "Volumosa", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Defensive": { "long": "Defensiva", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Finesse": { "long": "Acuidade", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Firearm": { "long": "Arma de Fogo", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "FullAuto": { "long": "Disparo Automático", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Range": { "long": "Alcance", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Reach": { "long": "Distância", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Reload": { "long": "Recarga", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Shitty": { "long": "Ferrada", "abbr": "Fer", "tooltip": "Página 77 do livro de regras" },
+    "Special": { "long": "Especial", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Thrown": { "long": "Arremesso", "abbr": "Arr", "tooltip": "Página 77 do livro de regras" },
+    "Unreliable": { "long": "Inconstante", "abbr": "", "tooltip": "Página 77 do livro de regras" }
+    },
+    "Vehicle": {
+      "Handling": { "long": "Manobrabilidade", "abbr": ""},
+      "Acceleration": { "long": "Aceleração", "abbr": ""},
+      "Braking ": { "long": "Freio", "abbr": ""},
+      "TopVelocity": { "long": "Velocidade Máxima", "abbr": ""},
+      "Fuel": { "long": "Combustível", "abbr": ""},
+      "Locations": { "long": "Locais", "abbr": ""},
+      "Occupants": { "long": "Ocupantes", "abbr": ""},
+      "Cargo": { "long": "Carga", "abbr": ""}
+    },
+    "WeaponCategory": {
+      "Melee": { "long": "Corpo a Corpo" },
+      "Ranged": { "long": "Distância" },
+      "Explosive": { "long": "Explosivo" },
+      "Area": { "long": "Area" },
+      "Thrown": { "long": "Arremesso" }
+    },
+    "Path": {
+      "Novice": { "long": "Novato" },
+      "Expert": { "long": "Especialista" },
+      "Master": {"long": "Mestre" }
     },
     "NewItemMasc": "Novo {type}",
     "NewItemFem": "Nova {type}",
@@ -72,18 +156,20 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "npc": "NPC"
+      "npc": "NPC",
+      "vehicle": "Veículo"
     },
     "Item": {
       "item": "Coisa",
-      "feature": "Feature",
-      "spell": "Spell",
-      "caminho": "Caminho",
       "weapon": "Arma",
       "trait": "Traço",
-      "special_activity": "Atividade Especial",
-      "gear": "Equipamento",
-      "background": "Histórico"
+      "background": "Histórico",
+      "talent": "Talento",
+      "SpecialActivity": "Atividade Especial",
+      "benefit": "Benefício",
+      "path": "Caminho",
+      "mutation": "Mutação",
+      "effect": "Efeito"
     }
   }
 }

@@ -2,41 +2,10 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-<img class="" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 299px; width: 217px">
-<div class="healthContainer">
-  <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button> 
-  <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button> 
-  <div class="healthBarShell">
-    <div class="healthBarValue" style="width: {{healthPercentage system.health.current system.health.max}}"></div>
-    <div class="healthDisplay"><input type="text" class="vida" name="system.health.current" value="{{system.health.current}}"></div> <!-- Larger health display -->
-  </div>
-</div>
-    <!--div class="circle-profile-npc" data-edit="img" style="background-image: url({{actor.img}}); width: 150px;
-    height: 150px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-">
-                <div class="value profile-img"></div>
-                <div class="small-circle circle-profile-left">
-                  <div class="value flexrow">
-                    <input type="text" class="vida" name="system.health.current" value="{{system.health.current}}">
-                    <p>/</p>
-                    <input type="text" class="vida" name="system.health.max" value="{{system.health.max}}">
-                  </div>
-                </div>
-                <div class="small-circle circle-profile-right">
-                  <div class="value flexrow">
-                    <input type="text" name="system.defense.current" value="{{system.defense.current}}"
-                      data-dtype="Number" />
-                    <p>/</p>
-                    <input type="text" name="system.defense.max" value="{{system.defense.max}}" data-dtype="Number" />
-                  </div>
-                </div>
-              </div-->
+<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 299px; width: 217px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; border: 0px;">
     <div class="header-fields">
       <div class="grid-span-2">
-        <h1 class="charname">
+        <h1 class="charname title-punk">
           <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
         </h1>
       </div>
@@ -56,11 +25,12 @@
             {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
             use both the "grid" and "grid-Ncol" class where "N" can be any number
             from 1 to 12 and will create that number of columns. --}}
-            <div class="abilities flexcol">
+            <div class="abilities-npc flexcol">
               {{#each system.abilities as |ability key|}}
               <div class="ability flexrow flex-group-center {{key}}">
                 <label for="system.abilities.{{key}}.value" class="ability-name rollable flexlarge align-left"
-                  data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}"
+                  data-roll-type="ability" data-ability-id="{{key}}"
+                  data-label="{{localize (lookup @root.config.abilities key)}}"
                   data-tooltip="{{ability.tooltip}}">{{localize (lookup @root.config.abilities
                   key)}}</label>
                 <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}"
@@ -84,15 +54,13 @@
             </div>
             <div class="flexrow flex-group-center">
               <label class="ability-name min-115">Velocidade</label>
-              <input type="text" name="system.speed" value="{{system.speed}}" data-dtype="Number"
+              <input type="text" name="system.speed.current" value="{{system.speed.current}}" data-dtype="Number"
                 style="text-align: right;" />
             </div>
             <div class="flexrow flex-group-center">
               <label class="ability-name min-115 align-left">Defesa</label>
-              <input type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
+              <input type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number" 
                 style="text-align: right;" />
-              <!--p class="separator">/</p>
-                      <input type="text" name="system.defense.max" value="{{system.defense.max}}" data-dtype="Number" style="text-align: right;" /-->
             </div>
             <div class="flexrow flex-group-center">
               <label class="ability-name min-115 align-left">Vida</label>
@@ -106,6 +74,16 @@
 
 
       </div>
+      <div class="resources grid">
+        <div class="healthContainer">
+  <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button> 
+  <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button> 
+  <div class="healthBarShell">
+    <div class="healthBarValue" style="width: {{healthPercentage system.health.value system.health.max}}"></div>
+    <div class="healthDisplay"><input type="text" class="vida" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"></div> <!-- Larger health display -->
+  </div>
+</div>
+      </div>
     </div>
     
   </header>
@@ -114,29 +92,25 @@
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-    <nav class="sheet-tabs tabs" data-group="primary">
+    <nav class="sheet-tabs tabs nav-punk" data-group="primary">
         {{!-- Default tab is specified in actor-sheet.mjs --}}
-        <a class="item header-tab" data-tab="features">Principal</a>
-        <a class="item header-tab" data-tab="description">Biografia</a>
+        <a class="item header-tab" data-tab="features">{{localize "PUNKAPOCALYPTIC.SheetLabels.Main"}}</a>
+        <a class="item header-tab" data-tab="description">{{localize "PUNKAPOCALYPTIC.SheetLabels.Background"}}</a>
         <!--a class="item header-tab" data-tab="effects">Effects</a-->
       </nav>
     <div class="tab features" data-group="primary" data-tab="features">
       <div class="resources grid grid-2col">
         <div class="grid-span-1">
-          <h3 class="title-bg">Traços</h3>
+          <h3 class="title-bg">{{localize "PUNKAPOCALYPTIC.SheetLabels.Traits"}}</h3>
           {{> "systems/punkapocalyptic/templates/actor/parts/npc-traits.hbs"}}
         </div>
-        <div class="grid-span-1">
-          <h3 class="title-bg">Armas</h3>
-          {{> "systems/punkapocalyptic/templates/actor/parts/actor-weapons.hbs"}}
+        <div class="grid-span-1 row-span-2">
+          <h3 class="title-bg">{{localize "PUNKAPOCALYPTIC.SheetLabels.Inventory"}}</h3>
+          {{> "systems/punkapocalyptic/templates/actor/parts/actor-inventory.hbs"}}
         </div>
         <div class="grid-span-1">
-          <h3 class="title-bg">Atividades Especiais</h3>
+          <h3 class="title-bg">{{localize "PUNKAPOCALYPTIC.SheetLabels.SpecialActivities"}}</h3>
           {{> "systems/punkapocalyptic/templates/actor/parts/actor-special-activities.hbs"}}
-        </div>
-        <div class="grid-span-1">
-          <h3 class="title-bg">Equipamentos</h3>
-          {{> "systems/punkapocalyptic/templates/actor/parts/actor-coisas.hbs"}}
         </div>
 
       </div>
@@ -145,6 +119,7 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
+      
      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 

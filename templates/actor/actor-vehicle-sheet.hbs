@@ -1,0 +1,120 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+<img class="" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 299px; width: 217px">
+<div class="healthContainer">
+  <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button> 
+  <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button> 
+  <div class="healthBarShell">
+    <div class="healthBarValue" style="width: {{healthPercentage system.health.value system.health.max}}"></div>
+    <div class="healthDisplay"><input type="text" class="vida" name="system.health.value" value="{{system.health.value}}"></div> <!-- Larger health display -->
+  </div>
+</div>
+    <div class="header-fields">
+      <div class="grid-span-2">
+        <h1 class="charname">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+        </h1>
+      </div>
+      {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+      use both the "grid" and "grid-Ncol" class where "N" can be any number
+      from 1 to 12 and will create that number of columns. --}}
+      <div class="resources grid grid-2col">
+        <!--div class="grid-span-1">
+          <img class="" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 100%; width: 100%">
+        </div-->
+
+        <div class="grid-span-1">
+          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+          use both the "grid" and "grid-Ncol" class where "N" can be any number
+          from 1 to 12 and will create that number of columns. --}}
+          <div class="grid-span-1 row-span-2" style="grid-row: span 2;">
+            {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+            use both the "grid" and "grid-Ncol" class where "N" can be any number
+            from 1 to 12 and will create that number of columns. --}}
+            <div class="abilities-npc flexcol">
+              {{#each system.abilities as |ability key|}}
+              {{#ifIn key "muscles,meat,hands,feet" }}
+              <div class="ability flexrow flex-group-center {{key}}">
+                <label for="system.abilities.{{key}}.value" class="ability-name rollable flexlarge align-left"
+                  data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}"
+                  data-tooltip="{{ability.tooltip}}">{{localize (lookup @root.config.abilities
+                  key)}}</label>
+                <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}"
+                  data-dtype="Number" />
+              </div>
+              {{/ifIn}}
+              {{/each}}
+              <div class="ability flexrow flex-group-center ">
+                <label for="system.speed.value" class="ability-name flexlarge align-left"
+                  data-roll="" data-label=""
+                  data-tooltip="Velocidade">Velocidade</label>
+                <input type="text" name="system.speed.current" value="{{system.speed.current}}"
+                  data-dtype="Number" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-span-1">
+          <div class="flexcol">
+            {{#each system.otherStatistics as |statistic key|}}
+              
+              <div class="flexrow flex-group-center">
+              <label class="ability-name min-115" style="text-align: left;">{{key}}</label>
+              <input class="align-right" type="text" name="system.otherStatistics.{{key}}.value" value="{{statistic.value}}"
+                data-dtype="Number" style="text-align: right;" />
+            </div>
+              
+              {{/each}}
+            
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    
+  </header>
+
+
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    <nav class="sheet-tabs tabs nav-punk" data-group="primary">
+        {{!-- Default tab is specified in actor-sheet.mjs --}}
+        <a class="item header-tab" data-tab="features">Principal</a>
+        <a class="item header-tab" data-tab="accessories">Acessórios</a>
+        <a class="item header-tab" data-tab="parts">Partes</a>
+        <a class="item header-tab" data-tab="upgrades">Aprimoramentos</a>
+        <a class="item header-tab" data-tab="description">Biografia</a>
+        <!--a class="item header-tab" data-tab="effects">Effects</a-->
+      </nav>
+    <div class="tab features" data-group="primary" data-tab="features">
+      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="occupants" items="" }}
+      
+    </div>
+
+    <div class="tab accessories" data-group="primary" data-tab="accessories">
+      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="accessories" items=""  }}
+    </div>
+
+    <div class="tab parts" data-group="primary" data-tab="parts">
+      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="parts" items="" }}
+    </div>
+
+    <div class="tab uprades" data-group="primary" data-tab="uprades">
+      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="upgrades" items="" }}
+    </div>
+
+
+    {{!-- Owned Items Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      
+     {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+    </div>
+
+
+
+  </section>
+</form>

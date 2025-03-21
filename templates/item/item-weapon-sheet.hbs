@@ -2,45 +2,70 @@
   <header class='sheet-header'>
     <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}' />
     <div class='header-fields'>
-      <h1 class='charname'><input name='name' type='text' value='{{item.name}}' placeholder='Name' /></h1>
+      <h1 class='charname'>
+        <input class="title-punk" name='name' type='text' value='{{item.name}}' placeholder='Name' />
+      </h1>
       <div class='grid grid-4col'>
         <div class='resource flexcol flex-group-center grid-span-2'>
-          <!--label class='resource-label'>Weight</label>
-          <input
-            type='text'
-            name='system.weight'
-            value='{{system.weight}}'
-            data-dtype='Number'
-          /-->
           <label class='resource-label'>Habilidade</label>
           <select name="system.roll.ability" type="text" data-dtype='String'>
             {{#comparestring system.roll.ability ""}}
             <option value="" selected>Nenhuma</option> {{/comparestring}}
             {{#each abilities as |ability id|}}
-            <option value="{{id}}"
-            {{#comparestring @root/system.roll.ability id }}
-              selected
-            {{/comparestring}}
-            >{{localize ability}}</option>
+            <option value="{{id}}" {{#comparestring @root/system.roll.ability id }} selected {{/comparestring}}>
+              {{localize ability}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class='resource flexcol flex-group-center grid-span-2'>
+          <label class='resource-label'>Category</label>
+          <select name="system.category" type="text" data-dtype='String'>
+            {{#comparestring system.category ""}}
+            <option value="" selected>Nenhuma</option> {{/comparestring}}
+            {{#each categories as |category id|}}
+            <option value="{{id}}" {{#comparestring @root/system.category id }} selected {{/comparestring}}>{{localize
+              category}}</option>
             {{/each}}
           </select>
         </div>
         <div class='resource flexcol flex-group-center'>
-          <label class='resource-label'>Dano <i class="fa-solid fa-gear editable" data-dialog="true" data-path="system.formula"></i></label>
-          <span class="resource-value">{{system.formula}}</span>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Damage" }} <i class="fa-solid fa-gear editable" data-dialog="true"
+              data-path="system.damage"></i></label>
+          <span class="resource-value">{{system.damage.formula}}</span>
+        </div>
+
+        <div class='resource flexcol flex-group-center'>
+
+          
+          {{#ifIn system.category "explosive" }}
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Range" }} <i class="fa-solid fa-gear editable" data-dialog="true"
+              data-path="system.radius"></i></label>
+          <span class="resource-value">{{system.radius.formula}}</span>
+          {{else}}
+            <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Range" }}</label>
+            <input type='text' name='system.range' value='{{system.range}}' data-dtype='Number' {{#ifIn
+              system.category "melee" }} readonly{{/ifIn}} />
+          {{/ifIn}}
         </div>
         <div class='resource flexcol flex-group-center'>
-          <label class='resource-label'>Quantity</label>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Quantity" }}</label>
           <input type='text' name='system.quantity' value='{{system.quantity}}' data-dtype='Number' />
         </div>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Price" }}</label>
+          <input type='text' name='system.price' value='{{system.price}}' data-dtype='Number' />
+        </div>
       </div>
+
     </div>
   </header>
 
   {{! Sheet Tab Navigation }}
-  <nav class='sheet-tabs tabs' data-group='primary'>
+  <nav class='sheet-tabs tabs nav-punk' data-group='primary'>
     <!--a class='item' data-tab='description'>Description</a-->
     <a class='item' data-tab='attributes'>Descrição</a>
+    <a class='item' data-tab='traits'>Traits</a>
+    <a class='item' data-tab='effects'>Efeitos</a>
   </nav>
 
   {{! Sheet Body }}
@@ -53,8 +78,7 @@
 
     {{! Attributes Tab }}
     <div class='tab attributes' data-group='primary' data-tab='attributes'>
-      {{! As you add new fields, add them in here! }}
-      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      
       {{editor
       enrichedDescription
       target='system.description'
@@ -63,5 +87,30 @@
       editable=editable
       }}
     </div>
+
+     <div class='tab traits' data-group='primary' data-tab='traits'>
+      <div class='grid grid-4col'>
+        <div class='resource flexrow flex-group-center'>
+          <label class='resource-label'>Traits</label>
+        </div>
+        <div class='resource flexrow flex-group-center grid-span-3'>
+          <input type='text' name='system.traits' value='{{system.traits}}' data-dtype='String'
+            style="border: 1px solid #000; font-size: larger;" />
+        </div>
+        {{#each traits as |trait id|}}
+          <div class='resource flexrow flex-group-center'>
+            <label class='resource-label'>{{trait.label}}</label>
+          </div>
+          <div class='resource flexrow flex-group-center grid-span-3'>
+            {{trait.description}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class='tab effects' data-group='primary' data-tab='effects'>
+      
+      {{> "systems/punkapocalyptic/templates/item/parts/item-effects.hbs"}}
+    </div>
+
   </section>
 </form>

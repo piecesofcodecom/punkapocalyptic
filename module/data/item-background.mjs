@@ -1,5 +1,6 @@
 import PunkapocalypticItemBase from "./base-item.mjs";
 
+
 export default class PunkapocalypticBackgroundItem extends PunkapocalypticItemBase {
 
   static defineSchema() {
@@ -19,6 +20,8 @@ export default class PunkapocalypticBackgroundItem extends PunkapocalypticItemBa
       });
       return obj;
     }, {}));
+
+    schema.itemIds = new fields.ArrayField(new fields.DocumentUUIDField({ blank: false, trim: true }), { initial: [] });
 
     return schema;
   }

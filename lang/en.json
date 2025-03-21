@@ -1,23 +1,45 @@
 {
   "PUNKAPOCALYPTIC": {
     "Ability": {
-      "Muscles": { "long": "Músculos", "abbr": "mus" },
-      "Meat": { "long": "Carne", "abbr": "car" },
-      "Hands": { "long": "Mãos", "abbr": "mao" },
-      "Feet": { "long": "Pés", "abbr": "pes" },
-      "Brains": { "long": "Miolos", "abbr": "mio" },
-      "Eyes": { "long": "Olhos", "abbr": "olh" },
-      "Mouth": { "long": "Boca", "abbr": "boc" },
-      "Guts": { "long": "Tripas", "abbr": "tri" },
-      "Education": { "long": "Educação", "abbr": "edu" }
+      "Muscles": { "long": "Músculos", "abbr": "mus", "Tooltip": "Página 27" },
+      "Meat": { "long": "Carne", "abbr": "car", "Tooltip": "Página 27" },
+      "Hands": { "long": "Mãos", "abbr": "mao", "Tooltip": "Página 27" },
+      "Feet": { "long": "Pés", "abbr": "pes", "Tooltip": "Página 27" },
+      "Brains": { "long": "Miolos", "abbr": "mio", "Tooltip": "Página 28" },
+      "Eyes": { "long": "Olhos", "abbr": "olh", "Tooltip": "Página 28" },
+      "Mouth": { "long": "Boca", "abbr": "boc", "Tooltip": "Página 28" },
+      "Guts": { "long": "Tripas", "abbr": "tri", "Tooltip": "Página 28" }
+    },
+    "OtherAttributes": {
+      "Education": { "long": "Educação", "abbr": "edu", "Tooltip": "Página 15" },
+      "Grit": { "long": "Determinacão", "abbr": "DET", "Tooltip": "Página 15" },
+      "Reach": { "long": "Alcance", "abbr": "ALC", "Tooltip": "Página 15" },
+      "Size": { "long": "Tamanho", "abbr": "TAM", "Tooltip": "Página 15" },
+      "Mutations": { "long": "Mutacões", "abbr": "MUT", "Tooltip": "Página 15" },
+      "Luck": { "long": "Sorte", "abbr": "SOR", "Tooltip": "Página 15" }
     },
     "Resource": {
-      "Balas": { "long": "Balas", "abbr": "balas" },
-      "Comida": { "long": "Comida", "abbr": "comida" },
-      "Agua": { "long": "Água", "abbr": "agua" },
-      "Remedio": { "long": "Remédio", "abbr": "remedio" },
-      "Energia": { "long": "Energia", "abbr": "energia" },
-      "Combustivel": { "long": "Combustível", "abbr": "combustivel" }
+      "Bullets": { "long": "Balas", "abbr": "balas" },
+      "Food": { "long": "Comida", "abbr": "comida" },
+      "Water": { "long": "Água", "abbr": "agua" },
+      "Medicine": { "long": "Remédio", "abbr": "remedio" },
+      "Power": { "long": "Energia", "abbr": "energia" },
+      "Fuel": { "long": "Combustível", "abbr": "combustivel" },
+      "Luck": { "long": "Sorte", "abbr": "Sor"}
+    },
+    "Statuses": {
+      "Frightened":   { "long": "Assustado", "abbr": "" },
+      "Stunned":      { "long": "Atordoado", "abbr": "" },
+      "Blinded":      { "long": "Cego", "abbr": "" },
+      "Confused":     { "long": "Confuso", "abbr": "" },
+      "Impaired":     { "long": "Debilitado", "abbr": "" },
+      "Sickened":     { "long": "Enjoado", "abbr": "" },
+      "Fatigued":     { "long": "Fatigado", "abbr": "" },
+      "Immobilized":  { "long": "Imobilizado", "abbr": "" },
+      "Unconscious":  { "long": "Inconsciente", "abbr": "" },
+      "Insane":       { "long": "Insano", "abbr": "" },
+      "Proned":       { "long": "prostado", "abbr": "" },
+      "Slowed":       { "long": "lento", "abbr": "" }
     },
     "SheetLabels": {
       "Actor": "Punkapocalyptic Actor Sheet",
@@ -26,13 +48,20 @@
       "Coisas": "Coisas",
       "Efeitos": "Efeitos",
       "Preferidos": "Preferidos",
-      "Descricao": "Descrição"
+      "Descricao": "Descrição",
+      "Quantity": "Quantidade",
+      "Price": "Preço",
+      "Damage": "Dano",
+      "Range": "Alcance",
+      "RollDamage": "Rolar Dano",
+      "RollRange": "Rolar Alcance"
     },
     "Item": {
       "Spell": {
         "SpellLVL": "Level {level} Spells",
         "AddLVL": "Add LVL {level}"
-      }
+      },
+      "SpecialActivity": {"long": "Atividade Especial", "abbr": "AE" }
     },
     "Effect": {
       "Source": "Source",
@@ -40,20 +69,62 @@
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects"
-    }
+    },
+    "Other": {
+      "Pag": "Página",
+      "Size": { "long": "Tamanho", "abbr": "Tam" },
+      "None": { "long": "", "abbr": "", "Tooltip": "" },
+      "Damage": {"long": "Dano", "abbr": "D" },
+      "Reach": {"long": "Alcance", "abbr": "Alc" },
+      "Speed": {"long": "Velocidade", "abbr": "Vel" }
+    },
+    "New": {
+      "Weapon": "Arma Nova",
+      "Trait": "Traço Novo",
+      "Item": "Coisa Nova",
+      "Special_activity": "Nova Atividade Especial",
+      "Talent": "Talento Novo"
+    },
+    "WeaponTrait": {
+    "AreaAttack": { "long": "Ataque de Área", "abbr": "AdA", "tooltip": "Página 77 do livro de regras" },
+    "BurstFire": { "long": "Rajada", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Cumbersome": { "long": "Volumosa", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Defensive": { "long": "Defensiva", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Finesse": { "long": "Acuidade", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Firearm": { "long": "Arma de Fogo", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "FullAuto": { "long": "Disparo Automático", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Range": { "long": "Alcance", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Reach": { "long": "Distância", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Reload": { "long": "Recarga", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Shitty": { "long": "Ferrada", "abbr": "Fer", "tooltip": "Página 77 do livro de regras" },
+    "Special": { "long": "Especial", "abbr": "", "tooltip": "Página 77 do livro de regras" },
+    "Thrown": { "long": "Arremesso", "abbr": "Arr", "tooltip": "Página 77 do livro de regras" },
+    "Unreliable": { "long": "Inconstante", "abbr": "", "tooltip": "Página 77 do livro de regras" }
+    },
+    "WeaponCategory": {
+      "Melee": { "long": "Corpo a Corpo" },
+      "Ranged": { "long": "Distância" },
+      "Explosive": { "long": "Explosivo" },
+      "Area": { "long": "Area" },
+      "Thrown": { "long": "Arremesso" }
+    },
+    "NewItemMasc": "Novo {type}",
+    "NewItemFem": "Nova {type}",
+    "CreateNewItemFem": "Criar Nova {type}",
+    "CreateNewItemMasc": "Criar Novo {type}"
   },
-
   "TYPES": {
     "Actor": {
       "character": "Character",
       "npc": "NPC"
     },
     "Item": {
-      "item": "Item",
-      "feature": "Feature",
-      "spell": "Spell",
-      "caminho": "Caminho",
-      "weapon": "Arma"
+      "item": "Coisa",
+      "weapon": "Arma",
+      "trait": "Traço",
+      "background": "Histórico",
+      "talent": "Talento",
+      "SpecialActivity": "Atividade Especial"
     }
   }
 }

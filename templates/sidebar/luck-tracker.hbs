@@ -1,0 +1,21 @@
+<div id="token-effects-tracker">
+ 
+
+  {{!-- Active Effects --}}
+
+  <div class="effect-wrapper" data-tool="Essa é sua sorte">
+    <div class="effect">
+        <input class="group-luck-input" type="text" value="{{luck.value}}" style="height: 53px;
+        border: 0px;
+        font-size: x-large;" {{#unless isGM}} readonly {{/unless}} />
+    </div>
+    {{#if isGM}}
+    <div class="menu disabled">
+      <a class="toggle-item fas fa-xs fa-toggle-off" data-item-id="BvLnvA1qCQeF2NKB" data-actor-id="Piy5lYkoifPay2db" data-token-id="TwG7oxojkVeTW17l" title="Mostrar ao Jogadores"></a>
+      <a class="roll-groupLuck fas fa-xs fa-dice" data-effect-id="IE9L3PWryvMuI3IG" data-actor-id="Piy5lYkoifPay2db" data-token-id="TwG7oxojkVeTW17l" title="Rolar a Sorte para essa sessão"></a>
+    </div>
+    {{/if}}
+  </div>
+ 
+  
+</div>

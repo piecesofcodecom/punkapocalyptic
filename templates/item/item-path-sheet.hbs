@@ -1,0 +1,56 @@
+{{! This template is a fallback for when items don't have more specific templates. }}
+{{! Generally, you'll want to make more specific templates when possible. }}
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}' />
+    <div class='header-fields'>
+
+      <div class='grid grid-3col'>
+        <div class="grid-span-3">
+          <h1 class="resource flexcol flex-group-center">
+            <input class="title-punk" name="name" type="text" value="{{item.name}}" placeholder="Name">
+          </h1>
+        </div>
+        <div class='resource flexcol flex-group-center grid-span-1'>
+          <label class='resource-label'>Level</label>
+          <select name="system.level" type="text" data-dtype='String'>
+            {{#comparestring system.level ""}}
+            <option value="" selected>Nenhuma</option>
+            {{/comparestring}}
+            {{#each levels as |level|}}
+            <option value="{{level.id}}" {{#comparestring @root/system.level level.id }} selected {{/comparestring}}>{{level.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs nav-punk' data-group='primary'>
+    <a class='item' data-tab='description'>Descrição</a>
+    <a class='item' data-tab='talents'>Benefícios</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+      enrichedDescription
+      target='system.description'
+      engine='prosemirror'
+      button=true
+      editable=editable
+      }}
+    </div>
+
+    
+    <div class='tab items' data-group='primary' data-tab='talents'>
+      {{> "systems/punkapocalyptic/templates/item/parts/item-talents.hbs" items=initial_items mission=true }}
+    </div>
+  </section>
+</form>

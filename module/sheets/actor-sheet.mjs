@@ -13,13 +13,13 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     const options = super.defaultOptions
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['punkapocalyptic', 'sheet', 'actor'],
-      width: 840,
-      height: 899,
+      width: 540,
+      height: 965,
       tabs: [
         {
           navSelector: '.sheet-tabs',
           contentSelector: '.sheet-body',
-          initial: 'features',
+          initial: 'main',
         },
       ],
     });
@@ -52,13 +52,13 @@ export class PunkapocalypticActorSheet extends ActorSheet {
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
@@ -96,10 +96,28 @@ export class PunkapocalypticActorSheet extends ActorSheet {
   _prepareCharacterData(context) {
     // This is where you can enrich character-specific editor fields
     // or setup anything else that's specific to this type
-    console.warn(context.actor)
     for (const ability in context.actor.system.abilities) {
       context.actor.system.abilities[ability].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Ability.${ability.capitalize()}.Tooltip`);
+      context.actor.system.abilities[ability].img = CONFIG.PUNKAPOCALYPTIC.abilityImages[ability];
     }
+
+    if (context.actor.system?.resources) {
+      for (const key in context.actor.system.resources) {
+        context.actor.system.resources[key].icon = CONFIG.PUNKAPOCALYPTIC.resourceImages[key];
+      }
+    }
+
+    if (context.actor.system?.otherAttributes) {
+      for (const key in context.actor.system.otherAttributes) {
+        context.actor.system.otherAttributes[key].icon = CONFIG.PUNKAPOCALYPTIC.otherAttributesImages[key];
+        context.actor.system.otherAttributes[key].label = CONFIG.PUNKAPOCALYPTIC.otherAttributes[key];
+
+      }
+    }
+
+    context.actor.system.speed["label"] = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.commonAttributes["speed"]);
+    context.actor.system.speed["img"] = CONFIG.PUNKAPOCALYPTIC.commonAttributeImages["speed"];
+    
 
     if (context.actor.type == "npc") {
       delete context.actor.system.abilities.education;
@@ -112,70 +130,81 @@ export class PunkapocalypticActorSheet extends ActorSheet {
    *
    * @param {object} context The context object to mutate
    */
-  _prepareItems(context) {
+  async _prepareItems(context) {
     // Initialize containers.
     const gear = [];
-    const weapons = [];
+    const inventory = [];
     const features = [];
     const traits = [];
     const activities = [];
-    const background = context.items.find(i => i.type == "background") || { name: "Histórico", description: "" }
-    console.warn(background)
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
-    };
+    const benefits = [];
+    const mutations = [];
+    const background = [];
+    //await context.items.find(i => i.type == "background") || { name: "Histórico", system: { description: "" } }
+    // context.enrichedBackground = await TextEditor.enrichHTML(
+    //   background.system.description,
+    //   {
+    //     // Whether to show secret blocks in the finished html
+    //     secrets: this.document.isOwner,
+    //     // Necessary in v11, can be removed in v12
+    //     async: true,
+    //     // Data to fill in for inline rolls
+    //     rollData: this.actor.getRollData(),
+    //     // Relative UUID resolution
+    //     relativeTo: background,
+    //   }
+    // );
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
       // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
-      }
-      // Append to features.
-      else if (i.type === 'feature') {
+      if (i.type === 'feature') {
         features.push(i);
-      } else if (i.type === 'trait') {
-        traits.push(i);
-      } else if (i.type === 'weapon') {
-        let bonus = i.system.damage.diceBonus >= 0 ? "+" + i.system.damage.diceBonus : i.system.damage.diceBonus
-        bonus = Number(bonus) != 0 ? String(bonus) : "";
-        i.system.damage_formula = i.system.damage.diceNum + "d" + i.system.damage.diceSize + bonus;
-        weapons.push(i);
+      } else if (CONFIG.PUNKAPOCALYPTIC.inventoryTypes.includes(i.type)) {
+        inventory.push(i);
       } else if (i.type === 'special_activity') {
         activities.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
-        }
+      } else if (CONFIG.PUNKAPOCALYPTIC.benefitSubTypes.includes(i.type)) {
+        benefits.push(i);
+      } else if (i.type == "trait") {
+        traits.push(i);
+      } else if (i.type == "mutation") {
+        mutations.push(i);
+      } else if (["background", "path"]) {
+        background.push(i);
       }
     }
 
-    if (context.system?.resources) {
-      for (const key in context.system.resources) {
-        context.system.resources[key].icon = CONFIG.PUNKAPOCALYPTIC.resourceImages[key];
+    const equipped = context.items.filter(i => i.type == "weapon" && i.system.equipped);
+    if (equipped.length == 0) {
+      equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
+      equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
+    } else {
+      for (const key in equipped) {
+        equipped[key].system.roll.formula = `1d20+@abilities.${equipped[key].system.roll.ability}.mod`;
+        equipped[key].system.damage.formula = `${equipped[key].system.damage.diceNum}d${equipped[key].system.damage.diceSize} + ${equipped[key].system.damage.diceBonus}`;
+      }
+      if (equipped.length < 2) {
+        equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
       }
     }
+
 
     // Assign and return
+    
+    context.equipped = equipped;
     context.gear = gear;
     context.features = features;
-    context.spells = spells;
+    //context.spells = spells;
     context.traits = traits;
-    context.weapons = weapons;
+    context.inventory = inventory;
     context.activities = activities;
     context.background = background;
+    context.benefits = benefits;
+    context.mutations = mutations;
+    const effects = Array.from(context.effects);
+    context.showeffects = effects.filter(i => !i.disabled);
     return context;
   }
 
@@ -189,6 +218,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
       this.position.width = 700;
       this.position.height = 675;
       this.setPosition(this.position);
+      this.options.classes.push("npc-sheet");
     }
 
     // Render the item sheet for viewing/editing prior to the editable check.
@@ -198,23 +228,34 @@ export class PunkapocalypticActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
     html.on('click', '.decrease', (ev) => {
-      const new_value = this.actor.system.health.current - 1;
+      const new_value = this.actor.system.health.value - 1;
       if (new_value >= 0)
-        this.actor.update({ "system.health.current": new_value })
+        this.actor.update({ "system.health.value": new_value })
     });
     html.on('click', '.increase', (ev) => {
-      const new_value = this.actor.system.health.current + 1;
-      if (new_value <= this.actor.system.health.max)
-        this.actor.update({ "system.health.current": new_value })
+      const new_value = this.actor.system.health.value + 1;
+      if (new_value <= (this.actor.system.health.max))
+        this.actor.update({ "system.health.value": new_value })
     });
 
+    html.on('click', '.profile-img-circle', (ev) => {
+      ev.stopPropagation();
+    });
 
+    html.on('contextmenu', '.profile-img', (ev) => {
+    {
+      new ImagePopout(this.actor.img, {
+        title: "Actor Popout",
+        shareable: true,
+      }).render(true);
+    }
+  });
     // Handle clicking the profile div to open FilePicker
     html.on('click', '.profile-img', (ev) => {
       console.log()
       const fp = new FilePicker({
         type: 'image',
-        current: ev.currentTarget.style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
+        current: ev.currentTarget.dataset.img.replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
         callback: path => {
           ev.currentTarget.style.backgroundImage = `url(${path})`;
           this.actor.update({ img: path });
@@ -230,6 +271,12 @@ export class PunkapocalypticActorSheet extends ActorSheet {
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
+
+    html.on('click', '.pc-progress', (ev) => {
+      if (this.actor.isOwner) {
+        this._missionProgress();
+      }
+    })
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
@@ -262,6 +309,30 @@ export class PunkapocalypticActorSheet extends ActorSheet {
         li.addEventListener('dragstart', handler, false);
       });
     }
+
+
+  }
+
+  async _missionProgress() {
+    const actor = this.actor;
+    
+    CONFIG.PUNKAPOCALYPTIC.progress_function(this.actor);
+    
+}
+
+  async chooseOption() {
+    const option = await foundry.applications.api.DialogV2.wait({
+      window: { title: "Criar item" },
+      content: "<p>Escolha o tipo de item:</p>",
+      modal: true,
+      buttons: [
+        { label: "Coisa", action: "item" },
+        { label: "Arma", action: "weapon" },
+        { label: "Veste", action: "armor" }
+      ]
+    });
+  
+    return option;
   }
 
   /**
@@ -273,7 +344,10 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     // Get the type of item to create.
-    const type = header.dataset.type;
+    let type = header.dataset.type;
+    if (type == 'item') {
+      type = await this.chooseOption();
+    }
     // Grab any data associated with this control.
     const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
@@ -324,8 +398,19 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     const dataset = element.dataset;
     try {
       mod = await foundry.applications.api.DialogV2.prompt({
-        window: { title: `Rollagem de atributo: ${dataset.label}` },
-        content: '<h4>Modificador da rolagem</h4><input name="mod" type="number" value="" autofocus>',
+        window: { title: `Modificadores para: Rollagem de atributo ${dataset.label}` },
+        content: `
+        
+
+        <!--h4 style="font-family: 'Scurlock', sans-serif; color: #eddba9;">
+            Modificadores da rolagem</h4-->
+            Complicações / Recursos 
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <button onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) - Number(1)" style="width: 10px; text-align: center;" type="button" class="decrement">-</button>
+                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10"  autofocus readonly>
+                <button style="width: 10px; text-align: center;" onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) + Number(1)" type="button" class="increment">+</button>
+            </div>
+        `,
         ok: {
           label: "Rollar",
           callback: (event, button, dialog) => button.form.elements.mod.valueAsNumber || 0
@@ -348,39 +433,56 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-
+ 
     // Handle item rolls.
+    console.warn(dataset)
     if (dataset.rollType) {
-      if (dataset.rollType == 'damage') {
+      if (dataset.rollType == 'select-ammo') {
+        const itemId = element.closest('.item').dataset.itemId;
+        const equipped_items = this.actor.items.filter((i) => i.type == "weapon" && i.system.equipped);
+        //const equipped_items = this.actor.items.filter((i) => i.type == "weapon" && i.system.equipped);
+        const item = this.actor.items.get(itemId);
+        if (equipped_items.length > 1 && !item.system.equipped && item.type == "weapon") {
+          ui.notifications.warn("Você só pode usar 2 armas simultaneamente.");
+          return;
+        }
+        if (item) {
+          return item.selectAmmo();
+        }
+      } else if (dataset.rollType == 'damage') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
         if (item) return item.rollDamage();
+      } if (dataset.rollType == 'attack') {
+        const itemId = element.closest('.item').dataset.itemId;
+        const item = this.actor.items.get(itemId);
+        if (item) {
+          return item.roll(mod);
+        }
+      } else if (dataset.rollType == 'ability') {
+        this.actor.rollAbility(dataset.abilityId, mod);
+
       } else {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item.type == "weapon") {
-          if (item.system.roll.ability == "") {
-            const ability = await this.getAbilityDialog()
-            await item.update({ "system.roll.ability": ability })
-          }
-          item.system.formula = "1d20+" + (this.actor.system.abilities[item.system.roll.ability].mod)
-          console.warn(item.system.formula)
+        if (item) {
+          item.toMessage();
+          
         }
-        if (item) return item.roll();
       }
     }
 
     // Handle rolls that supply the formula directly.
-    if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll + "+" + mod, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
-      });
-      return roll;
-    }
+    // if (dataset.roll) {
+    //   let label = dataset.label ? `[ability] ${dataset.label}` : '';
+    //   let roll = new Roll(dataset.roll + "+" + mod, this.actor.getRollData());
+    //   roll.toMessage({
+    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    //     flavor: label,
+    //     rollMode: game.settings.get('core', 'rollMode'),
+    //   });
+    //   return roll;
+    // }
   }
 
   async _onDropItemCreate(itemData, event) {
@@ -389,48 +491,48 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     }
     if (itemData.type == "background") {
       const new_value = this.actor.system.abilities[itemData.system.ability.id].value + itemData.system.ability.bonus;
-      const current_background = this.actor.items.find((i) => i.type == "background");
       const new_path = `system.abilities.${itemData.system.ability.id}.value`;
       await this.actor.update({ [new_path]: Number(new_value) });
+      const initialItemIds = itemData.system.itemIds || [];
+      for (const newItemId of initialItemIds) {
+        const newItem = await fromUuid(newItemId);
+        if (newItem) {
+          if (newItem.system?.missions) {
+            const missions = newItem.system.missions.split(',')                    // Split by comma
+            .map(num => num.trim())        // Trim spaces
+            .map(num => Number(num))       // Convert to Number
+            .filter(num => !isNaN(num));   // Remove invalid numbers
+            if (!missions.includes(this.actor.system.missions)) {
+              continue;
+            }
+          }
+          await this.actor.createEmbeddedDocuments("Item", [newItem]);
+          }
+      }
       await this.resourcesFromBackground(itemData)
-      if (current_background) {
-        const old_value = this.actor.system.abilities[current_background.system.ability.id].value - current_background.system.ability.bonus;
-        const old_path = `system.abilities.${current_background.system.ability.id}.value`;
-        await this.actor.update({ [old_path]: old_value });
-        await this.removeResourcesFromBackground(current_background)
-        await this.actor.deleteEmbeddedDocuments("Item", [current_background.id])
+    } else if (itemData.type == "path") {
+      if (itemData.system.level) {
+        const initialItemIds = itemData.system.itemIds || [];
+        for (const newItemId of initialItemIds) {
+          const newItem = await fromUuid(newItemId);
+          if (newItem) {
+            // mission 1
+            if (this.actor.system.missions) {
+              const missions = newItem.system.missions.split(',')                    // Split by comma
+              .map(num => num.trim())        // Trim spaces
+              .map(num => Number(num))       // Convert to Number
+              .filter(num => !isNaN(num));   // Remove invalid numbers
+              if (!missions.includes(this.actor.system.missions)) {
+                continue;
+              }
+            }
+            await this.actor.createEmbeddedDocuments("Item", [newItem]);
+            }
+        }
+
+
       }
-    }
-  }
 
-  async removeResourcesFromBackground(item) {
-    if (item.type != "background") {
-      return;
-    }
-
-    const actorResources = foundry.utils.deepClone(this.actor.system.resources); // Clone to avoid direct mutation
-    const itemResources = item.system.resources || {}; // Ensure item has resources
-
-    let updatedResources = {}; // Store only changed values
-
-    // Loop through the resources in the item
-    for (const [resourceKey, resourceData] of Object.entries(itemResources)) {
-      if (actorResources.hasOwnProperty(resourceKey)) {
-        // Ensure the resource has a valid number value
-        const itemValue = Number(resourceData.value) || 0;
-        const currentValue = Number(actorResources[resourceKey].value) || 0;
-
-        // Update the resource value in the cloned data
-        updatedResources[`system.resources.${resourceKey}.value`] = currentValue - itemValue;
-      }
-    }
-
-    // Check if there's something to update
-    if (Object.keys(updatedResources).length > 0) {
-      await this.actor.update(updatedResources);
-      console.log("Updated actor resources:", updatedResources);
-    } else {
-      console.log("No resources to update.");
     }
   }
 

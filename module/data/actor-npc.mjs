@@ -16,15 +16,15 @@ export default class PunkapocalypticNPC extends PunkapocalypticActorBase {
     }, {}));
 
     schema.challange = new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 });
-    schema.size = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
-    
-    schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
+    //schema.size = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
     
     return schema
   }
 
   prepareDerivedData() {
     //this.xp = this.cr * this.cr * 100;
+    //this.health.max = this.health.value + this.health.mod;
+    this.defense.base = Math.floor((this.abilities.feet.value + this.abilities.eyes.value) / 2);
     for (const key in this.abilities) {
       // Calculate the modifier using d20 rules.
       this.abilities[key].mod = Math.floor((this.abilities[key].value - 10));

@@ -9,6 +9,7 @@ export default class PunkapocalypticItemBase extends PunkapocalypticDataModel {
 
     schema.description = new fields.StringField({ required: true, blank: true });
     schema.quantity = new fields.NumberField({ ...requiredInteger, initial: 1, min: 1 });
+    schema.price = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
 
     return schema;
   }

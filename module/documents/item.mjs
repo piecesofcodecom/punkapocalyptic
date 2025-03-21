@@ -6,15 +6,13 @@ export class PunkapocalypticItem extends Item {
   async _preCreate(data, options, userId) {
     const itemType = data.type || "default";
     const img = data.img || "icons/svg/item-bag.svg";
-    console.warn(data)
     if (img == 'icons/svg/item-bag.svg') {
-      console.warn("MUDA")
       const defaultImg = CONFIG.PUNKAPOCALYPTIC.itemImages[itemType];
       data.img = defaultImg;
       await this.updateSource({ img: defaultImg });
     }
-    
-   
+
+
     await super._preCreate(data, options, userId);
   }
   /**
@@ -24,7 +22,7 @@ export class PunkapocalypticItem extends Item {
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
-    
+
   }
 
   /**
@@ -70,7 +68,8 @@ export class PunkapocalypticItem extends Item {
    * @param {Event} event   The originating click event
    * @private
    */
-  async roll() {
+  async roll(mod = 0) {
+    console.warn("MOD", Number(mod))
     const item = this;
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -78,7 +77,7 @@ export class PunkapocalypticItem extends Item {
     const label = `<img src="${item.img}" alt="Icon" class="message-icon"> <p>[${game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.items[item.type])}] ${item.name}</p>`;
 
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
+    if (!this.system.roll.ability) {
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
@@ -88,14 +87,91 @@ export class PunkapocalypticItem extends Item {
     }
     // Otherwise, create a roll and send a chat message from it.
     else {
-      // Retrieve roll data.
-      const rollData = this.getRollData();
+      // let formula = " 1d20";
+      // const final_mod = this.actor.system.abilities[this.system.roll.ability].mod + mod;
+      // if (final_mod > 0) {
+      //   formula += "+" + final_mod;
+      // }
+      // const roll = new Roll(formula, this.actor);
 
+
+      let text = `<button class="roll-damage" data-item-id="${item._id}" data-actor-id="${this.actor.id}">${game.i18n.localize('PUNKAPOCALYPTIC.SheetLabels.RollDamage')}</button><br />`;
+      const targets = Array.from(game.user.targets);
+
+      if (item.system.category == "explosive") {
+        text += `<button class="roll-range" data-item-id="${item._id}" data-actor-id="${this.actor.id}">${game.i18n.localize('PUNKAPOCALYPTIC.SheetLabels.RollRange')}</button><br />`;
+      }
+
+      const weapon_traits = item.system.traits
+        .split(",")
+        .map(trait => trait.replace(/\(.*?\)/g, '').trim().toLowerCase());
+      let traits_message = "";
+      for (const key in CONFIG.PUNKAPOCALYPTIC.weaponTraits) {
+        const trait_tranlated = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.weaponTraits[key]).toLowerCase();
+        if (weapon_traits.includes(trait_tranlated)) {
+          const label = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.weaponTraits[key]);
+          const description = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.weaponTraitDescriptions[key]);
+          if (traits_message.length == 0) {
+            traits_message = "<p>";
+          }
+          traits_message += ` <span class="trait-tag" style="border: 1px solid black;background: #ddd;margin: 2px;padding: 2px;" data-tooltip="${description}">${label}</span>`
+        }
+      }
+      if (traits_message.length > 0) {
+        traits_message += "</p>";
+      }
+      const title = game.i18n.format('PUNKAPOCALYPTIC.ChatMessage.AttackMessage', {weapon: item.name});
+      const label = `
+       <img src="${item.img}" alt="Icon" class="message-icon">
+      <p style="font-family: 'Poison Hope', sans-serif; text-shadow: 2px 2px 5px gray;">${title}</p>
+      <p>${item.system.description}</p>
+      ${traits_message}
+      ${text}
+      <br />
+      `;
+      this.actor.rollAbility(this.system.roll.ability, mod, label)
+      // roll.toMessage({
+      //   speaker: speaker,
+      //   rollMode: rollMode,
+      //   flavor: label,
+      // });
+      //return roll;
+    }
+  }
+
+  async selectAmmo() {
+    const item = this;
+    await this.update({ "system.equipped": !item.system.equipped });
+  }
+
+  getDamage() {
+    let formula = "";
+    if (this.system?.damage) {
+      formula = this.system.damage.diceNum + "d" + this.system.damage.diceSize;
+      if (this.system.damage.diceBonus) {
+        formula += "+" + this.system.damage.diceBonus;
+      }
+    }
+    return formula;
+  }
+
+  async rollDamage() {
+    const item = this;
+
+    // Initialize chat data.
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+
+    // If there's no roll data, send a chat message.
+    if (this.system?.damage) {
+      // Retrieve roll data.
+      const title = game.i18n.format('PUNKAPOCALYPTIC.ChatMessage.TitleDamageRoll', {weapon: item.name});
+      const rollData = this.getRollData();
+      //const damage_formula = item.system.damage.diceNum + "d" + item.system.damage.diceSize + "+" + item.system.damage.diceBonus
+      const label = `<img src="${item.img}" alt="Icon" class="message-icon">
+      <p style="font-family: 'Poison Hope', sans-serif; text-shadow: 2px 2px 5px gray;">${title}</p>`;
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.formula, rollData.actor);
-      // If you need to store the value first, uncomment the next line.
-      // const result = await roll.evaluate();
-      const label = `<img src="${item.img}" alt="Icon" class="message-icon"> <p>[${game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.abilities[item.system.roll.ability])}] ${item.name}</p>`
+      const roll = new Roll(item.system.damage.formula, rollData.actor);
       roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
@@ -105,39 +181,70 @@ export class PunkapocalypticItem extends Item {
     }
   }
 
-  async rollDamage() {
-    const item = this;
+  messageHeader(img, name, ability="") {
+    //const item = this;
+    if (ability == "") {
+      return `<img src="${img}" alt="Icon" class="message-icon"><p style="font-family: 'Poison Hope', sans-serif;">${name}</p>`;
+    } else {
+      return `<img src="${img}" alt="Icon" class="message-icon"> <p style="font-family: 'Poison Hope', sans-serif;">[${game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.abilities[ability])}] ${name}</p>`;
 
-    // Initialize chat data.
-    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const rollMode = game.settings.get('core', 'rollMode');
-    const label = `<img src="${item.img}" alt="Icon" class="message-icon"> <p>[${game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.abilities[item.system.roll.ability])}] ${item.name}</p>`
-
-    // If there's no roll data, send a chat message.
-    if (!this.system?.damage) {
-      ChatMessage.create({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-        content: item.system.description ?? '',
-      });
     }
-    // Otherwise, create a roll and send a chat message from it.
-    else {
-      // Retrieve roll data.
-      const rollData = this.getRollData();
-      //const damage_formula = item.system.damage.diceNum + "d" + item.system.damage.diceSize + "+" + item.system.damage.diceBonus
+  }
 
-      // Invoke the roll and submit it to chat.
-      const roll = new Roll(item.system.damage_formula, rollData.actor);
-      // If you need to store the value first, uncomment the next line.
-      // const result = await roll.evaluate();
+  async toMessage() {
+    const item = this;
+    //console.warn("toMessage is deprecated. Use roll() instead.");
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    let traits_message = "";
+    if (item.system?.traits) {
+      const weapon_traits = item.system.traits
+        .split(",")
+        .map(trait => trait.replace(/\(.*?\)/g, '').trim().toLowerCase());
+    
+
+      for (const key in CONFIG.PUNKAPOCALYPTIC.weaponTraits) {
+        const trait_tranlated = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.weaponTraits[key]).toLowerCase();
+        if (weapon_traits.includes(trait_tranlated)) {
+          const label = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.weaponTraits[key]);
+          const description = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.weaponTraitDescriptions[key]);
+          if (traits_message.length == 0) {
+            traits_message = "<p>";
+          }
+          traits_message += ` <span class="trait-tag" style="border: 1px solid black;background: #ddd;margin: 2px;padding: 2px;" data-tooltip="${description}">${label}</span>`
+        }
+      }
+    }
+    if (traits_message.length > 0) {
+      traits_message += "</p>";
+    }
+    const label = `
+      ${this.messageHeader(item.img, item.name)}
+      <p>${item.system.description}</p>
+      ${traits_message}
+      <br />
+      `;
+    ChatMessage.create({
+      user: game.user.id,
+      speaker: speaker,
+      content: label,
+    });
+  }
+
+  async rollRange() {
+    if (this.system?.radius) {
+      const item = this;
+      const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+      const rollMode = game.settings.get('core', 'rollMode');
+      const label = `<img src="${item.img}" alt="Icon" class="message-icon"> <p>[${game.i18n.localize("PUNKAPOCALYPTIC.SheetLabels.Range")}] ${item.name}</p>`;
+
+      const roll = new Roll(item.system.radius.formula, this.actor);
       roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
-        flavor: `[${game.i18n.localize('PUNKAPOCALYPTIC.Other.Damage.long')}] ${item.name}`,
+        flavor: label,
       });
       return roll;
     }
+    return null;
   }
 }

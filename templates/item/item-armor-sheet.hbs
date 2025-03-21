@@ -1,0 +1,69 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}' />
+    <div class='header-fields'>
+      <h1 class='charname'>
+        <input class="title-punk" name='name' type='text' value='{{item.name}}' placeholder='Name' />
+      </h1>
+      <div class='grid grid-3col'>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>Defense</label>
+            <input type="text" name='system.defense' value="{{system.defense}}" data-dtype='Number' />
+        </div>
+         <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>É Bonus?</label>
+            <input type="checkbox" name='system.isBonus' {{#if system.isBonus}} checked {{/if}} data-dtype='Boolean' />
+        </div>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>Price</label>
+            <input type="text" name='system.price' value="{{system.price}}" data-dtype='Number' />
+        </div>
+        
+      </div>
+    </div>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs nav-punk' data-group='primary'>
+    <!--a class='item' data-tab='description'>Description</a-->
+    <a class='item' data-tab='attributes'>Descrição</a>
+    <a class='item' data-tab='properties'>Propriedades</a>
+    
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab attributes' data-group='primary' data-tab='attributes'>
+      
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+      enrichedDescription
+      target='system.description'
+      engine='prosemirror'
+      button=true
+      editable=editable
+      }}
+    </div>
+    <div class='tab properties' data-group='primary' data-tab='properties'>
+      <div class='grid grid-4col'>
+        <div class='resource flexrow flex-group-center'>
+          <label class='resource-label'>Traits</label>
+        </div>
+        <div class='resource flexrow flex-group-center grid-span-3'>
+          <input type='text' name='system.traits' value='{{system.traits}}' data-dtype='String'
+            style="border: 1px solid #000; font-size: larger;" />
+        </div>
+        {{#each traits as |trait id|}}
+          <div class='resource flexrow flex-group-center'>
+            <label class='resource-label'>{{trait.label}}</label>
+          </div>
+          <div class='resource flexrow flex-group-center grid-span-3'>
+            {{trait.description}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</form>

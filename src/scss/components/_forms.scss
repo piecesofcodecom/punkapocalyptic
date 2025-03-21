@@ -43,7 +43,8 @@
 .sheet-body,
 .sheet-body .tab,
 .sheet-body .tab .editor {
-  height: 95%;
+  /*height: 95%;*/
+  min-height: 280px;
 }
 
 .tox {

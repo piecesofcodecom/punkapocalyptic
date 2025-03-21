@@ -10,6 +10,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Scurlock';
+  src: url('/systems/punkapocalyptic/assets/fonts/Scurlock_0.otf') format('opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poison Hope';
+  src: url('/systems/punkapocalyptic/assets/fonts/PoisonHope-Regular.ttf') format('truetype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 // Import utilities.
 @import 'utils/typography';
@@ -33,6 +47,20 @@
 }
 
 .punkapocalyptic.sheet.actor {
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/test.png);
+  background-color: #d7d5ca;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  @import 'components/sheet';
+}
+
+.punkapocalyptic.sheet.npc {
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/test_npc.png);
+  background-color: #d7d5ca;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   @import 'components/sheet';
 }
 

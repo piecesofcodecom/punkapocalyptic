@@ -8,10 +8,10 @@
       "discord": "snagov"
     }
   ],
-  "url": "Replace this with a link to your public repository",
+  "url": "https://github.com/piecesofcodecom/punkapocalyptic",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "Replace this with a link to file issues or tickets",
+  "bugs": "https://github.com/piecesofcodecom/punkapocalyptic/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
@@ -20,10 +20,10 @@
       "thumbnail": "systems/punkapocalyptic/assets/anvil-impact.png"
     }
   ],
-  "version": "2.0.0",
+  "version": "1.0.0",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.315"
+    "minimum": 12,
+    "verified": "12.315"
   },
   "esmodules": ["module/punkapocalyptic.mjs"],
   "styles": ["css/punkapocalyptic.css"],
@@ -32,11 +32,6 @@
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt-BR.json"
-    },
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
     }
   ],
   "packs": [],

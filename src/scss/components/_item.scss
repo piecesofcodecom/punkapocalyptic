@@ -1,12 +1,28 @@
 .window-content {
-    background: url(/systems/punkapocalyptic/assets/bg_item.png) repeat;
+    background: url(/systems/punkapocalyptic/assets/backgrounds/old-art-paper-with-stain.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
+.title-punk {
+    font-family: 'Poison Hope', sans-serif;
+    font-family: 'Scurlock', sans-serif;
+    font-size: xx-large;
+}
 
+.nav-punk {
+    font-family: 'Poison Hope', sans-serif;
+    font-weight: bold;
+}
 
 .editable {
     cursor: pointer;
+}
+
+h2 {
+    font-family: 'VKB KonQa';
+    border: 0;
+    font-size: x-large;
+    text-align: center;
 }
