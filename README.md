@@ -40,6 +40,7 @@ Open your Foundry's admin dashboard and search for the system. I do not recommen
 
 # Support
 This system is supported by [Tria Editora](https://triaeditora.com.br/), the publisher responsible for translating Punkapocalyptic into Portuguese and distributing it in Brazil.
+
 ![Tria Editora](README/triaeditora.png)
 
 # Licenses
