@@ -7,8 +7,7 @@
   <a href="https://github.com/piecesofcodecom/punkapocalyptic/graphs/commit-activity" target="_blank"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/piecesofcodecom/punkapocalyptic?style=flat-square&color=purple&label=Last%20commit"></a>
  <a href="https://github.com/piecesofcodecom/punkapocalyptic/releases/latest/" target="_blank"><img alt="GitHub release (latest by SemVer including pre-releases)" src="https://img.shields.io/badge/dynamic/json?color=red&label=Downloads&query=$.assets.0.download_count&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fpiecesofcodecom%2Fpunkapocalyptic%2Freleases%2Flatest&style=flat-square"></a>
   <br/>
-  ![Banner](README/banner-punk.png)
-  <img src="https://triaeditora.com.br/wp-content/uploads/2024/08/banner-site-punk-1.png" alt="Logo" style="max-width:100%;" />
+  <img src="https://github.com/piecesofcodecom/punkapocalyptic/blob/main/README/banner-punk.png" alt="Logo" style="max-width:100%;" />
 </p>
 
 # Punkapocalyptic System
