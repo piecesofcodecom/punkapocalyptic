@@ -275,6 +275,8 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
     // Initialize containers.
     const occupants = [];
     const parts = [];
+    const vehicleUpgrades = [];
+    const vehicleAccessories = [];
 
     for (let i of this.actor.system.occupants) {
       const actor = await fromUuid(i.uuid);
@@ -292,6 +294,10 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
       // Append to gear.
       if (i.type === "vehiclePart") {
         parts.push(i);
+      } else if (i.type === "vehicleUpgrade") {
+        vehicleUpgrades.push(i);
+      } else if (i.type === "vehicleAccessory") {
+        vehicleAccessories.push(i);
       }
     }
 
@@ -302,7 +308,8 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
 
 
     context.parts = parts;
-
+    context.vehicleUpgrades = vehicleUpgrades;
+    context.vehicleAccessories = vehicleAccessories;
     const effects = Array.from(context.effects);
     context.showeffects = effects.filter(i => !i.disabled);
     context.occupants = occupants;

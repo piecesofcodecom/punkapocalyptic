@@ -22,6 +22,8 @@ export const preloadHandlebarsTemplates = async function () {
     // Vehicles partials
     'systems/punkapocalyptic/templates/actor/parts/vehicle-occupants-item.hbs',
     'systems/punkapocalyptic/templates/actor/parts/vehicle-parts-item.hbs',
+    'systems/punkapocalyptic/templates/actor/parts/vehicle-vehicleAccessories.hbs',
+    'systems/punkapocalyptic/templates/actor/parts/vehicle-vehicleUpgrades.hbs',
     // Item partials
     'systems/punkapocalyptic/templates/item/parts/item-effects.hbs',
     'systems/punkapocalyptic/templates/item/parts/item-talents.hbs',

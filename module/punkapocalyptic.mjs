@@ -85,7 +85,7 @@ Hooks.once('init', async function () {
     //spell: models.PunkapocalypticSpell,
     weapon: models.PunkapocalypticItemWeapon,
     trait: models.PunkapocalypticTrait,
-    special_activity: models.PunkapocalypticSpecialActivity,
+    specialActivity: models.PunkapocalypticSpecialActivity,
     background: models.PunkapocalypticBackgroundItem,
     talent: models.PunkapocalypticItemTalent,
     benefit: models.PunkapocalypticItemBenefit,

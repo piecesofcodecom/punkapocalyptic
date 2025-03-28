@@ -163,7 +163,7 @@ export class PunkapocalypticNPCSheet extends ActorSheet {
         features.push(i);
       } else if (CONFIG.PUNKAPOCALYPTIC.inventoryTypes.includes(i.type)) {
         inventory.push(i);
-      } else if (i.type === 'special_activity') {
+      } else if (i.type === 'specialActivity') {
         activities.push(i);
       } else if (CONFIG.PUNKAPOCALYPTIC.benefitSubTypes.includes(i.type)) {
         benefits.push(i);

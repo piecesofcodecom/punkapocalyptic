@@ -141,13 +141,15 @@ PUNKAPOCALYPTIC.items = {
   trait: "TYPES.Item.trait",
   weapon: "TYPES.Item.weapon",
   item: "TYPES.Item.item",
-  special_activity: "TYPES.Item.special_activity",
+  specialActivity: "TYPES.Item.specialActivity",
   background: "TYPES.Item.background",
   //talent: "TYPES.Item.talent",
   benefit: "TYPES.Item.benefit",
   path: "TYPES.Item.path",
   mutation: "TYPES.Item.mutation",
-  vehiclePart: "TYPES.Item.vehiclePart"
+  vehiclePart: "TYPES.Item.vehiclePart",
+  vehicleUpgrade: "TYPES.Item.vehicleUpgrade",
+  vehicleAccessory: "TYPES.Item.vehicleAccessory"
 }
 
 PUNKAPOCALYPTIC.itemImages = {
@@ -155,13 +157,15 @@ PUNKAPOCALYPTIC.itemImages = {
   trait: "icons/skills/trades/academics-investigation-puzzles.webp",
   weapon: "icons/weapons/clubs/club-spiked-glowing.webp",
   item: "icons/tools/fasteners/washer-square-steel-grey.webp",
-  special_activity: "icons/magic/control/silhouette-aura-energy.webp",
+  specialActivity: "icons/magic/control/silhouette-aura-energy.webp",
   background: "icons/sundries/documents/document-sealed-signatures-red.webp",
   //talent: "icons/magic/perception/eye-slit-orange.webp",
   benefit: "icons/magic/perception/eye-slit-orange.webp",
   path: "icons/skills/social/intimidation-impressing.webp",
   mutation: "icons/magic/symbols/triangle-glowing-green.webp",
   vehiclePart: "icons/tools/smithing/plate-steel-grey.webp",
+  vehicleUpgrade: "icons/commodities/metal/pin-cottar-steel.webp",
+  vehicleAccessory: "icons/commodities/metal/clasp-steel.webp",
   default: "icons/svg/item-bag.svg"
 }
 

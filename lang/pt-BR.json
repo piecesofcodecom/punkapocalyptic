@@ -28,7 +28,7 @@
       "Toggle": "Alternar efeito"
     },
     "Item": {
-      "SpecialActivity": {"long": "Atividade Especial", "abbr": "AE" },
+      "specialActivity": {"long": "Atividade Especial", "abbr": "AE" },
       "Spell": {
         "AddLVL": "Add LVL {level}",
         "SpellLVL": "Level {level} Spells"
@@ -49,7 +49,7 @@
       "Effect": "Efeito",
       "Item": "Coisa Nova",
       "Mutation": "Mutação nova",
-      "Special_activity": "Nova Atividade Especial",
+      "SpecialActivity": "Nova Atividade Especial",
       "Talent": "Talento Novo",
       "Trait": "Traço Novo",
       "VehiclePart": "Parte de Veículo",
@@ -100,6 +100,7 @@
     "SheetLabels": {
       "Abilities": "Habilidades",
       "Actor": "Punkapocalyptic Actor Sheet",
+      "Acessories": "Acessórios",
       "Attributes": "Atributos",
       "Background": "Histórico",
       "Benefits": "Benefícios",
@@ -127,7 +128,8 @@
       "RollRange": "Rolar Alcance",
       "SpecialActivities": "Atividades Especiais",
       "Traits": "Traços",
-      "Type": "Tipo"
+      "Type": "Tipo",
+      "Upgrades": "Aprimoramentos"
     },
     "Statuses": {
       "Blinded": { "long": "Cego", "abbr": "" },
@@ -192,16 +194,19 @@
       "vehicle": "Veículo"
     },
     "Item": {
-      "SpecialActivity": "Atividade Especial",
+      "armor": "Veste",
       "background": "Histórico",
       "benefit": "Benefício",
       "effect": "Efeito",
       "item": "Coisa",
       "mutation": "Mutação",
       "path": "Caminho",
+      "specialActivity": "Atividade Especial",
       "talent": "Talento",
       "trait": "Traço",
       "vehiclePart": "Parte (Veículo)",
+      "vehicleAccessory": "Acessório (Veículo)",
+      "vehicleUpgrade": "Aprimoramento (Veículo)",
       "weapon": "Arma"
     }
   }
