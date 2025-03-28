@@ -333,16 +333,16 @@
   <section class="sheet-body">
     <nav class="sheet-tabs tabs nav-punk" data-group="primary">
       {{!-- Default tab is specified in actor-sheet.mjs --}}
-      <a class="item header-tab" data-tab="features">Principal</a>
-      <a class="item header-tab" data-tab="accessories">Acessórios</a>
-      <a class="item header-tab" data-tab="upgrades">Aprimoramentos</a>
-      <a class="item header-tab" data-tab="description">Descrição</a>
+      <a class="item header-tab" data-tab="features">{{localize "PUNKAPOCALYPTIC.SheetLabels.Main"}}</a>
+      <a class="item header-tab" data-tab="accessories">{{localize "PUNKAPOCALYPTIC.SheetLabels.Acessories"}}</a>
+      <a class="item header-tab" data-tab="upgrades">{{localize "PUNKAPOCALYPTIC.SheetLabels.Upgrades"}}</a>
+      <a class="item header-tab" data-tab="description">{{localize "PUNKAPOCALYPTIC.SheetLabels.Description"}}</a>
       <!--a class="item header-tab" data-tab="effects">Effects</a-->
     </nav>
     <div class="tab features" data-group="primary" data-tab="features">
       <div class="grid grid-2col">
         <div class="grid-span-1">
-          <h2>{{localize "PUNKAPOCALYPTIC.Vehicle.Occupants" }}</h2>
+          <h2>{{localize "PUNKAPOCALYPTIC.Vehicle.Occupants.long" }}</h2>
           {{> "systems/punkapocalyptic/templates/actor/parts/vehicle-occupants-item.hbs" }}
         </div>
         <div class="grid-span-1">
@@ -354,11 +354,11 @@
     </div>
 
     <div class="tab accessories" data-group="primary" data-tab="accessories">
-      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="accessories" items="" }}
+      {{> "systems/punkapocalyptic/templates/actor/parts/vehicle-vehicleAccessories.hbs" category="accessories" items="" }}
     </div>
 
-    <div class="tab uprades" data-group="primary" data-tab="uprades">
-      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="upgrades" items="" }}
+    <div class="tab upgrades" data-group="primary" data-tab="upgrades">
+      {{> "systems/punkapocalyptic/templates/actor/parts/vehicle-vehicleUpgrades.hbs" category="upgrades" items="" }}
     </div>
 
 

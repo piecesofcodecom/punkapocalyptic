@@ -4,11 +4,11 @@
     <div class='item-controls'>
       <a
         class='item-control item-create'
-        title='{{localize "PUNKAPOCALYPTIC.CreateNewItemFem" type=(localize 'TYPES.Item.special_activity') }}'
-        data-type='special_activity'
+        title='{{localize "PUNKAPOCALYPTIC.CreateNewItemFem" type=(localize 'TYPES.Item.specialActivity') }}'
+        data-type='specialActivity'
       >
         <i class='fas fa-plus'></i>
-        {{localize 'PUNKAPOCALYPTIC.NewItemFem' type=(localize 'PUNKAPOCALYPTIC.Item.SpecialActivity.abbr') }}
+        {{localize 'PUNKAPOCALYPTIC.NewItemFem' type=(localize 'PUNKAPOCALYPTIC.Item.specialActivity.abbr') }}
       </a>
     </div>
   </li>
@@ -16,7 +16,7 @@
     <li class='item flexrow' data-item-id='{{item._id}}'>
       <div class='item-name'>
         <div class='item-image'>
-          <a class='rollable' data-roll-type='special_activity'>
+          <a class='rollable' data-roll-type='specialActivity'>
             <img
               src='{{item.img}}'
               title='{{item.name}}'
