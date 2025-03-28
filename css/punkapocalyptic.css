@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Rubik+Dirt&display=swap");
 @font-face {
@@ -132,11 +133,21 @@
   padding: 5px;
   font-size: var(--font-size-14);
   color: var(--color-text-dark-primary);
-  background: url(/systems/punkapocalyptic/assets/backgrounds/chat-message-background.jpg);
+  background: url(/systems/punkapocalyptic/assets/backgrounds/chat-message-background.png);
   border: 2px solid #6f6c66;
   border-radius: 5px;
   background-size: cover;
   background-repeat: repeat;
+}
+
+.boxhover:hover {
+  box-shadow: 0 0 5px var(--color-shadow-primary);
+  cursor: pointer;
+}
+
+.bold-text {
+  font-weight: bolder;
+  text-shadow: 0.01em 0.01em 0 hsl(250, 2.69%, 74.17%);
 }
 
 .grid,
@@ -385,6 +396,10 @@
   width: 30px;
   height: 30px;
   margin: 5px;
+}
+
+.chat-message.blind {
+  background: url(/systems/punkapocalyptic/assets/backgrounds/chat-message-background-blind.png) !important;
 }
 
 /* Styles limited to punkapocalyptic sheets */
@@ -673,10 +688,25 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  /* Mask bg color */
+  mask-image: url("/systems/punkapocalyptic/assets/backgrounds/test-mask.png");
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+  /* For Safari and older WebKit-based browsers, add the -webkit- prefix too */
+  -webkit-mask-image: url("/systems/punkapocalyptic/assets/backgrounds/test-mask.png");
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
 }
 .punkapocalyptic.sheet.actor .window-content {
   /*background-image: url('/systems/punkapocalyptic/assets/sheet/background.jpg');*/
   background: 0;
+}
+.punkapocalyptic.sheet.actor .window-header {
+  border: 0;
 }
 .punkapocalyptic.sheet.actor .header-button, .punkapocalyptic.sheet.actor .window-title {
   text-shadow: 0.1em 0.1em 0 hsl(200, 50%, 30%);
@@ -779,6 +809,11 @@
 .punkapocalyptic.sheet.actor .vida-container {
   justify-self: center;
 }
+.punkapocalyptic.sheet.actor .vida {
+  color: #f3e5e5;
+  margin-left: 10px;
+  margin-top: -5px;
+}
 .punkapocalyptic.sheet.actor .defesa-container {
   justify-self: center;
   /*background-image: url(/systems/punkapocalyptic/assets/sheet/defesa2.png);
@@ -853,16 +888,16 @@
   transition: width 0.3s ease-in-out;
 }
 .punkapocalyptic.sheet.actor .healthDisplay {
-  width: 60px;
+  width: 80px;
   /* Reduced size */
-  height: 60px;
+  height: 80px;
   /* Reduced size */
-  background: white;
-  /*background-image: url('/systems/punkapocalyptic/assets/sheet/hearts.svg');*/
+  /*background: white;*/
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/blood-splatter-icon.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: black;
+  color: rgb(233, 227, 227);
   font-weight: bold;
   font-size: 14px;
   /* Adjusted text */
@@ -875,8 +910,8 @@
   /* Positioned outside */
   top: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid black;
+  /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+  /*border: 2px solid black;*/
 }
 .punkapocalyptic.sheet.actor .pc-background {
   border: 2px solid #5d142b;
@@ -971,15 +1006,31 @@
 }
 
 .punkapocalyptic.sheet.npc {
-  background-image: url(/systems/punkapocalyptic/assets/backgrounds/test_npc.png);
   background-color: #d7d5ca;
+  /* “frame” or decorative image */
+  background-image: url("/systems/punkapocalyptic/assets/backgrounds/test_npc.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  /* Mask bg color */
+  mask-image: url("/systems/punkapocalyptic/assets/backgrounds/test_npc-mask.png");
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+  /* For Safari and older WebKit-based browsers, add the -webkit- prefix too */
+  -webkit-mask-image: url("/systems/punkapocalyptic/assets/backgrounds/test_npc-mask.png");
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
 }
 .punkapocalyptic.sheet.npc .window-content {
   /*background-image: url('/systems/punkapocalyptic/assets/sheet/background.jpg');*/
   background: 0;
+}
+.punkapocalyptic.sheet.npc .window-header {
+  border: 0;
 }
 .punkapocalyptic.sheet.npc .header-button, .punkapocalyptic.sheet.npc .window-title {
   text-shadow: 0.1em 0.1em 0 hsl(200, 50%, 30%);
@@ -1082,6 +1133,11 @@
 .punkapocalyptic.sheet.npc .vida-container {
   justify-self: center;
 }
+.punkapocalyptic.sheet.npc .vida {
+  color: #f3e5e5;
+  margin-left: 10px;
+  margin-top: -5px;
+}
 .punkapocalyptic.sheet.npc .defesa-container {
   justify-self: center;
   /*background-image: url(/systems/punkapocalyptic/assets/sheet/defesa2.png);
@@ -1156,16 +1212,16 @@
   transition: width 0.3s ease-in-out;
 }
 .punkapocalyptic.sheet.npc .healthDisplay {
-  width: 60px;
+  width: 80px;
   /* Reduced size */
-  height: 60px;
+  height: 80px;
   /* Reduced size */
-  background: white;
-  /*background-image: url('/systems/punkapocalyptic/assets/sheet/hearts.svg');*/
+  /*background: white;*/
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/blood-splatter-icon.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: black;
+  color: rgb(233, 227, 227);
   font-weight: bold;
   font-size: 14px;
   /* Adjusted text */
@@ -1178,8 +1234,8 @@
   /* Positioned outside */
   top: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid black;
+  /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+  /*border: 2px solid black;*/
 }
 .punkapocalyptic.sheet.npc .pc-background {
   border: 2px solid #5d142b;
@@ -1271,6 +1327,550 @@
   transform: translateY(-50%);
   color: white;
   font-weight: bold;
+}
+
+.punkapocalyptic.sheet.vehicle {
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/tiretracks.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #d7d5ca;
+  /* Mask bg color */
+  mask-image: url("/systems/punkapocalyptic/assets/backgrounds/tiretracks_mask.png");
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+  /* For Safari and older WebKit-based browsers, add the -webkit- prefix too */
+  -webkit-mask-image: url("/systems/punkapocalyptic/assets/backgrounds/tiretracks_mask.png");
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
+  /*
+  $meter-bg-color: rgb(32,32,32);
+  $ring-color: #eee;
+  $grad-color: #9affff;
+  */
+  @import url(https://fonts.googleapis.com/css?family=Coda:400|Roboto+Mono:400,400italic);
+}
+.punkapocalyptic.sheet.vehicle .window-content {
+  /*background-image: url('/systems/punkapocalyptic/assets/sheet/background.jpg');*/
+  background: 0;
+}
+.punkapocalyptic.sheet.vehicle .header-button, .punkapocalyptic.sheet.vehicle .window-title {
+  text-shadow: 0.1em 0.1em 0 hsl(0, 2%, 75%);
+  color: #000;
+}
+.punkapocalyptic.sheet.vehicle .title-punk {
+  font-family: "Poison Hope", sans-serif;
+  font-family: "Scurlock", sans-serif;
+  font-size: xx-large;
+  text-shadow: 2px 2px 5px gray;
+}
+.punkapocalyptic.sheet.vehicle .nav-punk {
+  font-family: "Poison Hope", sans-serif;
+  font-weight: bold;
+}
+.punkapocalyptic.sheet.vehicle .arimo-title {
+  font-family: "Arimo", serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+.punkapocalyptic.sheet.vehicle .abilities {
+  position: relative;
+}
+.punkapocalyptic.sheet.vehicle .abilities::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Position the line in the center. Adjust half the border thickness if needed */
+  left: calc(50% - 0.5px);
+  width: 2px;
+  /* Thickness of the border */
+  background-color: #000;
+  /* Color of the border */
+  z-index: 1;
+}
+.punkapocalyptic.sheet.vehicle .ability-name {
+  font-family: "Rubik Dirt", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: large;
+  text-transform: uppercase;
+}
+.punkapocalyptic.sheet.vehicle .char-slot {
+  /*margin: auto;
+      width: 98px;
+      height: 98px;
+      border: 1px solid #000;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;*/
+  width: 98px;
+  height: 98px;
+  /*background-image: url(/systems/punkapocalyptic/assets/icons/icon-slot.png);*/
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  /* Establish a positioning context */
+}
+.punkapocalyptic.sheet.vehicle .char-slot::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/systems/punkapocalyptic/assets/icons/icon-slot.png") center/cover no-repeat;
+  pointer-events: none;
+  /* Allows clicks to pass through if needed */
+}
+.punkapocalyptic.sheet.vehicle .char-slot:hover {
+  box-shadow: var(--color-warm-2) 0px 0.0625em 0.0625em, var(--color-warm-2) 0px 0.125em 0.5em, var(--color-warm-2) 0px 0px 0px 1px inset;
+  cursor: pointer;
+}
+.punkapocalyptic.sheet.vehicle .vida-container {
+  justify-self: center;
+}
+.punkapocalyptic.sheet.vehicle .vida {
+  color: #f3e5e5;
+  margin-left: 10px;
+  margin-top: -5px;
+}
+.punkapocalyptic.sheet.vehicle .defesa-container {
+  justify-self: center;
+  /*background-image: url(/systems/punkapocalyptic/assets/sheet/defesa2.png);
+      background-size: cover;*/
+}
+.punkapocalyptic.sheet.vehicle h3 {
+  border: 0px;
+  background-color: #939598;
+  padding: 0.2em;
+  font-weight: bold;
+}
+.punkapocalyptic.sheet.vehicle .min-115 {
+  min-width: 115px;
+}
+.punkapocalyptic.sheet.vehicle .title-bg {
+  background-image: url(/systems/punkapocalyptic/assets/sheet/title-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #f6e5b1;
+  text-shadow: 1px 1px 2px #5d142b;
+  box-shadow: 1px 1px 1px #802a1b;
+}
+.punkapocalyptic.sheet.vehicle .healthContainer {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  /* Spacing between elements */
+  /*position: absolute;
+  margin-top: 249px;*/
+  margin-left: -223px;
+  margin-top: -50px;
+  width: 220px;
+}
+.punkapocalyptic.sheet.vehicle .healthContainer-pc {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  /* Spacing between elements */
+  /*position: absolute;*/
+}
+.punkapocalyptic.sheet.vehicle .healthBarShell {
+  width: 145px;
+  /* Reduced width */
+  height: 30px;
+  /* Smaller height */
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 5px;
+  position: relative;
+}
+.punkapocalyptic.sheet.vehicle .healthBarShell-pc {
+  width: 255px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 5px;
+  position: relative;
+  margin-top: -40px;
+}
+.punkapocalyptic.sheet.vehicle .healthBarValue {
+  height: 20px;
+  /* Smaller height */
+  background: rgba(255, 0, 0, 0.5);
+  border: solid 1px rgba(255, 255, 255, 0.7);
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: width 0.3s ease-in-out;
+}
+.punkapocalyptic.sheet.vehicle .healthDisplay {
+  width: 80px;
+  /* Reduced size */
+  height: 80px;
+  /* Reduced size */
+  /*background: white;*/
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/blood-splatter-icon.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: rgb(233, 227, 227);
+  font-weight: bold;
+  font-size: 14px;
+  /* Adjusted text */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -25px;
+  /* Positioned outside */
+  top: 50%;
+  transform: translateY(-50%);
+  /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+  /*border: 2px solid black;*/
+}
+.punkapocalyptic.sheet.vehicle .pc-background {
+  border: 2px solid #5d142b;
+  border-left: 120px solid transparent;
+  border-right: 120px solid transparent;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.punkapocalyptic.sheet.vehicle .profile-img-circle {
+  position: absolute;
+  width: 40px;
+  /* Adjust as needed */
+  height: 40px;
+  /* Adjust as needed */
+  border-radius: 50%;
+  /* Makes it circular */
+  border: 2px solid #fff;
+  /* White border */
+  background: rgba(255, 255, 255, 0.2);
+  /* Semi-transparent background */
+  backdrop-filter: blur(5px);
+  /* Blur effect behind the circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  /* Text color */
+  font-weight: bold;
+  z-index: 10;
+}
+.punkapocalyptic.sheet.vehicle .circle-left {
+  bottom: 10px;
+  /* Adjust spacing from bottom */
+  left: 10px;
+}
+.punkapocalyptic.sheet.vehicle .circle-right {
+  bottom: 10px;
+  /* Adjust spacing from bottom */
+  right: 10px;
+}
+.punkapocalyptic.sheet.vehicle button.decrease,
+.punkapocalyptic.sheet.vehicle button.increase {
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.punkapocalyptic.sheet.vehicle .icon-center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block !important;
+}
+.punkapocalyptic.sheet.vehicle button.decrease:hover,
+.punkapocalyptic.sheet.vehicle button.increase:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+.punkapocalyptic.sheet.vehicle button i {
+  color: black;
+}
+.punkapocalyptic.sheet.vehicle .progress-container {
+  /*width: 300px;*/
+  height: 30px;
+  border: 3px solid white;
+  border-radius: 5px;
+  background: black;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.punkapocalyptic.sheet.vehicle .progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.5s ease-in-out;
+}
+.punkapocalyptic.sheet.vehicle .progress-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: white;
+  font-weight: bold;
+}
+.punkapocalyptic.sheet.vehicle * {
+  box-sizing: border-box;
+}
+.punkapocalyptic.sheet.vehicle .dashboard {
+  font-family: "Coda", cursive;
+}
+.punkapocalyptic.sheet.vehicle .meter {
+  display: inline-block;
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  background-color: white;
+  border-radius: 50%;
+  margin: 0.5rem 0.5rem;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), inset 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.punkapocalyptic.sheet.vehicle .meter:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 107%;
+  left: -3.5%;
+  top: -3.5%;
+  bottom: -3.5%;
+  border-radius: 50%;
+  background: #333;
+  z-index: -1;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.punkapocalyptic.sheet.vehicle .label {
+  position: absolute;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  text-align: center;
+  color: #555;
+}
+.punkapocalyptic.sheet.vehicle .label.label-value {
+  color: #eee;
+}
+.punkapocalyptic.sheet.vehicle .label span {
+  text-transform: uppercase;
+}
+.punkapocalyptic.sheet.vehicle .label-unit {
+  top: 82.5%;
+}
+.punkapocalyptic.sheet.vehicle .label-unit div {
+  font-size: 1rem;
+}
+.meter--big-label .punkapocalyptic.sheet.vehicle .label-unit div {
+  font-size: 0;
+}
+.punkapocalyptic.sheet.vehicle .label-value {
+  top: 50%;
+  line-height: 1.25;
+}
+.punkapocalyptic.sheet.vehicle .label-value div, .punkapocalyptic.sheet.vehicle .label-value span {
+  font-size: 0;
+}
+.meter--big-label .punkapocalyptic.sheet.vehicle .label-value div, .meter--big-label .punkapocalyptic.sheet.vehicle .label-value span {
+  font-size: 2.5rem;
+}
+.punkapocalyptic.sheet.vehicle .label-value div {
+  font-family: "Roboto Mono", monospace;
+  font-style: italic;
+}
+.meter--big-label .punkapocalyptic.sheet.vehicle .label-value span {
+  font-size: 1rem;
+}
+.punkapocalyptic.sheet.vehicle .label-value span {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+.punkapocalyptic.sheet.vehicle .needle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 2.5px;
+  height: 50px;
+  transform: translate3d(-50%, 0, 0);
+  transform-origin: 50% 0;
+  background-color: #e30;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.punkapocalyptic.sheet.vehicle .needle:before, .punkapocalyptic.sheet.vehicle .needle:after {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.punkapocalyptic.sheet.vehicle .needle:before {
+  left: -1.5px;
+  border-width: 0 1.5px 50px 0;
+  border-color: transparent rgb(255, 81.3571428571, 34) transparent transparent;
+}
+.punkapocalyptic.sheet.vehicle .needle:after {
+  right: -1.5px;
+  border-width: 50px 1.5px 0 0;
+  border-color: rgb(212.5, 45.5357142857, 0) transparent transparent transparent;
+}
+.punkapocalyptic.sheet.vehicle .needle-axle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 7.5%;
+  height: 7.5%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 50%;
+  background-color: #333;
+  color: #eee;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+}
+.punkapocalyptic.sheet.vehicle .needle-axle:hover {
+  background-color: black;
+}
+.meter--big-label .punkapocalyptic.sheet.vehicle .needle-axle {
+  width: 18.75%;
+  height: 18.75%;
+}
+.punkapocalyptic.sheet.vehicle .grad {
+  position: absolute;
+  display: inline-block;
+  font-size: 0.5rem;
+  line-height: 1;
+  color: #555;
+  transform: translate3d(-50%, -50%, 0);
+  font-weight: bold;
+}
+.punkapocalyptic.sheet.vehicle .grad.redzone {
+  color: #e30;
+}
+.meter--rpm .punkapocalyptic.sheet.vehicle .grad {
+  font-size: 1rem;
+}
+.punkapocalyptic.sheet.vehicle .grad-tick.redzone,
+.punkapocalyptic.sheet.vehicle .grad-tick--half.redzone,
+.punkapocalyptic.sheet.vehicle .grad-tick--quarter.redzone {
+  background-color: #e30;
+}
+.punkapocalyptic.sheet.vehicle .grad-tick {
+  position: absolute;
+  display: block;
+  width: 2px;
+  height: 0.45em;
+  transform-origin: 50% 0;
+  background-color: #555;
+}
+.punkapocalyptic.sheet.vehicle .grad-tick--half {
+  width: 2px;
+  height: 0.5em;
+}
+.punkapocalyptic.sheet.vehicle .grad-tick--quarter {
+  width: 2px;
+  height: 0.25em;
+}
+.punkapocalyptic.sheet.vehicle .meter--gear {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), inset 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.punkapocalyptic.sheet.vehicle .meter--gear:before {
+  width: 128%;
+  height: 128%;
+  left: -14%;
+  top: -14%;
+  bottom: -14%;
+}
+.punkapocalyptic.sheet.vehicle .meter--gear div {
+  font-size: 1.25rem;
+  text-align: center;
+  line-height: 1.25rem;
+  font-family: "Roboto Mono", monospace;
+  font-style: italic;
+  font-weight: bold;
+  color: #555;
+}
+.punkapocalyptic.sheet.vehicle .meter--gear div.redzone {
+  color: #e30;
+}
+.punkapocalyptic.sheet.vehicle .loader {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  background: tomato;
+  color: white;
+  padding: 2rem;
+  text-transform: uppercase;
+}
+.punkapocalyptic.sheet.vehicle .loader.active {
+  display: inline-block;
+}
+.punkapocalyptic.sheet.vehicle .btn-volume {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2.5rem;
+  height: 2.53rem;
+  line-height: 2rem;
+  border-radius: 50%;
+  background: transparent;
+  color: gray;
+  border: 4px solid;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.punkapocalyptic.sheet.vehicle .btn-volume.active {
+  color: tomato;
+  border-color: tomato;
+}
+.punkapocalyptic.sheet.vehicle .head,
+.punkapocalyptic.sheet.vehicle .help {
+  padding: 1rem;
+  color: #888;
+  text-align: center;
+  font-style: italic;
+}
+.punkapocalyptic.sheet.vehicle .help {
+  border-top: 1px solid;
+}
+.punkapocalyptic.sheet.vehicle .head {
+  border-bottom: 1px solid;
+}
+.punkapocalyptic.sheet.vehicle h1 {
+  margin: 0;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 .punkapocalyptic.sheet.item .window-content {

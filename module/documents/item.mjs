@@ -69,7 +69,6 @@ export class PunkapocalypticItem extends Item {
    * @private
    */
   async roll(mod = 0) {
-    console.warn("MOD", Number(mod))
     const item = this;
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -130,12 +129,6 @@ export class PunkapocalypticItem extends Item {
       <br />
       `;
       this.actor.rollAbility(this.system.roll.ability, mod, label)
-      // roll.toMessage({
-      //   speaker: speaker,
-      //   rollMode: rollMode,
-      //   flavor: label,
-      // });
-      //return roll;
     }
   }
 

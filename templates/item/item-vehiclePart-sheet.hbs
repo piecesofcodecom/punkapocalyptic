@@ -1,0 +1,48 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}' />
+    <div class='header-fields'>
+      <h1 class='charname'>
+        <input class="title-punk" name='name' type='text' value='{{item.name}}' placeholder='Name' />
+        </h1>
+      <div class='grid grid-2col'>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.HealthCurrent" }}</label>
+          <input type='text' name='system.health.value' value='{{system.health.value}}' data-dtype='Number' />
+        </div>
+        <div class='resource flexcol flex-group-center'>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.HealthMax" }}</label>
+          <input type='text' name='system.health.max' value='{{system.health.max}}' data-dtype='Number' />
+        </div>
+        
+      </div>
+    </div>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs nav-punk' data-group='primary'>
+    <!--a class='item' data-tab='description'>Description</a-->
+    <a class='item' data-tab='attributes'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Description"}}</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <!--div class='tab' data-group='primary' data-tab='description'>
+      
+    </div-->
+
+    {{! Attributes Tab }}
+    <div class='tab attributes' data-group='primary' data-tab='attributes'>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      {{editor
+      enrichedDescription
+      target='system.description'
+      engine='prosemirror'
+      button=true
+      editable=editable
+      }}
+    </div>
+  </section>
+</form>

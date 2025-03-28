@@ -52,16 +52,76 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
+  /* Mask bg color */
+  mask-image: url('/systems/punkapocalyptic/assets/backgrounds/test-mask.png');
+  mask-mode: alpha; 
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+
+  /* For Safari and older WebKit-based browsers, add the -webkit- prefix too */
+  -webkit-mask-image: url('/systems/punkapocalyptic/assets/backgrounds/test-mask.png');
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
   @import 'components/sheet';
 }
 
 .punkapocalyptic.sheet.npc {
-  background-image: url(/systems/punkapocalyptic/assets/backgrounds/test_npc.png);
+  // background-image: url(/systems/punkapocalyptic/assets/backgrounds/test_npc.png);
   background-color: #d7d5ca;
+  // background-position: center;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  /* “frame” or decorative image */
+  background-image: url('/systems/punkapocalyptic/assets/backgrounds/test_npc.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
+  /* Mask bg color */
+  mask-image: url('/systems/punkapocalyptic/assets/backgrounds/test_npc-mask.png');
+  mask-mode: alpha; 
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+
+  /* For Safari and older WebKit-based browsers, add the -webkit- prefix too */
+  -webkit-mask-image: url('/systems/punkapocalyptic/assets/backgrounds/test_npc-mask.png');
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
+
+  
   @import 'components/sheet';
+}
+
+.punkapocalyptic.sheet.vehicle {
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/tiretracks.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #d7d5ca;
+
+     /* Mask bg color */
+  mask-image: url('/systems/punkapocalyptic/assets/backgrounds/tiretracks_mask.png');
+  mask-mode: alpha; 
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+
+  /* For Safari and older WebKit-based browsers, add the -webkit- prefix too */
+  -webkit-mask-image: url('/systems/punkapocalyptic/assets/backgrounds/tiretracks_mask.png');
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
+    @import 'components/vehiclesheet';
+    @import 'components/dashboard';
 }
 
 .punkapocalyptic.sheet.item {

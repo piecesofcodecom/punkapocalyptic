@@ -10,6 +10,9 @@
       "Mouth": { "long": "Boca", "abbr": "boc", "Tooltip": "Página 28" },
       "Guts": { "long": "Tripas", "abbr": "tri", "Tooltip": "Página 28" }
     },
+    "DefaultItems": {
+      "Hand": { "name": "Golpe Desarmado", "description": "<p>Socos, chutes e cabeçadas: um golpe desarmado usa o corpo para infligir dano.</p>"}
+    },
     "OtherAttributes": {
       "Education": { "long": "Educação", "abbr": "edu", "Tooltip": "Página 15" },
       "Grit": { "long": "Determinacão", "abbr": "DET", "Tooltip": "Página 15" },
@@ -43,18 +46,35 @@
     },
     "SheetLabels": {
       "Actor": "Punkapocalyptic Actor Sheet",
+      "Attributes": "Atributos",
+      "Abilities": "Habilidades",
       "Item": "Punkapocalyptic Item Sheet",
-      "Caminhos": "Caminhos",
-      "Coisas": "Coisas",
-      "Efeitos": "Efeitos",
+      "Paths": "Caminhos",
       "Preferidos": "Preferidos",
-      "Descricao": "Descrição",
+      "Description": "Descrição",
       "Quantity": "Quantidade",
       "Price": "Preço",
       "Damage": "Dano",
       "Range": "Alcance",
       "RollDamage": "Rolar Dano",
-      "RollRange": "Rolar Alcance"
+      "RollRange": "Rolar Alcance",
+      "Name": "Nome",
+      "Type": "Tipo",
+      "Mission": "Missão",
+      "Mojo": "Mojo",
+      "Resources": "Mercadorias",
+      "Main": "Principal",
+      "Inventory": "Coisas",
+      "Benefits": "Benefícios",
+      "Effects": "Efeitos",
+      "Mutations": "Mutações",
+      "Background": "Histórico",
+      "Traits": "Traços",
+      "SpecialActivities": "Atividades Especiais",
+      "HealthMax": "Vida Máxima",
+      "HealthCurrent": "Vida Atual",
+      "MPG": "Km/L",
+      "Properties": "Propriedades"
     },
     "Item": {
       "Spell": {
@@ -63,12 +83,17 @@
       },
       "SpecialActivity": {"long": "Atividade Especial", "abbr": "AE" }
     },
+    "Mutation": {
+      "Physic": { "long": "Físico"},
+      "Mental": { "long": "Mental"}
+    },
     "Effect": {
-      "Source": "Source",
-      "Toggle": "Toggle Effect",
-      "Temporary": "Temporary Effects",
-      "Passive": "Passive Effects",
-      "Inactive": "Inactive Effects"
+      "Source": "Fonte",
+      "Toggle": "Alternar efeito",
+      "Temporary": "Efeitos temporários",
+      "Passive": "Efeitos passivos",
+      "Inactive": "Efeitos inativos",
+      "TabDuration": "Duração"
     },
     "Other": {
       "Pag": "Página",
@@ -79,11 +104,21 @@
       "Speed": {"long": "Velocidade", "abbr": "Vel" }
     },
     "New": {
+      "Armor": "Veste Nova",
       "Weapon": "Arma Nova",
       "Trait": "Traço Novo",
       "Item": "Coisa Nova",
       "Special_activity": "Nova Atividade Especial",
-      "Talent": "Talento Novo"
+      "Talent": "Talento Novo",
+      "Benefit": "Benefício novo",
+      "Mutation": "Mutação nova",
+      "Background": "Background Novo",
+      "Effect": "Efeito",
+      "VehiclePart": "Parte de Veículo"
+    },
+    "ChatMessage": {
+      "AttackMessage": "Atacando com {weapon}",
+      "TitleDamageRoll": "Rolando dano para {weapon}"
     },
     "WeaponTrait": {
     "AreaAttack": { "long": "Ataque de Área", "abbr": "AdA", "tooltip": "Página 77 do livro de regras" },
@@ -101,12 +136,48 @@
     "Thrown": { "long": "Arremesso", "abbr": "Arr", "tooltip": "Página 77 do livro de regras" },
     "Unreliable": { "long": "Inconstante", "abbr": "", "tooltip": "Página 77 do livro de regras" }
     },
+    "Vehicle": {
+      "Handling": { "long": "Manobrabilidade", "abbr": ""},
+      "Acceleration": { "long": "Aceleração", "abbr": ""},
+      "Braking": { "long": "Freios", "abbr": ""},
+      "TopVelocity": { "long": "Velocidade Máxima", "abbr": ""},
+      "Fuel": { "long": "Tanque", "abbr": ""},
+      "Locations": { "long": "Locais", "abbr": ""},
+      "Occupants": { "long": "Ocupantes", "abbr": ""},
+      "Cargo": { "long": "Carga", "abbr": ""},
+      "AccelerationOptions": {
+        "standard": "Padrão",
+        "slow": "Lenta",
+        "fast": "Rápida",
+        "superFast": " Super-rápida"
+      },
+      "Damage": "Danificar Parte"
+    },
     "WeaponCategory": {
       "Melee": { "long": "Corpo a Corpo" },
       "Ranged": { "long": "Distância" },
       "Explosive": { "long": "Explosivo" },
       "Area": { "long": "Area" },
       "Thrown": { "long": "Arremesso" }
+    },
+    "Messages": {
+      "HandItemAdded": "Golpe desarmado adicionado as suas coisas.",
+      "SelectWeaponLimitExceeded": "Você só pode usar 2 armas simultaneamente."
+    },
+    "OtherStatistics": {
+      "Handling": { "long": "Manobrabilidade", " tooltip": "Página 77 do livro de regras" },
+      "Acceleration": { "long": "Aceleração", " tooltip": "Página 77 do livro de regras" },
+      "Braking": { "long": "Freio", " tooltip": "Página 77 do livro de regras" },
+      "TopVelocity": { "long": "Velocidade Máxima", " tooltip": "Página 77 do livro de regras" },
+      "Fuel": { "long": "Combustível", " tooltip": "Página 77 do livro de regras" },
+      "Locations": { "long": "Locais", " tooltip": "Página 77 do livro de regras" },
+      "Occupants": { "long": "Ocupantes", " tooltip": "Página 77 do livro de regras" },
+      "Cargo": { "long": "Carga", " tooltip": "Página 77 do livro de regras" }
+    },
+    "Path": {
+      "Novice": { "long": "Novato" },
+      "Expert": { "long": "Especialista" },
+      "Master": {"long": "Mestre" }
     },
     "NewItemMasc": "Novo {type}",
     "NewItemFem": "Nova {type}",
@@ -116,7 +187,8 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "npc": "NPC"
+      "npc": "NPC",
+      "vehicle": "Veículo"
     },
     "Item": {
       "item": "Coisa",
@@ -124,7 +196,12 @@
       "trait": "Traço",
       "background": "Histórico",
       "talent": "Talento",
-      "SpecialActivity": "Atividade Especial"
+      "SpecialActivity": "Atividade Especial",
+      "benefit": "Benefício",
+      "path": "Caminho",
+      "mutation": "Mutação",
+      "effect": "Efeito",
+      "vehiclePart": "Parte (Veículo)"
     }
   }
 }

@@ -175,25 +175,12 @@ export class PunkapocalypticNPCSheet extends ActorSheet {
         background.push(i);
       }
     }
-
-    const equipped = context.items.filter(i => i.type == "weapon" && i.system.equipped);
-    if (equipped.length == 0) {
-      equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
-      equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
-    } else {
-      for (const key in equipped) {
-        equipped[key].system.roll.formula = `1d20+@abilities.${equipped[key].system.roll.ability}.mod`;
-        equipped[key].system.damage.formula = `${equipped[key].system.damage.diceNum}d${equipped[key].system.damage.diceSize} + ${equipped[key].system.damage.diceBonus}`;
-      }
-      if (equipped.length < 2) {
-        equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
-      }
-    }
+    
 
 
     // Assign and return
     
-    context.equipped = equipped;
+    
     context.gear = gear;
     context.features = features;
     //context.spells = spells;
@@ -357,7 +344,9 @@ export class PunkapocalypticNPCSheet extends ActorSheet {
     delete itemData.system['type'];
 
     // Finally, create the item!
-    return await Item.create(itemData, { parent: this.actor });
+    const newItem = await Item.create(itemData, { parent: this.actor });
+    return newItem.sheet.render(true);
+    
   }
 
   async getAbilityDialog() {

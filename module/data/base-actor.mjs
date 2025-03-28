@@ -15,14 +15,13 @@ export default class PunkapocalypticActorBase extends PunkapocalypticDataModel {
     });
     schema.defense = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
-      //max: new fields.NumberField({ ...requiredInteger, initial: 0 }),
       current: new fields.NumberField({ ...requiredInteger, initial: 0 }),
       mod: new fields.NumberField({ ...requiredInteger, initial: 0 })
     });
-    schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
+    schema.biography = new fields.StringField({ required: true, blank: true });
     schema.speed = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 }),
-      current: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 }),
+      current: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
       mod: new fields.NumberField({ ...requiredInteger, initial: 0 })
     });
     schema.size = new fields.NumberField({ ...floatNumber, initial: 1, min: 0 });

@@ -1,0 +1,38 @@
+<ol class='items-list'>
+  <li class='item flexrow items-header'>
+    <div class='item-name'>{{localize 'Name'}}</div>
+    <div class='item-equipped'>{{localize 'Motorista'}}</div>
+    <div class='item-controls'>
+      {{!-- <a class='item-control item-create' title='{{localize "PUNKAPOCALYPTIC.CreateNewItemFem" type=(localize 'TYPES.Item.item')}}' data-type='item'>
+        <i class='fas fa-plus'></i>
+        {{localize 'PUNKAPOCALYPTIC.NewItemFem' type=(localize 'TYPES.Item.item') }}
+      </a> --}}
+    </div>
+  </li>
+  {{#each occupants as |item id|}}
+  <li class='item flexrow' data-item-id='{{item.uuid}}'>
+    <div class='item-name'>
+      <div class='item-image'>
+        <a class='rollable' data-roll-type='item'>
+          <img src='{{item.img}}' title='{{item.name}}' width='24' height='24' />
+        </a>
+      </div>
+      <h4>{{item.name}}</h4>
+    </div>
+
+    <div class='item-equipped item-prop rollable' data-roll-type="select-driver" data-item-id="{{item.uuid}}">
+      {{#if item.driver}}
+      <i class="fa-solid fa-hand"></i>
+      {{else}}
+      <i class="fa-regular fa-hand"></i>
+      {{/if}}
+    </div>
+    
+    <div class='item-controls'>
+      <a class='item-control item-delete' title='{{localize "DOCUMENT.Delete" type=' Item'}}'>
+        <i class='fas fa-trash'></i>
+      </a>
+    </div>
+  </li>
+  {{/each}}
+</ol>

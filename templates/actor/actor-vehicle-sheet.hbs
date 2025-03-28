@@ -2,15 +2,9 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-<img class="" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 299px; width: 217px">
-<div class="healthContainer">
-  <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button> 
-  <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button> 
-  <div class="healthBarShell">
-    <div class="healthBarValue" style="width: {{healthPercentage system.health.value system.health.max}}"></div>
-    <div class="healthDisplay"><input type="text" class="vida" name="system.health.value" value="{{system.health.value}}"></div> <!-- Larger health display -->
-  </div>
-</div>
+    <img class="" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 299px; width: 299px">
+
+
     <div class="header-fields">
       <div class="grid-span-2">
         <h1 class="charname">
@@ -38,43 +32,299 @@
               {{#ifIn key "muscles,meat,hands,feet" }}
               <div class="ability flexrow flex-group-center {{key}}">
                 <label for="system.abilities.{{key}}.value" class="ability-name rollable flexlarge align-left"
-                  data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}"
+                  data-ability-id="{{key}}" data-roll-type="ability"
+                  data-label="{{localize (lookup @root.config.abilities key)}}"
                   data-tooltip="{{ability.tooltip}}">{{localize (lookup @root.config.abilities
                   key)}}</label>
-                <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}"
-                  data-dtype="Number" />
+                <input class="align-right" type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}"
+                  data-dtype="Number" style="text-align: right" />
               </div>
               {{/ifIn}}
               {{/each}}
-              <div class="ability flexrow flex-group-center ">
-                <label for="system.speed.value" class="ability-name flexlarge align-left"
-                  data-roll="" data-label=""
-                  data-tooltip="Velocidade">Velocidade</label>
-                <input type="text" name="system.speed.current" value="{{system.speed.current}}"
-                  data-dtype="Number" />
+              {{#each system.otherStatistics as |statistic key|}}
+              {{#ifIn key "fuel,breaking,occupants,cargo,topVelocity,braking" }}
+              <div class="flexrow flex-group-center">
+                <label class="ability-name" style="text-align: left;">{{statistic.label}}</label>
+                {{#comparestring key "acceleration"}}
+                <select name="system.otherStatistics.{{key}}.value" type="text" data-dtype='Number'>
+                  {{#comparestring statistic.value ""}}
+                  <option value="" selected>Nenhuma</option>
+                  {{/comparestring}}
+                  {{#each @root/accelerationOptions as |acc id|}}
+                  <option value="{{id}}" {{#comparestring @root/system.otherStatistics.acceleration.value id }} selected
+                    {{/comparestring}}>{{acc.label}}</option>
+                  {{/each}}
+                </select>
+                {{else}}
+                <input class="align-right" type="text" name="system.otherStatistics.{{key}}.value"
+                  value="{{statistic.value}}" data-dtype="Number" style="text-align: right;" />
+                  {{#comparestring key "fuel"}}
+                  <label class="ability-name">(</label><input style="text-align: center" type="text" name="system.otherStatistics.{{key}}.fuelEfficiency"
+                      value="{{statistic.fuelEfficiency}}" data-dtype="Number" style="text-align: right;" />
+                    <label class="ability-name" style="text-align: left;">{{localize "PUNKAPOCALYPTIC.SheetLabels.MPG"}})</label>
+                    
+                  {{/comparestring}}
+                {{/comparestring}}
+              </div>
+              {{/ifIn}}
+              {{/each}}
+              <div class="flexrow flex-group-center">
+                <label class="ability-name min-115" style="text-align: left;">Defesa</label>
+                <input class="align-right" type="text" name="system.defense.current" value="{{system.defense.current}}"
+                  data-dtype="Number" style="text-align: right;" readonly />
               </div>
             </div>
           </div>
         </div>
         <div class="grid-span-1">
-          <div class="flexcol">
+          <div class="flexcol flex-group-center">
             {{#each system.otherStatistics as |statistic key|}}
-              
-              <div class="flexrow flex-group-center">
-              <label class="ability-name min-115" style="text-align: left;">{{key}}</label>
-              <input class="align-right" type="text" name="system.otherStatistics.{{key}}.value" value="{{statistic.value}}"
-                data-dtype="Number" style="text-align: right;" />
+            {{#ifNotIn key "fuel,breaking,occupants,cargo,topVelocity,braking" }}
+            <div class="flexcol flex-group-center">
+              <label class="ability-name" style="text-align: left;">{{statistic.label}}</label>
+              {{#comparestring key "acceleration"}}
+              <select name="system.otherStatistics.{{key}}.value" type="text" data-dtype='Number'>
+                {{#comparestring statistic.value ""}}
+                <option value="" selected>Nenhuma</option>
+                {{/comparestring}}
+                {{#each @root/accelerationOptions as |acc id|}}
+                <option value="{{id}}" {{#comparestring @root/system.otherStatistics.acceleration.value id }} selected
+                  {{/comparestring}}>{{acc.label}}</option>
+                {{/each}}
+              </select>
+              {{else}}
+              <input class="align-right" type="text" name="system.otherStatistics.{{key}}.value"
+                value="{{statistic.value}}" data-dtype="Number" style="text-align: center;" />
+              {{/comparestring}}
             </div>
-              
-              {{/each}}
-            
+            {{/ifNotIn}}
+            {{/each}}
+
           </div>
+          <div class="flexrow flex-group-center" style="padding-top: 10px;">
+            {{#if system.otherStatistics.fuel.value }}
+            <div>
+              <div class="meter meter--rpm meter--big-label">
+                <div style="margin-top: 30%; text-align: center;"><i class="fa-solid fa-gas-pump"></i></div>
+                <div class="label label-unit">
+                  <div></div>
+                  <span>
+                    <input type="text" name="system.otherStatistics.fuel.current"
+                      value="{{system.otherStatistics.fuel.current}}" data-dtype="Number" /></span>
+                </div>
+                <div class="grad grad--0 redzone" style="left: 30%; top: 84.641%;">0</div>
+                <div class="grad-tick grad-tick--0 redzone"
+                  style="left: 25%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(210deg);"></div>
+
+                <div class="grad grad--1 redzone" style="left: 13.0448%; top: 65.3073%; ">1</div>
+                <div class="grad-tick grad-tick--1 redzone"
+                  style="left: 3.80602%; top: 69.1342%; transform: translate3d(-50%, 0px, 0px) rotate(247.5deg);"></div>
+
+                <div class="grad grad--2" style="left: 11.363%; top: 39.6472%;">2</div>
+                <div class="grad-tick grad-tick--2"
+                  style="left: 1.70371%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(285deg);"></div>
+
+                <div class="grad grad--3" style="left: 25.6495%; top: 18.2659%;">3</div>
+                <div class="grad-tick grad-tick--3"
+                  style="left: 19.5619%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(322.5deg);"></div>
+
+                <div class="grad grad--4" style="left: 50%; top: 10%;">4</div>
+                <div class="grad-tick grad-tick--4"
+                  style="left: 50%; top: 0%; transform: translate3d(-50%, 0px, 0px) rotate(360deg);"></div>
+
+                <div class="grad grad--5" style="left: 74.3505%; top: 18.2659%;">5</div>
+                <div class="grad-tick grad-tick--5"
+                  style="left: 80.4381%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(397.5deg);"></div>
+
+                <div class="grad grad--6" style="left: 88.637%; top: 39.6472%;">6</div>
+                <div class="grad-tick grad-tick--6"
+                  style="left: 98.2963%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(435deg);"></div>
+
+                <div class="grad grad--7 " style="left: 86.9552%; top: 65.3073%;">7</div>
+                <div class="grad-tick grad-tick--7 "
+                  style="left: 96.194%; top: 69.1342%; transform: translate3d(-50%, 0px, 0px) rotate(472.5deg);"></div>
+
+                <div class="grad grad--8 " style="left: 70%; top: 84.641%;">8</div>
+                <div class="grad-tick grad-tick--8 "
+                  style="left: 75%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(510deg);"></div>
+                <div class="needle" style="transform: translate3d(-50%, 0px, 0px) rotate({{fuel_dashboard}}deg);"></div>
+                <div class="needle-axle"></div>
+                <div class="label label-value">
+                </div>
+              </div>
+            </div>
+            {{/if}}
+            <div>
+              <div class="meter meter--speed">
+                <div style="margin-top: 30%; text-align: center;">Km/h</div>
+                <div class="label label-unit"><span>
+                    <input type="text" name="system.speed.current" value="{{system.speed.current}}"
+                      data-dtype="Number" />
+                  </span>
+                </div>
+
+                <div class="grad grad--0 " style="left: 30%; top: 84.641%;">0</div>
+                <div class="grad-tick grad-tick--0 "
+                  style="left: 25%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(210deg);"></div>
+
+                <div class="grad grad--1 " style="left: 13.0448%; top: 65.3073%; ">15</div>
+                <div class="grad-tick grad-tick--1 "
+                  style="left: 3.80602%; top: 69.1342%; transform: translate3d(-50%, 0px, 0px) rotate(247.5deg);"></div>
+
+                <div class="grad grad--2" style="left: 11.363%; top: 39.6472%;">45</div>
+                <div class="grad-tick grad-tick--2"
+                  style="left: 1.70371%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(285deg);"></div>
+
+                <div class="grad grad--3" style="left: 25.6495%; top: 18.2659%;">90</div>
+                <div class="grad-tick grad-tick--3"
+                  style="left: 19.5619%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(322.5deg);"></div>
+
+                <div class="grad grad--4" style="left: 50%; top: 10%;">135</div>
+                <div class="grad-tick grad-tick--4"
+                  style="left: 50%; top: 0%; transform: translate3d(-50%, 0px, 0px) rotate(360deg);"></div>
+
+                <div class="grad grad--5" style="left: 74.3505%; top: 18.2659%;">180</div>
+                <div class="grad-tick grad-tick--5"
+                  style="left: 80.4381%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(397.5deg);"></div>
+
+                <div class="grad grad--6" style="left: 88.637%; top: 39.6472%;">255</div>
+                <div class="grad-tick grad-tick--6"
+                  style="left: 98.2963%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(435deg);"></div>
+
+                <div class="grad grad--7 " style="left: 82.9552%; top: 60.3073%;">270</div>
+                <div class="grad-tick grad-tick--7 "
+                  style="left: 96.194%; top: 65.1342%; transform: translate3d(-50%, 0px, 0px) rotate(472.5deg);"></div>
+
+                <div class="grad grad--8 redzone" style="left: 76%; top: 74.641%;">315</div>
+                <div class="grad-tick grad-tick--8 redzone"
+                  style="left: 90%; top: 80.3013%; transform: translate3d(-50%, 0px, 0px) rotate(480deg);"></div>
+
+                <div class="grad grad--8 redzone" style="left: 70%; top: 84.641%;">315+</div>
+                <div class="grad-tick grad-tick--8 redzone"
+                  style="left: 75%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(510deg);"></div>
+
+                <div class="needle" style="{{speed_dashboard}}"></div>
+                <div class="needle-axle"></div>
+                <div class="label label-value">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
+
+        {{!-- <div class="grid-span-1 flex-group-center">
+          <div class="dashboard">
+            <div class="meter meter--rpm meter--big-label">
+              <div style="margin-top: 30%;"><i class="fa-solid fa-gas-pump"></i></div>
+              <div class="label label-unit">
+                <div></div>
+                <span>
+                  <input type="text" name="system.otherStatistics.fuel.current"
+                    value="{{system.otherStatistics.fuel.current}}" data-dtype="Number" /></span>
+              </div>
+              <div class="grad grad--0 redzone" style="left: 30%; top: 84.641%;">0</div>
+              <div class="grad-tick grad-tick--0 redzone"
+                style="left: 25%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(210deg);"></div>
+
+              <div class="grad grad--1 redzone" style="left: 13.0448%; top: 65.3073%; ">1</div>
+              <div class="grad-tick grad-tick--1 redzone"
+                style="left: 3.80602%; top: 69.1342%; transform: translate3d(-50%, 0px, 0px) rotate(247.5deg);"></div>
+
+              <div class="grad grad--2" style="left: 11.363%; top: 39.6472%;">2</div>
+              <div class="grad-tick grad-tick--2"
+                style="left: 1.70371%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(285deg);"></div>
+
+              <div class="grad grad--3" style="left: 25.6495%; top: 18.2659%;">3</div>
+              <div class="grad-tick grad-tick--3"
+                style="left: 19.5619%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(322.5deg);"></div>
+
+              <div class="grad grad--4" style="left: 50%; top: 10%;">4</div>
+              <div class="grad-tick grad-tick--4"
+                style="left: 50%; top: 0%; transform: translate3d(-50%, 0px, 0px) rotate(360deg);"></div>
+
+              <div class="grad grad--5" style="left: 74.3505%; top: 18.2659%;">5</div>
+              <div class="grad-tick grad-tick--5"
+                style="left: 80.4381%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(397.5deg);"></div>
+
+              <div class="grad grad--6" style="left: 88.637%; top: 39.6472%;">6</div>
+              <div class="grad-tick grad-tick--6"
+                style="left: 98.2963%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(435deg);"></div>
+
+              <div class="grad grad--7 " style="left: 86.9552%; top: 65.3073%;">7</div>
+              <div class="grad-tick grad-tick--7 "
+                style="left: 96.194%; top: 69.1342%; transform: translate3d(-50%, 0px, 0px) rotate(472.5deg);"></div>
+
+              <div class="grad grad--8 " style="left: 70%; top: 84.641%;">8</div>
+              <div class="grad-tick grad-tick--8 "
+                style="left: 75%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(510deg);"></div>
+              <div class="needle" style="transform: translate3d(-50%, 0px, 0px) rotate({{fuel_dashboard}}deg);"></div>
+              <div class="needle-axle"></div>
+              <div class="label label-value">
+              </div>
+            </div>
+
+            <div class="meter meter--speed">
+              <div style="margin-top: 30%;">Km/h</div>
+              <div class="label label-unit"><span>
+                  <input type="text" name="system.speed.current" value="{{system.speed.current}}" data-dtype="Number" />
+                </span>
+              </div>
+
+              <div class="grad grad--0 " style="left: 30%; top: 84.641%;">0</div>
+              <div class="grad-tick grad-tick--0 "
+                style="left: 25%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(210deg);"></div>
+
+              <div class="grad grad--1 " style="left: 13.0448%; top: 65.3073%; ">15</div>
+              <div class="grad-tick grad-tick--1 "
+                style="left: 3.80602%; top: 69.1342%; transform: translate3d(-50%, 0px, 0px) rotate(247.5deg);"></div>
+
+              <div class="grad grad--2" style="left: 11.363%; top: 39.6472%;">45</div>
+              <div class="grad-tick grad-tick--2"
+                style="left: 1.70371%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(285deg);"></div>
+
+              <div class="grad grad--3" style="left: 25.6495%; top: 18.2659%;">90</div>
+              <div class="grad-tick grad-tick--3"
+                style="left: 19.5619%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(322.5deg);"></div>
+
+              <div class="grad grad--4" style="left: 50%; top: 10%;">135</div>
+              <div class="grad-tick grad-tick--4"
+                style="left: 50%; top: 0%; transform: translate3d(-50%, 0px, 0px) rotate(360deg);"></div>
+
+              <div class="grad grad--5" style="left: 74.3505%; top: 18.2659%;">180</div>
+              <div class="grad-tick grad-tick--5"
+                style="left: 80.4381%; top: 10.3323%; transform: translate3d(-50%, 0px, 0px) rotate(397.5deg);"></div>
+
+              <div class="grad grad--6" style="left: 88.637%; top: 39.6472%;">255</div>
+              <div class="grad-tick grad-tick--6"
+                style="left: 98.2963%; top: 37.059%; transform: translate3d(-50%, 0px, 0px) rotate(435deg);"></div>
+
+              <div class="grad grad--7 " style="left: 82.9552%; top: 60.3073%;">270</div>
+              <div class="grad-tick grad-tick--7 "
+                style="left: 96.194%; top: 65.1342%; transform: translate3d(-50%, 0px, 0px) rotate(472.5deg);"></div>
+
+              <div class="grad grad--8 redzone" style="left: 76%; top: 74.641%;">315</div>
+              <div class="grad-tick grad-tick--8 redzone"
+                style="left: 90%; top: 80.3013%; transform: translate3d(-50%, 0px, 0px) rotate(480deg);"></div>
+
+              <div class="grad grad--8 redzone" style="left: 70%; top: 84.641%;">315+</div>
+              <div class="grad-tick grad-tick--8 redzone"
+                style="left: 75%; top: 93.3013%; transform: translate3d(-50%, 0px, 0px) rotate(510deg);"></div>
+
+              <div class="needle" style="{{speed_dashboard}}"></div>
+              <div class="needle-axle"></div>
+              <div class="label label-value">
+
+              </div>
+            </div>
+          </div>
+        </div> --}}
 
 
       </div>
     </div>
-    
+
   </header>
 
 
@@ -82,25 +332,29 @@
   {{!-- Sheet Body --}}
   <section class="sheet-body">
     <nav class="sheet-tabs tabs nav-punk" data-group="primary">
-        {{!-- Default tab is specified in actor-sheet.mjs --}}
-        <a class="item header-tab" data-tab="features">Principal</a>
-        <a class="item header-tab" data-tab="accessories">Acessórios</a>
-        <a class="item header-tab" data-tab="parts">Partes</a>
-        <a class="item header-tab" data-tab="upgrades">Aprimoramentos</a>
-        <a class="item header-tab" data-tab="description">Biografia</a>
-        <!--a class="item header-tab" data-tab="effects">Effects</a-->
-      </nav>
+      {{!-- Default tab is specified in actor-sheet.mjs --}}
+      <a class="item header-tab" data-tab="features">Principal</a>
+      <a class="item header-tab" data-tab="accessories">Acessórios</a>
+      <a class="item header-tab" data-tab="upgrades">Aprimoramentos</a>
+      <a class="item header-tab" data-tab="description">Descrição</a>
+      <!--a class="item header-tab" data-tab="effects">Effects</a-->
+    </nav>
     <div class="tab features" data-group="primary" data-tab="features">
-      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="occupants" items="" }}
-      
+      <div class="grid grid-2col">
+        <div class="grid-span-1">
+          <h2>{{localize "PUNKAPOCALYPTIC.Vehicle.Occupants" }}</h2>
+          {{> "systems/punkapocalyptic/templates/actor/parts/vehicle-occupants-item.hbs" }}
+        </div>
+        <div class="grid-span-1">
+          <h2>{{localize "PUNKAPOCALYPTIC.Vehicle.Parts.long" }}</h2>
+          {{> "systems/punkapocalyptic/templates/actor/parts/vehicle-parts-item.hbs" }}
+        </div>
+      </div>
+
     </div>
 
     <div class="tab accessories" data-group="primary" data-tab="accessories">
-      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="accessories" items=""  }}
-    </div>
-
-    <div class="tab parts" data-group="primary" data-tab="parts">
-      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="parts" items="" }}
+      {{> "systems/punkapocalyptic/templates/actor/parts/actor-category-item.hbs" category="accessories" items="" }}
     </div>
 
     <div class="tab uprades" data-group="primary" data-tab="uprades">
@@ -110,8 +364,8 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
-      
-     {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+
+      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 
 

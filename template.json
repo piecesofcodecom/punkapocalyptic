@@ -3,6 +3,6 @@
     "types": ["character", "npc", "vehicle"]
   },
   "Item": {
-    "types": ["armor", "benefit", "item", "weapon", "trait", "mutation", "background","special_activity", "path", "talent"]
+    "types": ["armor", "benefit", "item", "weapon", "trait", "mutation", "background","special_activity", "path", "talent", "vehicleUpgrade", "vehicleAccessory", "vehiclePart"]
   }
 }

@@ -5,11 +5,16 @@
   // background-repeat: no-repeat;
   // background-position: center;
   background: 0;
+}
 
+.window-header {
+  border: 0;
 }
 
 .header-button, .window-title {
   text-shadow: .1em .1em 0 hsl(200 50% 30%);
+  //text-shadow: .1em .1em 0 hsl(0, 2%, 75%);
+  //color:#000;
 }
 
 .title-punk {
@@ -128,6 +133,12 @@
   justify-self: center;
 }
 
+.vida {
+  color: #f3e5e5;
+  margin-left: 10px;
+    margin-top: -5px;
+}
+
 .defesa-container {
   justify-self: center;
   /*background-image: url(/systems/punkapocalyptic/assets/sheet/defesa2.png);
@@ -212,16 +223,16 @@ h3 {
 }
 
 .healthDisplay {
-  width: 60px;
+  width: 80px;
   /* Reduced size */
-  height: 60px;
+  height: 80px;
   /* Reduced size */
-  background: white;
-  /*background-image: url('/systems/punkapocalyptic/assets/sheet/hearts.svg');*/
+  /*background: white;*/
+  background-image: url(/systems/punkapocalyptic/assets/backgrounds/blood-splatter-icon.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: black;
+  color: rgb(233, 227, 227);
   font-weight: bold;
   font-size: 14px;
   /* Adjusted text */
@@ -234,8 +245,8 @@ h3 {
   /* Positioned outside */
   top: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid black;
+  /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+  /*border: 2px solid black;*/
 }
 
 .pc-background {

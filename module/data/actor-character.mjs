@@ -7,12 +7,6 @@ export default class PunkapocalypticCharacter extends PunkapocalypticActorBase {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
 
-    // schema.attributes = new fields.SchemaField({
-    //   level: new fields.SchemaField({
-    //     value: new fields.NumberField({ ...requiredInteger, initial: 1 })
-    //   }),
-    // });
-
     // Iterate over ability names and create a new SchemaField for each.
     schema.abilities = new fields.SchemaField(Object.keys(CONFIG.PUNKAPOCALYPTIC.abilities).reduce((obj, ability) => {
       obj[ability] = new fields.SchemaField({
@@ -43,7 +37,7 @@ export default class PunkapocalypticCharacter extends PunkapocalypticActorBase {
       return obj;
     }, {}));
 
-    schema.biography = new fields.StringField({ required: true, blank: true }); // equivalent to passing ({initial: ""}) for StringFields
+    schema.biography = new fields.StringField({ required: true, blank: true });
 
     schema.paths = new fields.SchemaField({
       novice: new fields.StringField({ required: true, blank: true }),
@@ -52,15 +46,6 @@ export default class PunkapocalypticCharacter extends PunkapocalypticActorBase {
     });
     
     schema.missions = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
-    
-    // OtherAttributes
-    //schema.reach = new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 });
-    //schema.mutations = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
-    // schema.grit = new fields.SchemaField({
-    //   value: new fields.NumberField({ ...requiredInteger, initial: 3, min: 3 }),
-    //   current: new fields.NumberField({ ...requiredInteger, initial: 0 }),
-    //   mod: new fields.NumberField({ ...requiredInteger, initial: 0 })
-    // });
 
     return schema;
   }
@@ -84,11 +69,11 @@ export default class PunkapocalypticCharacter extends PunkapocalypticActorBase {
     this.health.value = this.abilities.meat.value;
     this.health.max = this.health.value + this.health.mod;
     
-    const grit = 3 + this.abilities.guts.mod;
-    if (grit > 0) {
+    //const grit = 3 + this.abilities.guts.mod;
+    if (this.abilities.guts.mod > 0) {
       this.otherAttributes.grit.base = 3 + this.abilities.guts.mod;
     } else {
-      this.otherAttributes.grit.base = 1;
+      this.otherAttributes.grit.base = 4;
     }
     
     if (this.abilities.brains.mod > 0) {
@@ -107,17 +92,12 @@ export default class PunkapocalypticCharacter extends PunkapocalypticActorBase {
 
   getRollData() {
     const data = {};
-
-    // Copy the ability scores to the top level, so that rolls can use
     // formulas like `@str.mod + 4`.
     if (this.abilities) {
       for (let [k,v] of Object.entries(this.abilities)) {
         data[k] = foundry.utils.deepClone(v);
       }
     }
-
-    //data.lvl = this.attributes.level.value;
-
     return data
   }
 }

@@ -2,7 +2,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
-
+import * as utils from '../helpers/utils.mjs';
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -178,15 +178,15 @@ export class PunkapocalypticActorSheet extends ActorSheet {
 
     const equipped = context.items.filter(i => i.type == "weapon" && i.system.equipped);
     if (equipped.length == 0) {
-      equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
-      equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
+      equipped.push(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"])
+      equipped.push(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"])
     } else {
       for (const key in equipped) {
         equipped[key].system.roll.formula = `1d20+@abilities.${equipped[key].system.roll.ability}.mod`;
         equipped[key].system.damage.formula = `${equipped[key].system.damage.diceNum}d${equipped[key].system.damage.diceSize} + ${equipped[key].system.damage.diceBonus}`;
       }
       if (equipped.length < 2) {
-        equipped.push(CONFIG.PUNKAPOCALYPTIC.attackDefaultItems["hand"])
+        equipped.push(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"])
       }
     }
 
@@ -362,7 +362,8 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     delete itemData.system['type'];
 
     // Finally, create the item!
-    return await Item.create(itemData, { parent: this.actor });
+    const newItem = await Item.create(itemData, { parent: this.actor });
+    newItem.sheet.render(true);
   }
 
   async getAbilityDialog() {
@@ -435,15 +436,13 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     const dataset = element.dataset;
  
     // Handle item rolls.
-    console.warn(dataset)
     if (dataset.rollType) {
       if (dataset.rollType == 'select-ammo') {
         const itemId = element.closest('.item').dataset.itemId;
         const equipped_items = this.actor.items.filter((i) => i.type == "weapon" && i.system.equipped);
-        //const equipped_items = this.actor.items.filter((i) => i.type == "weapon" && i.system.equipped);
         const item = this.actor.items.get(itemId);
         if (equipped_items.length > 1 && !item.system.equipped && item.type == "weapon") {
-          ui.notifications.warn("Você só pode usar 2 armas simultaneamente.");
+          ui.notifications.warn(await game.i18n.localize("PUNKAPOCALYPTIC.Messages.SelectWeaponLimitExceeded"));
           return;
         }
         if (item) {
@@ -458,6 +457,20 @@ export class PunkapocalypticActorSheet extends ActorSheet {
         const item = this.actor.items.get(itemId);
         if (item) {
           return item.roll(mod);
+        } else if (itemId == 'hand') {
+          const handItemName = await game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"].name);
+          let handItem = this.actor.items.find( i=> i.name == handItemName);
+          if (!handItem) {
+            ui.notifications.info(await game.i18n.localize("PUNKAPOCALYPTIC.Messages.HandItemAdded"));
+            let tmpItem = foundry.utils.duplicate(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"]);
+            delete tmpItem._id;
+            delete tmpItem.id;
+            tmpItem.name = handItemName;
+            tmpItem.system.description = await game.i18n.localize(tmpItem.system.description);
+            handItem = await Item.create(tmpItem, { parent: this.actor });
+          }
+          
+          return handItem.roll(mod);
         }
       } else if (dataset.rollType == 'ability') {
         this.actor.rollAbility(dataset.abilityId, mod);
@@ -471,21 +484,10 @@ export class PunkapocalypticActorSheet extends ActorSheet {
         }
       }
     }
-
-    // Handle rolls that supply the formula directly.
-    // if (dataset.roll) {
-    //   let label = dataset.label ? `[ability] ${dataset.label}` : '';
-    //   let roll = new Roll(dataset.roll + "+" + mod, this.actor.getRollData());
-    //   roll.toMessage({
-    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    //     flavor: label,
-    //     rollMode: game.settings.get('core', 'rollMode'),
-    //   });
-    //   return roll;
-    // }
   }
 
   async _onDropItemCreate(itemData, event) {
+    console.warn("Item data", itemData);
     if (super._onDropItemCreate) {
       await super._onDropItemCreate(itemData, event);
     }
@@ -498,10 +500,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
         const newItem = await fromUuid(newItemId);
         if (newItem) {
           if (newItem.system?.missions) {
-            const missions = newItem.system.missions.split(',')                    // Split by comma
-            .map(num => num.trim())        // Trim spaces
-            .map(num => Number(num))       // Convert to Number
-            .filter(num => !isNaN(num));   // Remove invalid numbers
+            const missions = utils.getMissions(newItem.system.missions);
             if (!missions.includes(this.actor.system.missions)) {
               continue;
             }
@@ -518,10 +517,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
           if (newItem) {
             // mission 1
             if (this.actor.system.missions) {
-              const missions = newItem.system.missions.split(',')                    // Split by comma
-              .map(num => num.trim())        // Trim spaces
-              .map(num => Number(num))       // Convert to Number
-              .filter(num => !isNaN(num));   // Remove invalid numbers
+              const missions = utils.getMissions(newItem.system.missions)
               if (!missions.includes(this.actor.system.missions)) {
                 continue;
               }

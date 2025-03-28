@@ -11,8 +11,6 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/punkapocalyptic/templates/actor/parts/actor-benefits.hbs',    
     'systems/punkapocalyptic/templates/actor/parts/actor-mutations.hbs',
     'systems/punkapocalyptic/templates/actor/parts/actor-background.hbs',
-    'systems/punkapocalyptic/templates/actor/parts/actor-coisas.hbs',
-    'systems/punkapocalyptic/templates/actor/parts/actor-caminhos.hbs',
     'systems/punkapocalyptic/templates/actor/parts/actor-effects.hbs',
     'systems/punkapocalyptic/templates/actor/parts/actor-weapons.hbs',
     'systems/punkapocalyptic/templates/actor/parts/actor-special-activities.hbs',
@@ -21,6 +19,9 @@ export const preloadHandlebarsTemplates = async function () {
     // NPC partials
     'systems/punkapocalyptic/templates/actor/parts/npc-other.hbs',
     'systems/punkapocalyptic/templates/actor/parts/npc-traits.hbs',
+    // Vehicles partials
+    'systems/punkapocalyptic/templates/actor/parts/vehicle-occupants-item.hbs',
+    'systems/punkapocalyptic/templates/actor/parts/vehicle-parts-item.hbs',
     // Item partials
     'systems/punkapocalyptic/templates/item/parts/item-effects.hbs',
     'systems/punkapocalyptic/templates/item/parts/item-talents.hbs',

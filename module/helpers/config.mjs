@@ -146,7 +146,8 @@ PUNKAPOCALYPTIC.items = {
   //talent: "TYPES.Item.talent",
   benefit: "TYPES.Item.benefit",
   path: "TYPES.Item.path",
-  mutation: "TYPES.Item.mutation"
+  mutation: "TYPES.Item.mutation",
+  vehiclePart: "TYPES.Item.vehiclePart"
 }
 
 PUNKAPOCALYPTIC.itemImages = {
@@ -160,6 +161,7 @@ PUNKAPOCALYPTIC.itemImages = {
   benefit: "icons/magic/perception/eye-slit-orange.webp",
   path: "icons/skills/social/intimidation-impressing.webp",
   mutation: "icons/magic/symbols/triangle-glowing-green.webp",
+  vehiclePart: "icons/tools/smithing/plate-steel-grey.webp",
   default: "icons/svg/item-bag.svg"
 }
 
@@ -213,23 +215,36 @@ PUNKAPOCALYPTIC.attacks = {
   "ranged": "PUNKAPOCALYPTIC.Attack.Ranged",
 }
 
-PUNKAPOCALYPTIC.attackDefaultItems = {
+PUNKAPOCALYPTIC.defaultItems = {
   "hand": {
     "id": "hand",
     "_id": "hand",
-    "name": "Mão vazia",
-    "img": PUNKAPOCALYPTIC.attackIcons[0],
+    "folder": "",
+    "name": "PUNKAPOCALYPTIC.DefaultItems.Hand.name",
+    "type": "weapon",
+    "img": "icons/skills/melee/unarmed-punch-fist-blue.webp",
     "system": {
+      "description": "PUNKAPOCALYPTIC.DefaultItems.Hand.description",
+      "quantity": 1,
+      "ability": "",
       "roll": {
         "ability": "muscles",
-        "bonus": 0,
-        "formula": "1d20+@abilities.muscles.mod"
+        "bonus": 0
       },
+      "equipped": false,
       "damage": {
-        "diceNum": 1,
+        "diceNum": 0,
         "diceSize": 6,
-        "diceBonus": -3,
-        "formula": "1d6-3"
+        "diceBonus": 1
+      },
+      "traits": "",
+      "price": 0,
+      "category": "melee",
+      "range": 1,
+      "radius": {
+        "diceNum": 1,
+        "diceSize": 20,
+        "diceBonus": 0
       }
     }
   }
@@ -241,16 +256,23 @@ PUNKAPOCALYPTIC.vehicleStatistics = {
   braking :     "PUNKAPOCALYPTIC.Vehicle.Braking.long",
   topVelocity:  "PUNKAPOCALYPTIC.Vehicle.TopVelocity.long",
   fuel:         "PUNKAPOCALYPTIC.Vehicle.Fuel.long",
-  locations:    "PUNKAPOCALYPTIC.Vehicle.Locations.long",
+  //locations:    "PUNKAPOCALYPTIC.Vehicle.Locations.long",
   occupants:    "PUNKAPOCALYPTIC.Vehicle.Occupants.long",
   cargo:        "PUNKAPOCALYPTIC.Vehicle.Cargo.long",
 }
 
-PUNKAPOCALYPTIC.vehicleAcceleration = {
+PUNKAPOCALYPTIC.vehicleAccelerationValue = {
   0: "standard",
   1: "slow",
   2: "fast",
-  3: "super-fast"
+  3: "superFast"
+}
+
+PUNKAPOCALYPTIC.vehicleAcceleration = {
+  standard: "PUNKAPOCALYPTIC.Vehicle.AccelerationOptions.standard",
+  slow: "PUNKAPOCALYPTIC.Vehicle.AccelerationOptions.slow",
+  fast: "PUNKAPOCALYPTIC.Vehicle.AccelerationOptions.fast",
+  superFast: "PUNKAPOCALYPTIC.Vehicle.AccelerationOptions.superFast"
 }
 
 PUNKAPOCALYPTIC.mutationTypes = {
@@ -264,3 +286,24 @@ PUNKAPOCALYPTIC.progress_function = (actor) => {
     actor.update({ "system.missions": (next_level) })
   console.warn("progress for actor",actor);
 }
+
+PUNKAPOCALYPTIC.speedNeedle = {
+  0: "transform: translate3d(-50%, 0, 0) rotate(32deg);",
+  1: "transform: translate3d(-50%, 0, 0) rotate(69deg);",
+  2: "transform: translate3d(-50%, 0, 0) rotate(105deg);",
+  3: "transform: translate3d(-50%, 0, 0) rotate(142deg);",
+  4: "transform: translate3d(-50%, 0, 0) rotate(180deg);",
+  5: "transform: translate3d(-50%, 0, 0) rotate(217deg);",
+  6: "transform: translate3d(-50%, 0, 0) rotate(255deg);",
+  7: "transform: translate3d(-50%, 0, 0) rotate(287deg);",
+  8: "transform: translate3d(-50%, 0, 0) rotate(307deg);",
+  9: "transform: translate3d(-50%, 0, 0) rotate(330deg);"
+}
+
+PUNKAPOCALYPTIC.VehicleSupportedItems = [
+  "vehiclePart",
+  "vehicleWeapon",
+  "vehicleArmor",
+  "vehicleUpgrade",
+  "vehicleAccessory"
+]

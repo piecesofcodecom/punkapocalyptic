@@ -6,10 +6,6 @@
       <div class="grid grid-3col">
         {{!-- Top header --}}
         <div class="flex-group-right grid-span-3">
-          <div style="position: relative;right: 10px;    font-size: large;
-    margin-top: -1em;font-size: medium; ">
-    Missões: <input style="width: 2em;" type="text" value="{{system.missions}}"
-              name="system.missions" data-dtype="Number" /> <i class="fa-solid fa-turn-up pc-progress"></i> </div>
           <h1 class="charname">
             <input class="title-punk" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
           </h1>
@@ -50,9 +46,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1);">
-                <!--img src="{{item.img}}" class="item-icon rollable" data-item-id="{{item._id}}" data-roll-type="attack"
-                  data-formula="{{item.system.roll.formula}}" data-damage-formula="{{item.system.damage.formula}}"
-                  style="border: 0; height: 50px;" /-->
               </div>
             </div>
           </div>
@@ -63,7 +56,7 @@
               <div class="resource-balas" data-tooltip="Defesa" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-defense.png); background-size: contain;
       background-position: center;
       background-repeat: no-repeat; ">
-                <input type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
+                <input class="bold-text" type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
                   style="z-index:9999;" readonly />
               </div>
             </div>
@@ -81,7 +74,9 @@
     radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.7) 100%),
     url('/{{actor.img}}');
   background-size: cover;
-  background-position: center; position: relative; text-align: left">
+  /*background-size: 100% auto;*/
+    background-repeat: no-repeat;
+  background-position: topf; position: relative; text-align: left">
             {{#each showeffects as |effect| }}
             <img src="{{effect.img}}" data-tooltip="{{effect.name}}" style="
     width: 24px;
@@ -89,8 +84,8 @@
     left: 0; border: 0px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 ">
-{{/each}}
-       
+            {{/each}}
+
 
 
           </div>
@@ -136,15 +131,15 @@
           </div>
           {{/if}}
           {{/each}}
+          {{!-- mojo --}}
           <div class="resource flex-group-center">
             <div class="resource-content flexrow flex-center flex-between">
               <div class="resource-balas" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-mojo.png); background-size: contain;
       background-position: center;
       background-repeat: no-repeat; ">
-                <input type="text" name="system.mojo.current" value="{{system.mojo.current}}" data-dtype="Number"
+                <input class="bold-text"  type="text" name="system.mojo.current" value="{{system.mojo.current}}" data-dtype="Number"
                   style="z-index:9999;" data-tooltip="Mojo Atual" />
-                  <input type="text" name="system.mojo.max" value="{{system.mojo.max}}" data-dtype="Number"
-                  style="z-index:9999; position: absolute;
+                <input type="text" name="system.mojo.max" value="{{system.mojo.max}}" data-dtype="Number" style="z-index:9999; position: absolute;
     margin-top: 55px;
     border: 2px solid #000;
     border-radius: 50%;
@@ -152,13 +147,37 @@
     margin-left: +25%;
     background-color: #dcd9ce;
     font-size: medium;
-    height: 30px;" data-tooltip="Mojo Total"  />
-                  
+    height: 30px;" data-tooltip="Mojo Total" />
+
               </div>
-              
+
             </div>
           </div>
-          <div class="resource flex-group-center"></div>
+          {{!-- missions --}}
+          <div class="resource flex-group-center">
+            <div class="resource-content flexrow flex-center flex-between">
+              <div class="resource-balas" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-mission.png); background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; ">
+                
+                <input class="bold-text" type="text" name="system.missions" value="{{system.missions}}" data-dtype="Number" data-tooltip="Missões"  />
+    <i class="fa-solid fa-turn-up pc-progress boxhover" data-tooltip="Adicionar missão" style="z-index:9999; position: absolute;
+    margin-top: 55px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    width: 30px;
+    margin-left: +25%;
+    background-color: #dcd9ce;
+    font-size: medium;
+    height: 30px;
+    padding-top: 5px;
+    padding-left: 1px;"></i>
+
+              </div>
+
+            </div>
+          </div>
+          <!--div class="resource flex-group-center"></div-->
           <div class="resource flex-group-center"></div>
           <div class="resource flex-group-center"></div>
         </div>
@@ -205,7 +224,7 @@
               <div class="resource-balas" data-tooltip="{{localize (lookup @root.config.resources key)}}" style="background-image: url({{resource.icon}}); background-size: contain;
       background-position: center;
       background-repeat: no-repeat;">
-                <input type="text" name="system.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number"
+                <input class="bold-text" type="text" name="system.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number"
                   style="z-index:9999;" />
               </div>
             </div>
@@ -304,7 +323,8 @@
       {{> "systems/punkapocalyptic/templates/actor/parts/actor-background.hbs"}}
       <div>
         <h2>Anotacões e outras Merdas</h2>
-        {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable class="background-actor-sheet"}}
+        {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable
+        class="bold-text" }}
       </div>
     </div>
     <div class="tab features grid-span-2" data-group="primary" data-tab="effects">

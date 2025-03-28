@@ -4,7 +4,7 @@
   "description": "The Punkapocalyptic system for FoundryVTT!",
   "authors": [
     {
-      "name": "PieceOfCode",
+      "name": "Snagov",
       "discord": "snagov"
     }
   ],
@@ -32,11 +32,16 @@
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt-BR.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
     }
   ],
   "packs": [],
   "packFolders": [],
-  "socket": false,
+  "socket": true,
   "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
   "download": "This must link to a .zip file of the current version",
   "background": "systems/punkapocalyptic/assets/anvil-impact.png",

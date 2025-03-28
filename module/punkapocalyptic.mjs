@@ -4,6 +4,7 @@ import { PunkapocalypticItem } from './documents/item.mjs';
 // Import sheet classes.
 import { PunkapocalypticActorSheet } from './sheets/actor-sheet.mjs';
 import { PunkapocalypticNPCSheet } from './sheets/npc-sheet.mjs';
+import { PunkapocalypticVehicleSheet } from './sheets/vehicle-sheet.mjs';
 import { PunkapocalypticItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
@@ -35,7 +36,8 @@ Hooks.on('ready', async function () {
             description: label,
           }
         }
-    })
+    });
+
   }
 })
 Hooks.once('init', async function () {
@@ -75,6 +77,10 @@ Hooks.once('init', async function () {
   CONFIG.Item.documentClass = PunkapocalypticItem;
   CONFIG.Item.dataModels = {
     item: models.PunkapocalypticItem,
+    vehicleAccessory: models.PunkapocalypticItem,
+    vehicleUpgrade: models.PunkapocalypticItem,
+    vehiclePart: models.PunkapocalypticItemParts,
+
     //feature: models.PunkapocalypticFeature,
     //spell: models.PunkapocalypticSpell,
     weapon: models.PunkapocalypticItemWeapon,
@@ -103,6 +109,11 @@ Hooks.once('init', async function () {
     types: ["npc"],
     makeDefault: true,
     label: "Punkapocalyptic NPC Sheet"
+  });
+  Actors.registerSheet("punkapocalyptic", PunkapocalypticVehicleSheet, {
+    types: ["vehicle"],
+    makeDefault: true,
+    label: "Punkapocalyptic Vehicle Sheet"
   });
   Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('punkapocalyptic', PunkapocalypticItemSheet, {

@@ -1,0 +1,53 @@
+.carDashboard {
+    background: rgb(61, 101, 137);
+    height: 200px;
+    width: 500px;
+    margin: 0 auto;
+    background: url("/systems/punkapocalyptic/assets/backgrounds/dashboard.png");
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  
+  .consumpedFuelNeedle {
+    position: absolute;
+    bottom: -47px;
+    left: 34px;
+    width: 143px;
+    height: 123px;
+  
+    transition: transform 2s ease-in;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  
+  .speedometerNeedle {
+    position: absolute;
+    left: 132px;
+    width: 237px;
+    top: 19px;
+  
+    transition: transform 2s ease-out;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  
+  .waterTemperatureNeedle {
+    position: absolute;
+    bottom: -47px;
+    right: 34px;
+    width: 143px;
+    height: 123px;
+  
+    transition: transform 2s ease-in-out;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+  }
