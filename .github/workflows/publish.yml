@@ -1,4 +1,4 @@
-name: Release Creation
+name: Build and Publish Release
 
 on:
   release:
@@ -30,7 +30,7 @@ jobs:
       id: sub_manifest_link_version
       uses: microsoft/variable-substitution@v1
       with:
-        files: ./release/system.json
+        files: ./system.json
       env:
         version: ${{steps.get_version.outputs.version-without-v}}
         url: https://github.com/${{github.repository}}
@@ -50,7 +50,7 @@ jobs:
         draft: ${{ github.event.release.unpublished }}
         prerelease: ${{ github.event.release.prerelease }}
         token: ${{ secrets.REPO_SEC }}
-        artifacts: './release/system.json, ./release/system.zip'
+        artifacts: './system.json, ./system.zip'
         tag: ${{ github.event.release.tag_name }}
         body: ${{ github.event.release.body }}
     # Publish version to foundry
@@ -58,21 +58,21 @@ jobs:
       id: systemID
       uses: notiz-dev/github-action-json-property@release
       with:
-        path: "./release/system.json"
+        path: "./system.json"
         prop_path: "id"
 
     - name: Get minimum
       id: minimum
       uses: notiz-dev/github-action-json-property@release
       with:
-        path: "./release/system.json"
+        path: "./system.json"
         prop_path: "compatibility.minimum"
 
     - name: Get verified
       id: verified
       uses: notiz-dev/github-action-json-property@release
       with:
-        path: "./release/system.json"
+        path: "./system.json"
         prop_path: "compatibility.verified"
   
     # Submit to foundry
