@@ -3,3 +3,4 @@ node_modules
 *.xcf
 assets/test/
 css/
+*.lock
