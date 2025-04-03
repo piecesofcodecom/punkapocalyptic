@@ -419,7 +419,6 @@ export class PunkapocalypticNPCSheet extends ActorSheet {
     const dataset = element.dataset;
  
     // Handle item rolls.
-    console.warn(dataset)
     if (dataset.rollType) {
       if (dataset.rollType == 'select-ammo') {
         const itemId = element.closest('.item').dataset.itemId;

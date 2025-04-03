@@ -35,8 +35,6 @@ export class TokenEffectsTracker extends Application {
 
   async getData() {
     let currentLuck = game.settings.get("punkapocalyptic", "groupLuck");
-
-    console.warn("Get DATA")
     let data = {};
     if (game.user.isGM) {
       data.luck = {
@@ -52,26 +50,26 @@ export class TokenEffectsTracker extends Application {
   }
 
   _prepareHelpDice(actor) {
-    console.warn("Get DATA")
+    
 
   }
 
   _prepareHeldAction(actor) {
-    console.warn("Get DATA")
+    
   }
 
   async _prepareTemporaryEffects(actor) {
-    console.warn("Get DATA")
+    
   }
 
 
 
   _mergeStackableConditions(effects) {
-    console.warn("Get DATA")
+
   }
 
   async _statusObjects(statuses, effectName) {
-    console.warn("Get DATA")
+
   }
 
   activateListeners(html) {

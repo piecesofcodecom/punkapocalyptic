@@ -1,11 +1,11 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize 'Name'}}</div>
-    <div class='item-dano'>{{localize 'Vida'}}</div>
+    <!--div class='item-dano'>{{localize 'Vida'}}</div-->
     <div class='item-controls'>
-      <a class='item-control item-create' title='{{localize "PUNKAPOCALYPTIC.CreateNewItemFem" type=(localize 'TYPES.Item.vehiclePart')}}' data-type='vehiclePart'>
+      <a class='item-control item-create' title='{{localize "PUNKAPOCALYPTIC.CreateNewItemMasc" type=(localize 'TYPES.Item.vehicleAccessory')}}' data-type='vehicleAccessory'>
         <i class='fas fa-plus'></i>
-        {{localize 'PUNKAPOCALYPTIC.NewItemFem' type=(localize 'TYPES.Item.vehiclePart') }}
+        {{!-- {{localize 'PUNKAPOCALYPTIC.NewItemMasc' type=(localize 'TYPES.Item.vehicleAccessory') }} --}}
       </a>
     </div>
   </li>
@@ -24,11 +24,11 @@
 
     
     
-    <div class='item-dano item-prop' data-roll-type='damage' style="text-shadow: .1em .1em 0 hsl(250, 2.69%, 74.17%); font-weight: bold;"> {{item.system.health.value}} / {{item.system.health.max}}</div>
+    <!--div class='item-dano item-prop' data-roll-type='damage' style="text-shadow: .1em .1em 0 hsl(250, 2.69%, 74.17%); font-weight: bold;"> {{item.system.health.value}} / {{item.system.health.max}}</div-->
     <div class='item-controls'>
-      <a class='item-control item-damage' title='{{localize "PUNKAPOCALYPTIC.Vehicle.Damage" }}'>
+      <!--a class='item-control item-damage' title='{{localize "PUNKAPOCALYPTIC.Vehicle.Damage" }}'>
         <i class="fas fa-burst"></i>
-      </a>
+      </a-->
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=' Item'}}'>
         <i class='fas fa-edit'></i>
       </a>

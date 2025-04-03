@@ -217,7 +217,7 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
       context.actor.system.abilities[ability].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Ability.${ability.capitalize()}.Tooltip`);
       context.actor.system.abilities[ability].img = CONFIG.PUNKAPOCALYPTIC.abilityImages[ability];
     }
-    console.warn(context.actor.system.otherStatistics);
+
     for (const statistic in context.actor.system.otherStatistics) {
       context.actor.system.otherStatistics[statistic] = context.actor.system.otherStatistics[statistic];
       context.actor.system.otherStatistics[statistic].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Vehicle.${statistic.capitalize()}.Tooltip`);
@@ -288,7 +288,6 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
     }
 
     // Iterate through items, allocating to containers
-    console.warn(context.items)
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
       // Append to gear.
@@ -493,14 +492,12 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
    */
   async _onItemCreate(event) {
     event.preventDefault();
-    console.warn("ADASDSD")
     const header = event.currentTarget;
     // Get the type of item to create.
     let type = header.dataset.type;
     if (type == 'item') {
       type = await this.chooseOption();
     }
-    console.warn(type)
 
     // Grab any data associated with this control.
     const data = foundry.utils.duplicate(header.dataset);
@@ -514,7 +511,6 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
     };
     // Remove the type from the dataset since it's in the itemData.type prop.
     delete itemData.system['type'];
-    console.warn(itemData)
     // Finally, create the item!
     return await Item.create(itemData, { parent: this.actor });
   }
@@ -599,9 +595,6 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
           }
           const occupant = this.actor.system.occupants.find(o => o.uuid == dataset.itemId);
           if (occupant) {
-            console.warn(occupant);
-
-            console.warn("NEW DRIVER");
             occupant.driver = !occupant.driver;
             await this.actor.update({ "system.occupants": this.actor.system.occupants });
             await this.actor.update({ "system.driver": occupant.driver });
@@ -625,7 +618,6 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
                 if (user) {
 
                   if (game.user.isGM) {
-                    console.warn("GRANTING PERMISSION")
                     await this.actor.update({
                       [`ownership.${user.id}`]: permissionLevel
                     });
@@ -653,7 +645,6 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
                 }
                 if (user) {
                   if (game.user.isGM) {
-                    console.warn("GRANTING PERMISSION")
                     await this.actor.update({
                       [`ownership.${user.id}`]: permissionLevel
                     });
@@ -681,12 +672,10 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
       console.error("Error parsing drop data:", err);
       return;
     }
-    console.warn(data)
     if (data.type === "Item") {
       const item = await fromUuid(data.uuid);
       this._onDropItemCreate(item, event);
     } else {
-      console.warn(this.actor.system.otherStatistics.occupants)
       if (this.actor.system.otherStatistics.occupants.current == this.actor.system.otherStatistics.occupants.value) {
         ui.notifications.warn("Veículo cheio");
         return;
@@ -730,12 +719,9 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
         }
       }
     }
-
-    console.log("Dropped data:", data);
   }
 
   async _onDropItemCreate(itemData, event) {
-    console.warn(itemData);
     if (!CONFIG.PUNKAPOCALYPTIC.VehicleSupportedItems.includes(itemData.type)) {
       ui.notifications.warn("Tipo de item não suportado por veículos");
       return;

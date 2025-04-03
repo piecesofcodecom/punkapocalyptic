@@ -252,7 +252,6 @@ export class PunkapocalypticActorSheet extends ActorSheet {
   });
     // Handle clicking the profile div to open FilePicker
     html.on('click', '.profile-img', (ev) => {
-      console.log()
       const fp = new FilePicker({
         type: 'image',
         current: ev.currentTarget.dataset.img.replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
@@ -487,7 +486,6 @@ export class PunkapocalypticActorSheet extends ActorSheet {
   }
 
   async _onDropItemCreate(itemData, event) {
-    console.warn("Item data", itemData);
     if (super._onDropItemCreate) {
       await super._onDropItemCreate(itemData, event);
     }
@@ -557,7 +555,6 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     // Check if there's something to update
     if (Object.keys(updatedResources).length > 0) {
       await this.actor.update(updatedResources);
-      console.log("Updated actor resources:", updatedResources);
     } else {
       console.log("No resources to update.");
     }

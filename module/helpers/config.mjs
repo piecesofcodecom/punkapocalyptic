@@ -288,7 +288,6 @@ PUNKAPOCALYPTIC.progress_function = (actor) => {
   const next_level = actor.system.missions + 1;
     const options = [];
     actor.update({ "system.missions": (next_level) })
-  console.warn("progress for actor",actor);
 }
 
 PUNKAPOCALYPTIC.speedNeedle = {

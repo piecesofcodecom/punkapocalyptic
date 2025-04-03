@@ -26,7 +26,6 @@ export default class Punkapocalypticvehicle extends PunkapocalypticActorBase {
         //alert("fuel")
       obj[ability].fields.fuelEfficiency = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
       }
-      console.warn(obj);
       return obj;
     }, {}));
 
