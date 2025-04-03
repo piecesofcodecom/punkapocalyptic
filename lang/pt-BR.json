@@ -36,6 +36,7 @@
     },
     "Messages": {
       "HandItemAdded": "Golpe desarmado adicionado as suas coisas.",
+      "Rolling": "Rolando {ability}",
       "SelectWeaponLimitExceeded": "Você só pode usar 2 armas simultaneamente."
     },
     "Mutation": {
@@ -129,7 +130,8 @@
       "SpecialActivities": "Atividades Especiais",
       "Traits": "Traços",
       "Type": "Tipo",
-      "Upgrades": "Aprimoramentos"
+      "Upgrades": "Aprimoramentos",
+      "Weight": "Carga"
     },
     "Statuses": {
       "Blinded": { "long": "Cego", "abbr": "" },

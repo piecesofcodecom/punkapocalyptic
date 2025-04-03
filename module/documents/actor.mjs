@@ -13,6 +13,55 @@ export class PunkapocalypticActor extends Actor {
     }
 
     /**
+    * Prepare derived data for vehicles.
+    */
+    async vehiclePrepareDerivedData() {
+        const actorData = this;
+        actorData.system.defense.current = actorData.system.defense.base + actorData.system.speed.current;
+        actorData.system.abilities.hands.value = 0;
+        if (actorData.system.speed.current > 0) {
+            actorData.system.abilities.muscles.value = 10 + actorData.system.speed.current;
+            actorData.system.abilities.feet.value = 10 + actorData.system.speed.current;
+        } else {
+            actorData.system.abilities.muscles.value = 0;
+            actorData.system.abilities.feet.value = 0;
+        }
+        const driver = actorData.system.occupants.find(i => i.driver);
+        if (driver) {
+            const actordriver = await fromUuid(driver.uuid);
+            if (actordriver) {
+                actorData.system.abilities.hands.value = actordriver.system.abilities.hands.value - 5;
+            }
+        }
+    }
+
+    /**
+    * Prepare derived data for characters.
+    */
+    async characterPrepareDerivedData() {
+        const actorData = this;
+        // Calculate defense value
+        const defenseBase = actorData.system.defense.base;
+        const armorItems = actorData.items.filter(i => i.type === "armor" && i.system.equipped);
+
+        if (armorItems.length > 0) {
+            const armor = armorItems[0]; // Using first equipped armor
+            actorData.system.defense.current = armor.system.isBonus
+                ? defenseBase + armor.system.defense
+                : armor.system.defense;
+        } else {
+            actorData.system.defense.current = defenseBase;
+        }
+    }
+
+    /**
+    * Prepare derived data for NPCs.
+    */
+    async npcPrepareDerivedData() {
+        const actorData = this;
+    }
+
+    /**
      * @override
      * Augment the actor source data with additional dynamic data that isn't 
      * handled by the actor's DataModel. Data calculated in this step should be
@@ -21,42 +70,18 @@ export class PunkapocalypticActor extends Actor {
      */
     async prepareDerivedData() {
         const actorData = this;
-        //if (actorData.type === 'npc')
-
-        if (actorData.type === 'vehicle') {
-            actorData.system.defense.current = actorData.system.defense.base + actorData.system.speed.current;
-            actorData.system.abilities.hands.value = 0;
-            if (actorData.system.speed.current > 0) {
-                actorData.system.abilities.muscles.value = 10 + actorData.system.speed.current;
-                actorData.system.abilities.feet.value = 10 + actorData.system.speed.current;
-            } else {
-                actorData.system.abilities.muscles.value = 0;
-                actorData.system.abilities.feet.value = 0;
-            }
-            const driver = actorData.system.occupants.find(i => i.driver);
-            if (driver) {
-                const actordriver = await fromUuid(driver.uuid);
-                if (actordriver) {
-                    console.warn("DRIVER",actordriver)
-                    actorData.system.abilities.hands.value = actordriver.system.abilities.hands.value - 5;
-                }
-            }
-            console.warn("BVehicle driver hands: ", actorData.system.abilities.hands);
-        } else if (actorData.type === 'character') {
-
-            // Calculate defense value
-            const defenseBase = actorData.system.defense.base;
-            const armorItems = actorData.items.filter(i => i.type === "armor" && i.system.equipped);
-
-            if (armorItems.length > 0) {
-                const armor = armorItems[0]; // Using first equipped armor
-                actorData.system.defense.current = armor.system.isBonus
-                    ? defenseBase + armor.system.defense
-                    : armor.system.defense;
-            } else {
-                actorData.system.defense.current = defenseBase;
-            }
+        switch (actorData.type) {
+            case 'vehicle':
+                this.vehiclePrepareDerivedData();
+                break;
+            case 'character':
+                this.characterPrepareDerivedData();
+                break;
+            case 'npc':
+                this.npcPrepareDerivedData();
+                break;
         }
+
         for (const key in actorData.system.abilities) {
             // Calculate the modifier using d20 rules.
             actorData.system.abilities[key].mod = Math.floor((actorData.system.abilities[key].value - 10));
@@ -108,9 +133,10 @@ export class PunkapocalypticActor extends Actor {
 
         // Get localized ability name and prepare flavor text
         const label = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.abilities[id]);
+        const roll_message = game.i18n.localize("PUNKAPOCALYPTIC.Messages.Rolling", { ability: label });
         const flavor = content || `
             <img src="${CONFIG.PUNKAPOCALYPTIC.abilityImages[id]}" alt="Icon" class="message-icon">
-            <p style="font-family: 'Poison Hope', sans-serif; text-shadow: 2px 2px 5px gray;">Rolando ${label}</p>`;
+            <p style="font-family: 'Poison Hope', sans-serif; text-shadow: 2px 2px 5px gray;">${roll_message}</p>`;
 
         // Roll the base ability check
         const baseRoll = await new Roll(`1d20+@abilities.${id}.mod`, actor.getRollData()).evaluate({ async: false });

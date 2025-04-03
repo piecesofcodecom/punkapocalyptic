@@ -203,8 +203,6 @@ export class PunkapocalypticItemSheet extends ItemSheet {
     const row = event.currentTarget.closest('li');
     const uuid = row.dataset.itemUuid;
     const itemIds = this.item.system.itemIds || [];
-    console.warn("UID", uuid);
-    console.warn(itemIds);
     const index = itemIds.indexOf(uuid);
     if (index > -1) {
       itemIds.splice(index, 1);
@@ -245,8 +243,6 @@ export class PunkapocalypticItemSheet extends ItemSheet {
     const pathDiceNum = rootPath + ".diceNum";
     const pathDiceBonus = rootPath + ".diceBonus";
     const pathDiceSize = rootPath + ".diceSize";
-    console.warn("editItem", dataset, rootPath, pathDiceNum, pathDiceBonus, pathDiceSize);
-    console.warn("item", utils.getValueByPath(item, rootPath));
     if (item.type == "weapon") {
       try {
         data = await foundry.applications.api.DialogV2.prompt({
@@ -293,8 +289,6 @@ export class PunkapocalypticItemSheet extends ItemSheet {
       console.error("Error parsing drop data:", err);
       return;
     }
-
-    console.log("Dropped data:", data);
     if (!['background','path'].includes(this.item.type)) {
       return;
     }
@@ -315,8 +309,6 @@ export class PunkapocalypticItemSheet extends ItemSheet {
       console.error("Only benefits are allowed.");
       return;
     }
-
-    console.log(`Dropped item "${droppedItem.name}" with ID: ${droppedItem.id}`);
 
     // Get the current list of item IDs and update
     let itemIds = foundry.utils.duplicate(this.item.system.itemIds || []);
