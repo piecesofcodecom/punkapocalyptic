@@ -21,7 +21,7 @@
     },
     "Effect": {
       "Inactive": "Inactive Effects",
-      "Passive": Passive Effects",
+      "Passive": "Passive Effects",
       "Source": "Source",
       "TabDuration": "Duration",
       "Temporary": "Temporary Effects",
