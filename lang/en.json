@@ -27,6 +27,11 @@
       "Temporary": "Temporary Effects",
       "Toggle": "Toggle effect"
     },
+    "Fortune": {
+      "Message": "The Party's Fortune",
+      "RollFortune": "Make a fortune roll for the session",
+      "ShowPlayers": "Show Fortune to Players"
+    },
     "Item": {
       "specialActivity": {"long": "Special Activity", "abbr": "SA" },
       "Spell": {
@@ -99,6 +104,7 @@
       "Water": { "long": "Water", "abbr": "water" }
     },
     "SheetLabels": {
+      "Ability": "Ability",
       "Abilities": "Abilities",
       "Actor": "Punkapocalyptic Actor Sheet",
       "Acessories": "Accessories",
@@ -106,8 +112,10 @@
       "Background": "Background",
       "Benefits": "Benefits",
       "Damage": "Damage",
+      "Defense": "Defense",
       "Description": "Description",
       "Effects": "Effects",
+      "Equipped": "Equipped",
       "HealthCurrent": "Current Health",
       "HealthMax": "Max Health",
       "Inventory": "Inventory",
@@ -115,9 +123,13 @@
       "MPG": "MPG",
       "Main": "Main",
       "Mission": "Mission",
+      "MissionUpgrade": "Upgrade Mission",
       "Mojo": "Mojo",
+      "MojoCurrent": "Current Mojo",
+      "MojoMax": "Max Mojo",
       "Mutations": "Mutations",
       "Name": "Name",
+      "Notes": "Notes and other shit",
       "Paths": "Paths",
       "Preferidos": "Favorites",
       "Price": "Price",

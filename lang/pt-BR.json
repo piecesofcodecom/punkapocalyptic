@@ -27,6 +27,11 @@
       "Temporary": "Efeitos temporários",
       "Toggle": "Alternar efeito"
     },
+    "Fortune": {
+      "Message": "Essa é sua sorte do seu grupo",
+      "RollFortune": "Rolar a Sorte para essa sessão",
+      "ShowPlayers": "Mostrar ao Jogadores"
+    },
     "Item": {
       "specialActivity": {"long": "Atividade Especial", "abbr": "AE" },
       "Spell": {
@@ -99,6 +104,7 @@
       "Water": { "long": "Água", "abbr": "agua" }
     },
     "SheetLabels": {
+      "Ability": "Habilidade",
       "Abilities": "Habilidades",
       "Actor": "Punkapocalyptic Actor Sheet",
       "Acessories": "Acessórios",
@@ -106,8 +112,10 @@
       "Background": "Histórico",
       "Benefits": "Benefícios",
       "Damage": "Dano",
+      "Defense": "Defesa",
       "Description": "Descrição",
       "Effects": "Efeitos",
+      "Equipped": "Equipado",
       "HealthCurrent": "Vida Atual",
       "HealthMax": "Vida Máxima",
       "Inventory": "Coisas",
@@ -115,9 +123,13 @@
       "MPG": "Km/L",
       "Main": "Principal",
       "Mission": "Missão",
+      "MissionUpgrade": "Próxima Missão",
       "Mojo": "Mojo",
+      "MojoCurrent": "Mojo Atual",
+      "MojoMax": "Mojo Total",
       "Mutations": "Mutações",
       "Name": "Nome",
+      "Notes": "Anotacões e outras Merdas",
       "Paths": "Caminhos",
       "Preferidos": "Preferidos",
       "Price": "Preço",
