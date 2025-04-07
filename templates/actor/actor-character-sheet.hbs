@@ -53,7 +53,7 @@
           {{/each}}
           <div class="resource flex-group-center">
             <div class="resource-content flexrow flex-center flex-between">
-              <div class="resource-balas" data-tooltip="Defesa" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-defense.png); background-size: contain;
+              <div class="resource-balas" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.Defense"}}" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-defense.png); background-size: contain;
       background-position: center;
       background-repeat: no-repeat; ">
                 <input class="bold-text" type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
@@ -138,7 +138,7 @@
       background-position: center;
       background-repeat: no-repeat; ">
                 <input class="bold-text"  type="text" name="system.mojo.current" value="{{system.mojo.current}}" data-dtype="Number"
-                  style="z-index:9999;" data-tooltip="Mojo Atual" />
+                  style="z-index:9999;" data-tooltip="{{localize "PUNKAPOCALYPITIC.SheetLabels.MojoCurrent"}}" />
                 <input type="text" name="system.mojo.max" value="{{system.mojo.max}}" data-dtype="Number" style="z-index:9999; position: absolute;
     margin-top: 55px;
     border: 2px solid #000;
@@ -147,7 +147,7 @@
     margin-left: +25%;
     background-color: #dcd9ce;
     font-size: medium;
-    height: 30px;" data-tooltip="Mojo Total" />
+    height: 30px;" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.MojoMax"}}" />
 
               </div>
 
@@ -161,7 +161,7 @@
       background-repeat: no-repeat; ">
                 
                 <input class="bold-text" type="text" name="system.missions" value="{{system.missions}}" data-dtype="Number" data-tooltip="Missões"  />
-    <i class="fa-solid fa-turn-up pc-progress boxhover" data-tooltip="Adicionar missão" style="z-index:9999; position: absolute;
+    <i class="fa-solid fa-turn-up pc-progress boxhover" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.MissionProgress"}}" style="z-index:9999; position: absolute;
     margin-top: 55px;
     border: 2px solid #000;
     border-radius: 50%;
@@ -194,7 +194,7 @@
                 <div class="grid-span-3 flexrow flex-group-center">
                   <input style="color: white;; font-weight: bold; text-size: small" type="text" class="vida"
                     name="system.health.value" value="{{system.health.value}}"
-                    data-tooltip="Vida base {{system.health.max}}">
+                    data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.HealthCurrent"}}">
                   <p style="font-size: 25px;">/</p>
                   <p style="font-size: 25px;"> {{system.health.max}}</p>
                 </div>
@@ -322,7 +322,7 @@
     <div class="tab features grid-span-2" data-group="primary" data-tab="background">
       {{> "systems/punkapocalyptic/templates/actor/parts/actor-background.hbs"}}
       <div>
-        <h2>Anotacões e outras Merdas</h2>
+        <h2>{{localize "PUNKAPOCALYPTIC.SheetLabels.Notes"}}</h2>
         {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable
         class="bold-text" }}
       </div>

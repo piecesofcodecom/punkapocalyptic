@@ -42,6 +42,10 @@ This system is supported by [Tria Editora](https://triaeditora.com.br/), the pub
 
 ![Tria Editora](README/triaeditora.png)
 
+# Language Support
+
+- English: Thank you to @sirkerry
+
 # Licenses
 - **Logo and Content**: The Punkapocalypitc logo and content is Copyright © and Trademarked by Schwalb Entertainment, LLC. The parts of this project protected under this copyright may not be distributed commercially or freely. This includes art, logo, and copyright text sourced from the Punkapocalyptic tabletop RPG.
 - **Source Code**: All source code (javascript, hbs, scss, as well as system templates and the like), are licenced under the GNU General Public License v3.0.
