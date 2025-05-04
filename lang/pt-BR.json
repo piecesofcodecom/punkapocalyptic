@@ -1,23 +1,30 @@
 {
   "PUNKAPOCALYPTIC": {
     "Ability": {
-      "Brains": { "long": "Miolos", "abbr": "mio", "Tooltip": "Página 28" },
-      "Eyes": { "long": "Olhos", "abbr": "olh", "Tooltip": "Página 28" },
-      "Feet": { "long": "Pés", "abbr": "pes", "Tooltip": "Página 27" },
-      "Guts": { "long": "Tripas", "abbr": "tri", "Tooltip": "Página 28" },
-      "Hands": { "long": "Mãos", "abbr": "mao", "Tooltip": "Página 27" },
-      "Meat": { "long": "Carne", "abbr": "car", "Tooltip": "Página 27" },
-      "Mouth": { "long": "Boca", "abbr": "boc", "Tooltip": "Página 28" },
-      "Muscles": { "long": "Músculos", "abbr": "mus", "Tooltip": "Página 27" }
+      "Brains": { "long": "Miolos", "abbr": "mio", "tooltip": "Página 28" },
+      "Eyes": { "long": "Olhos", "abbr": "olh", "tooltip": "Página 28" },
+      "Feet": { "long": "Pés", "abbr": "pes", "tooltip": "Página 27" },
+      "Guts": { "long": "Tripas", "abbr": "tri", "tooltip": "Página 28" },
+      "Hands": { "long": "Mãos", "abbr": "mao", "tooltip": "Página 27" },
+      "Meat": { "long": "Carne", "abbr": "car", "tooltip": "Página 27" },
+      "Mouth": { "long": "Boca", "abbr": "boc", "tooltip": "Página 28" },
+      "Muscles": { "long": "Músculos", "abbr": "mus", "tooltip": "Página 27" }
     },
     "ChatMessage": {
       "AttackMessage": "Atacando com {weapon}",
-      "TitleDamageRoll": "Rolando dano para {weapon}"
+      "TitleDamageRoll": "Rolando dano para {weapon}",
+      "FortuneResult": "Sorte do Grupo"
     },
     "CreateNewItemFem": "Criar Nova {type}",
     "CreateNewItemMasc": "Criar Novo {type}",
     "DefaultItems": {
       "Hand": { "name": "Golpe Desarmado", "description": "<p>Socos, chutes e cabeçadas: um golpe desarmado usa o corpo para infligir dano.</p>"}
+    },
+    "Dialogs": {
+      "FortuneRoll": {
+        "title": "Rolar Sorte",
+        "description": "Escolha o número de d6s a serem rolados (1d6 + 1d6 por missão)?"
+      }
     },
     "Effect": {
       "Inactive": "Efeitos inativos",
@@ -59,25 +66,27 @@
       "Talent": "Talento Novo",
       "Trait": "Traço Novo",
       "VehiclePart": "Parte de Veículo",
-      "Weapon": "Arma Nova"
+      "Weapon": "Arma Nova",
+      "VehicleAccessory": "Acessório de Veículo",
+      "VehicleUpgrade": "Aprimoramento de Veículo"
     },
     "NewItemFem": "Nova {type}",
     "NewItemMasc": "Novo {type}",
     "Other": {
       "Damage": {"long": "Dano", "abbr": "D" },
-      "None": { "long": "", "abbr": "", "Tooltip": "" },
+      "None": { "long": "", "abbr": "", "tooltip": "" },
       "Pag": "Página",
       "Reach": {"long": "Alcance", "abbr": "Alc" },
       "Size": { "long": "Tamanho", "abbr": "Tam" },
       "Speed": {"long": "Velocidade", "abbr": "Vel" }
     },
     "OtherAttributes": {
-      "Education": { "long": "Educação", "abbr": "edu", "Tooltip": "Página 15" },
-      "Grit": { "long": "Determinacão", "abbr": "DET", "Tooltip": "Página 15" },
-      "Luck": { "long": "Sorte", "abbr": "SOR", "Tooltip": "Página 15" },
-      "Mutations": { "long": "Mutacões", "abbr": "MUT", "Tooltip": "Página 15" },
-      "Reach": { "long": "Alcance", "abbr": "ALC", "Tooltip": "Página 15" },
-      "Size": { "long": "Tamanho", "abbr": "TAM", "Tooltip": "Página 15" }
+      "Education": { "long": "Educação", "abbr": "edu", "tooltip": "Página 15" },
+      "Grit": { "long": "Determinacão", "abbr": "DET", "tooltip": "Página 15" },
+      "Luck": { "long": "Sorte", "abbr": "SOR", "tooltip": "Página 15" },
+      "Mutations": { "long": "Mutacões", "abbr": "MUT", "tooltip": "Página 15" },
+      "Reach": { "long": "Alcance", "abbr": "ALC", "tooltip": "Página 15" },
+      "Size": { "long": "Tamanho", "abbr": "TAM", "tooltip": "Página 15" }
     },
     "OtherStatistics": {
       "Acceleration": { "long": "Aceleração", " tooltip": "Página 77 do livro de regras" },
@@ -108,9 +117,13 @@
       "Abilities": "Habilidades",
       "Actor": "Punkapocalyptic Actor Sheet",
       "Acessories": "Acessórios",
+      "Attribute": "Atributo",
       "Attributes": "Atributos",
       "Background": "Histórico",
       "Benefits": "Benefícios",
+      "Benefits4Mission": "Benefícios da 4ª Missão",
+      "Bonus": "Bônus",
+      "Category": "Categoria",
       "Damage": "Dano",
       "Defense": "Defesa",
       "Description": "Descrição",
@@ -120,15 +133,18 @@
       "HealthMax": "Vida Máxima",
       "Inventory": "Coisas",
       "Item": "Punkapocalyptic Item Sheet",
+      "Languages": "Idiomas",
       "MPG": "Km/L",
       "Main": "Principal",
       "Mission": "Missão",
+      "Missions": "Missões",
       "MissionUpgrade": "Próxima Missão",
       "Mojo": "Mojo",
       "MojoCurrent": "Mojo Atual",
       "MojoMax": "Mojo Total",
       "Mutations": "Mutações",
       "Name": "Nome",
+      "None": "Nenhuma",
       "Notes": "Anotacões e outras Merdas",
       "Paths": "Caminhos",
       "Preferidos": "Preferidos",

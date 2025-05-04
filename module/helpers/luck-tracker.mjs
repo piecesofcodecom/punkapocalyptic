@@ -95,12 +95,12 @@ export class TokenEffectsTracker extends Application {
   
   // Create a dialog to ask the GM how many d6 to roll
   new Dialog({
-      title: "Rollar Sorte do Grupo",
+      title: await game.i18n.localize("PUNKAPOCALYPTIC.Dialogs.FortuneRoll.title"),
       content: `
-          <p>Quantos d6 vamos rolar para a sorte do grupo (1d6 + 1d6 por missão)?</p>
+          <p>${await game.i18n.localize("PUNKAPOCALYPTIC.Dialogs.FortuneRoll.description")}</p>
           <form>
               <div class="form-group">
-                  <label>Número de d6:</label>
+                  <!--label>Número de d6:</label-->
                   <input type="number" id="numDice" name="numDice" value="1" min="1" style="width: 50px;">
               </div>
           </form>
@@ -120,7 +120,7 @@ export class TokenEffectsTracker extends Application {
   
                   // Send a private roll result to the GM
                   ChatMessage.create({
-                      content: `<strong>Sorte do Grupo:</strong> ${luckValue}`,
+                      content: `<strong>${await game.i18n.localize("PUNKAPOCALYPTIC.ChatMessage.FortuneResult")}:</strong> ${luckValue}`,
                       whisper: [game.user.id], // Only the GM sees this
                       blind: true,
                       speaker: ChatMessage.getSpeaker({ alias: "Game Master" }),

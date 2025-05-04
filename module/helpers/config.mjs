@@ -39,6 +39,17 @@ PUNKAPOCALYPTIC.abilityAbbreviations = {
   //education: 'PUNKAPOCALYPTIC.Ability.Education.long',
 };
 
+PUNKAPOCALYPTIC.abilityTooltips = {
+  muscles: 'PUNKAPOCALYPTIC.Ability.Muscles.tooltip',
+  meat: 'PUNKAPOCALYPTIC.Ability.Meat.tooltip',
+  hands: 'PUNKAPOCALYPTIC.Ability.Hands.tooltip',
+  feet: 'PUNKAPOCALYPTIC.Ability.Feet.tooltip',
+  brains: 'PUNKAPOCALYPTIC.Ability.Brains.tooltip',
+  eyes: 'PUNKAPOCALYPTIC.Ability.Eyes.tooltip',
+  mouth: 'PUNKAPOCALYPTIC.Ability.Mouth.tooltip',
+  guts: 'PUNKAPOCALYPTIC.Ability.Guts.tooltip',
+}
+
 PUNKAPOCALYPTIC.otherAttributes = {
   grit: 'PUNKAPOCALYPTIC.OtherAttributes.Grit.long',
   reach: 'PUNKAPOCALYPTIC.OtherAttributes.Reach.long',
