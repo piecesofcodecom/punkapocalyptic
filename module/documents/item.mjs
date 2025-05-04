@@ -186,7 +186,6 @@ export class PunkapocalypticItem extends Item {
 
   async toMessage() {
     const item = this;
-    //console.warn("toMessage is deprecated. Use roll() instead.");
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     let traits_message = "";
     if (item.system?.traits) {

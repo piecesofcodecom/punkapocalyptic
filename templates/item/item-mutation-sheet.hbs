@@ -10,7 +10,7 @@
           <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Type" }}</label>
           <select name="system.subtype" type="text" data-dtype='String'>
             {{#comparestring system.subtype ""}}
-            <option value="" selected>Nenhuma</option>
+            <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option>
             {{/comparestring}}
             {{#each mutationTypes as |type|}}
             <option value="{{type.id}}" {{#comparestring @root/system.subtype type.id }} selected {{/comparestring}}>{{type.label}}</option>

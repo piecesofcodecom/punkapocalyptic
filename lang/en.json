@@ -1,23 +1,30 @@
 {
   "PUNKAPOCALYPTIC": {
     "Ability": {
-      "Brains": { "long": "Brains", "abbr": "bra", "Tooltip": "Page 27" },
-      "Eyes": { "long": "Eyes", "abbr": "eye", "Tooltip": "Page 28" },
-      "Feet": { "long": "Feet", "abbr": "fee", "Tooltip": "Page 27" },
-      "Guts": { "long": "Guts", "abbr": "gut", "Tooltip": "Page 28" },
-      "Hands": { "long": "Hands", "abbr": "han", "Tooltip": "Page 27" },
-      "Meat": { "long": "Meat", "abbr": "mea", "Tooltip": "Page 27" },
-      "Mouth": { "long": "Mouth", "abbr": "mou", "Tooltip": "Page 28" },
-      "Muscles": { "long": "Muscles", "abbr": "mus", "Tooltip": "Page 27" }
+      "Brains": { "long": "Brains", "abbr": "bra", "tooltip": "Page 27" },
+      "Eyes": { "long": "Eyes", "abbr": "eye", "tooltip": "Page 28" },
+      "Feet": { "long": "Feet", "abbr": "fee", "tooltip": "Page 27" },
+      "Guts": { "long": "Guts", "abbr": "gut", "tooltip": "Page 28" },
+      "Hands": { "long": "Hands", "abbr": "han", "tooltip": "Page 27" },
+      "Meat": { "long": "Meat", "abbr": "mea", "tooltip": "Page 27" },
+      "Mouth": { "long": "Mouth", "abbr": "mou", "tooltip": "Page 28" },
+      "Muscles": { "long": "Muscles", "abbr": "mus", "tooltip": "Page 27" }
     },
     "ChatMessage": {
       "AttackMessage": "Attacking with {weapon}",
-      "TitleDamageRoll": "Rolling damage for {weapon}"
+      "TitleDamageRoll": "Rolling damage for {weapon}",
+      "FortuneResult": "Party Fortune Result"
     },
     "CreateNewItemFem": "Create New {type}",
     "CreateNewItemMasc": "Create New {type}",
     "DefaultItems": {
       "Hand": { "name": "Unarmed Strike", "description": "<p>Punches, kicks, and headbutts: an unarmed strike uses the body to inflict damage.</p>"}
+    },
+    "Dialogs": {
+      "FortuneRoll": {
+        "title": "Fortune Roll",
+        "description": "Select the number of d6s to roll the party's fortune (1d6 + 1d6 each mission)?"
+      }
     },
     "Effect": {
       "Inactive": "Inactive Effects",
@@ -59,25 +66,27 @@
       "Talent": "New Talent",
       "Trait": "Trait",
       "VehiclePart": "Vehicle Part",
-      "Weapon": "New Weapon"
+      "Weapon": "New Weapon",
+      "VehicleAccessory": "Acessory",
+      "VehicleUpgrade": "Upgrade"
     },
     "NewItemFem": "New {type}",
     "NewItemMasc": "New {type}",
     "Other": {
       "Damage": {"long": "Damage", "abbr": "D" },
-      "None": { "long": "", "abbr": "", "Tooltip": "" },
+      "None": { "long": "", "abbr": "", "tooltip": "" },
       "Pag": "Page",
       "Reach": {"long": "Reach", "abbr": "Rea" },
       "Size": { "long": "Size", "abbr": "Siz" },
       "Speed": {"long": "Speed", "abbr": "Spd" }
     },
     "OtherAttributes": {
-      "Education": { "long": "Education", "abbr": "edu", "Tooltip": "Page 15" },
-      "Grit": { "long": "Grit", "abbr": "GRT", "Tooltip": "Page 15" },
-      "Luck": { "long": "Fortune", "abbr": "FOR", "Tooltip": "Page 15" },
-      "Mutations": { "long": "Mutations", "abbr": "MUT", "Tooltip": "Page 15" },
-      "Reach": { "long": "Reach", "abbr": "REA", "Tooltip": "Page 15" },
-      "Size": { "long": "Size", "abbr": "SIZ", "Tooltip": "Page 15" }
+      "Education": { "long": "Education", "abbr": "edu", "tooltip": "Page 15" },
+      "Grit": { "long": "Grit", "abbr": "GRT", "tooltip": "Page 15" },
+      "Luck": { "long": "Fortune", "abbr": "FOR", "tooltip": "Page 15" },
+      "Mutations": { "long": "Mutations", "abbr": "MUT", "tooltip": "Page 15" },
+      "Reach": { "long": "Reach", "abbr": "REA", "tooltip": "Page 15" },
+      "Size": { "long": "Size", "abbr": "SIZ", "tooltip": "Page 15" }
     },
     "OtherStatistics": {
       "Acceleration": { "long": "Acceleration", " tooltip": "Page 47 of the rulebook" },
@@ -108,9 +117,13 @@
       "Abilities": "Abilities",
       "Actor": "Punkapocalyptic Actor Sheet",
       "Acessories": "Accessories",
+      "Attribute": "Attribute",
       "Attributes": "Attributes",
       "Background": "Background",
       "Benefits": "Benefits",
+      "Benefits4Mission": "4th Mission's Benefits",
+      "Bonus": "Bonus",
+      "Category": "Category",
       "Damage": "Damage",
       "Defense": "Defense",
       "Description": "Description",
@@ -120,15 +133,18 @@
       "HealthMax": "Max Health",
       "Inventory": "Inventory",
       "Item": "Punkapocalyptic Item Sheet",
+      "Languages": "Languages",
       "MPG": "MPG",
       "Main": "Main",
       "Mission": "Mission",
+      "Missions": "Missions",
       "MissionUpgrade": "Upgrade Mission",
       "Mojo": "Mojo",
       "MojoCurrent": "Current Mojo",
       "MojoMax": "Max Mojo",
       "Mutations": "Mutations",
       "Name": "Name",
+      "None": "None",
       "Notes": "Notes and other shit",
       "Paths": "Paths",
       "Preferidos": "Favorites",

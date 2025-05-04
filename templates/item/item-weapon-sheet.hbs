@@ -7,10 +7,10 @@
       </h1>
       <div class='grid grid-4col'>
         <div class='resource flexcol flex-group-center grid-span-2'>
-          <label class='resource-label'>Habilidade</label>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Attribute"}}</label>
           <select name="system.roll.ability" type="text" data-dtype='String'>
             {{#comparestring system.roll.ability ""}}
-            <option value="" selected>Nenhuma</option> {{/comparestring}}
+            <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option> {{/comparestring}}
             {{#each abilities as |ability id|}}
             <option value="{{id}}" {{#comparestring @root/system.roll.ability id }} selected {{/comparestring}}>
               {{localize ability}}</option>
@@ -18,10 +18,10 @@
           </select>
         </div>
         <div class='resource flexcol flex-group-center grid-span-2'>
-          <label class='resource-label'>Category</label>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Category"}}</label>
           <select name="system.category" type="text" data-dtype='String'>
             {{#comparestring system.category ""}}
-            <option value="" selected>Nenhuma</option> {{/comparestring}}
+            <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option> {{/comparestring}}
             {{#each categories as |category id|}}
             <option value="{{id}}" {{#comparestring @root/system.category id }} selected {{/comparestring}}>{{localize
               category}}</option>

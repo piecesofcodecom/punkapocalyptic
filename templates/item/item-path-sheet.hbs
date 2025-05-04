@@ -15,7 +15,7 @@
           <label class='resource-label'>Level</label>
           <select name="system.level" type="text" data-dtype='String'>
             {{#comparestring system.level ""}}
-            <option value="" selected>Nenhuma</option>
+            <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option>
             {{/comparestring}}
             {{#each levels as |level|}}
             <option value="{{level.id}}" {{#comparestring @root/system.level level.id }} selected {{/comparestring}}>{{level.label}}</option>

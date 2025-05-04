@@ -97,7 +97,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     // This is where you can enrich character-specific editor fields
     // or setup anything else that's specific to this type
     for (const ability in context.actor.system.abilities) {
-      context.actor.system.abilities[ability].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Ability.${ability.capitalize()}.Tooltip`);
+      context.actor.system.abilities[ability].tooltip = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.abilityTooltips[ability]);
       context.actor.system.abilities[ability].img = CONFIG.PUNKAPOCALYPTIC.abilityImages[ability];
     }
 
@@ -140,6 +140,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     const benefits = [];
     const mutations = [];
     const background = [];
+    let background_name = game.i18n.localize("PUNKAPOCALYPTIC.SheetLabels.Background");
     //await context.items.find(i => i.type == "background") || { name: "Histórico", system: { description: "" } }
     // context.enrichedBackground = await TextEditor.enrichHTML(
     //   background.system.description,
@@ -172,6 +173,9 @@ export class PunkapocalypticActorSheet extends ActorSheet {
       } else if (i.type == "mutation") {
         mutations.push(i);
       } else if (["background", "path"]) {
+        if (i.type == "background") {
+          background_name = i.name;
+        }
         background.push(i);
       }
     }
@@ -203,6 +207,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     context.background = background;
     context.benefits = benefits;
     context.mutations = mutations;
+    context.background_name = background_name;
     const effects = Array.from(context.effects);
     context.showeffects = effects.filter(i => !i.disabled);
     return context;

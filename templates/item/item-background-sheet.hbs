@@ -12,10 +12,10 @@
           </h1>
         </div>
         <div class='resource flexcol flex-group-center grid-span-1'>
-          <label class='resource-label'>Atributo</label>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Attribute"}}</label>
           <select name="system.ability.id" type="text" data-dtype='String'>
             {{#comparestring system.ability.id ""}}
-            <option value="" selected>Nenhuma</option>
+            <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option>
             {{/comparestring}}
             {{#each abilities as |ability id|}}
             <option value="{{id}}" {{#comparestring @root/system.ability.id id }} selected {{/comparestring}}>{{localize
@@ -24,11 +24,11 @@
           </select>
         </div>
         <div class='resource flexcol flex-group-center grid-span-1'>
-          <label class='resource-label'>Bonus</label>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Bonus"}}</label>
           <input type='text' name='system.ability.bonus' value='{{system.ability.bonus}}' data-dtype='Number' />
         </div>
         <div class='resource flexcol flex-group-center grid-span-1'>
-          <label class='resource-label'>Idiomas</label>
+          <label class='resource-label'>{{localize "PUNKAPOCALYPTIC.SheetLabels.Languages"}}</label>
           <input type='text' name='system.languages' value='{{system.languages}}' data-dtype='Number' />
         </div>
       </div>
@@ -78,7 +78,7 @@
 
     <div class='tab attributes' data-group='primary' data-tab='talents'>
       {{> "systems/punkapocalyptic/templates/item/parts/item-talents.hbs" items=initial_items  }}
-      <h2>BENEFÍCIOS DA 4ª MISSÃO</h2>
+      <h2>{{localize 'PUNKAPOCALYPTIC.SheetLabels.Benefits4Mission' }} </h2>
       {{> "systems/punkapocalyptic/templates/item/parts/item-talents.hbs" items=mission4_items }}
     </div>
   </section>
