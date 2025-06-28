@@ -66,8 +66,8 @@ export default class PunkapocalypticCharacter extends PunkapocalypticActorBase {
 
     //STEP 3: Other Stuff. Book page 15
     this.defense.base = Math.floor((this.abilities.feet.value + this.abilities.eyes.value) / 2);
-    this.health.value = this.abilities.meat.value;
-    this.health.max = this.health.value + this.health.mod;
+    this.health.base = this.abilities["meat"].value;
+    this.health.max = this.health.base + this.health.mod;
     
     //const grit = 3 + this.abilities.guts.mod;
     if (this.abilities.guts.mod > 0) {

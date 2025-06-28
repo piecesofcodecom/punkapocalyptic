@@ -214,14 +214,14 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
     // or setup anything else that's specific to this type
     for (const ability in context.actor.system.abilities) {
       context.actor.system.abilities[ability] = context.actor.system.abilities[ability];
-      context.actor.system.abilities[ability].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Ability.${ability.capitalize()}.Tooltip`);
+      context.actor.system.abilities[ability].tooltip = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.abilityTooltips[ability]);
       context.actor.system.abilities[ability].img = CONFIG.PUNKAPOCALYPTIC.abilityImages[ability];
     }
 
     for (const statistic in context.actor.system.otherStatistics) {
       context.actor.system.otherStatistics[statistic] = context.actor.system.otherStatistics[statistic];
-      context.actor.system.otherStatistics[statistic].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Vehicle.${statistic.capitalize()}.Tooltip`);
-      context.actor.system.otherStatistics[statistic].label = game.i18n.localize(`PUNKAPOCALYPTIC.Vehicle.${statistic.capitalize()}.long`);
+      context.actor.system.otherStatistics[statistic].tooltip = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.vehicleStatisticTooltips[statistic]);
+      context.actor.system.otherStatistics[statistic].label = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.vehicleStatistics[statistic]);
     }
 
     if (context.actor.system?.resources) {
@@ -557,13 +557,22 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
             Complicações / Recursos 
             <div style="display: flex; align-items: center; gap: 5px;">
                 <button onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) - Number(1)" style="width: 10px; text-align: center;" type="button" class="decrement">-</button>
-                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10"  autofocus readonly>
+                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10" max="10"  autofocus readonly>
                 <button style="width: 10px; text-align: center;" onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) + Number(1)" type="button" class="increment">+</button>
             </div>
         `,
         ok: {
           label: "Rollar",
           callback: (event, button, dialog) => button.form.elements.mod.valueAsNumber || 0
+        },
+        render: (event, dialog) => {
+          const input = dialog.element.querySelector("#complica");
+          dialog.element.querySelector(".decrement")?.addEventListener("click", () => {
+            input.value = Math.max(Number(input.min), Number(input.value) - 1);
+          });
+          dialog.element.querySelector(".increment")?.addEventListener("click", () => {
+            input.value = Math.min(Number(input.max), Number(input.value) + 1);
+          });
         }
       });
     } catch (e) {
@@ -571,7 +580,9 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
       console.log(e)
       return;
     }
-    this._onRoll(event, mod);
+    console.warn(mod);
+    if (mod != null)
+      this._onRoll(event, mod);
 
   }
   /**
@@ -681,7 +692,7 @@ export class PunkapocalypticVehicleSheet extends ActorSheet {
         return;
       } else {
         if (!game.user.isGM) {
-          ui.notifications.warn("Apeas o GM pode embarcar personagens em veículos");
+          ui.notifications.warn("Apenas o GM pode embarcar personagens em veículos");
           return;
         }
         const isOnboarded = this.actor.system.occupants.find(o => o.uuid == data.uuid);

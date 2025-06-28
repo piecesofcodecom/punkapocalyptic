@@ -117,7 +117,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
 
     context.actor.system.speed["label"] = game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.commonAttributes["speed"]);
     context.actor.system.speed["img"] = CONFIG.PUNKAPOCALYPTIC.commonAttributeImages["speed"];
-    
+
 
     if (context.actor.type == "npc") {
       delete context.actor.system.abilities.education;
@@ -196,7 +196,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
 
 
     // Assign and return
-    
+
     context.equipped = equipped;
     context.gear = gear;
     context.features = features;
@@ -248,13 +248,13 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     });
 
     html.on('contextmenu', '.profile-img', (ev) => {
-    {
-      new ImagePopout(this.actor.img, {
-        title: "Actor Popout",
-        shareable: true,
-      }).render(true);
-    }
-  });
+      {
+        new ImagePopout(this.actor.img, {
+          title: "Actor Popout",
+          shareable: true,
+        }).render(true);
+      }
+    });
     // Handle clicking the profile div to open FilePicker
     html.on('click', '.profile-img', (ev) => {
       const fp = new FilePicker({
@@ -319,10 +319,10 @@ export class PunkapocalypticActorSheet extends ActorSheet {
 
   async _missionProgress() {
     const actor = this.actor;
-    
+
     CONFIG.PUNKAPOCALYPTIC.progress_function(this.actor);
-    
-}
+
+  }
 
   async chooseOption() {
     const option = await foundry.applications.api.DialogV2.wait({
@@ -335,7 +335,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
         { label: "Veste", action: "armor" }
       ]
     });
-  
+
     return option;
   }
 
@@ -405,20 +405,28 @@ export class PunkapocalypticActorSheet extends ActorSheet {
       mod = await foundry.applications.api.DialogV2.prompt({
         window: { title: `Modificadores para: Rollagem de atributo ${dataset.label}` },
         content: `
-        
-
         <!--h4 style="font-family: 'Scurlock', sans-serif; color: #eddba9;">
             Modificadores da rolagem</h4-->
             Complicações / Recursos 
             <div style="display: flex; align-items: center; gap: 5px;">
-                <button onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) - Number(1)" style="width: 10px; text-align: center;" type="button" class="decrement">-</button>
-                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10"  autofocus readonly>
-                <button style="width: 10px; text-align: center;" onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) + Number(1)" type="button" class="increment">+</button>
+                <button onclick="document.getElementById('complica').value = Number(document.getElementById('complica').value) - Number(1)" style="width: 10px; text-align: center;" type="button" class="decrement">-</button>
+                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10" max="10"  autofocus readonly>
+                <button style="width: 10px; text-align: center;" onclick="document.getElementById('complica').value = Number(document.getElementById('complica').value) + Number(1)" type="button" class="increment">+</button>
             </div>
         `,
         ok: {
           label: "Rollar",
           callback: (event, button, dialog) => button.form.elements.mod.valueAsNumber || 0
+        },
+        render: (event, dialog) => {
+          console.log("Dialog rendered", dialog.element);
+          const input = dialog.element.querySelector("#complica");
+          dialog.element.querySelector(".decrement")?.addEventListener("click", () => {
+            input.value = Math.max(Number(input.min), Number(input.value) - 1);
+          });
+          dialog.element.querySelector(".increment")?.addEventListener("click", () => {
+            input.value = Math.min(Number(input.max), Number(input.value) + 1);
+          });
         }
       });
     } catch (e) {
@@ -426,7 +434,9 @@ export class PunkapocalypticActorSheet extends ActorSheet {
       console.log(e)
       return;
     }
+    if (mod != null && mod != undefined) {
     this._onRoll(event, mod);
+    }
 
   }
   /**
@@ -438,7 +448,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
- 
+
     // Handle item rolls.
     if (dataset.rollType) {
       if (dataset.rollType == 'select-ammo') {
@@ -463,7 +473,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
           return item.roll(mod);
         } else if (itemId == 'hand') {
           const handItemName = await game.i18n.localize(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"].name);
-          let handItem = this.actor.items.find( i=> i.name == handItemName);
+          let handItem = this.actor.items.find(i => i.name == handItemName);
           if (!handItem) {
             ui.notifications.info(await game.i18n.localize("PUNKAPOCALYPTIC.Messages.HandItemAdded"));
             let tmpItem = foundry.utils.duplicate(CONFIG.PUNKAPOCALYPTIC.defaultItems["hand"]);
@@ -473,7 +483,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
             tmpItem.system.description = await game.i18n.localize(tmpItem.system.description);
             handItem = await Item.create(tmpItem, { parent: this.actor });
           }
-          
+
           return handItem.roll(mod);
         }
       } else if (dataset.rollType == 'ability') {
@@ -484,7 +494,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
         const item = this.actor.items.get(itemId);
         if (item) {
           item.toMessage();
-          
+
         }
       }
     }
@@ -509,7 +519,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
             }
           }
           await this.actor.createEmbeddedDocuments("Item", [newItem]);
-          }
+        }
       }
       await this.resourcesFromBackground(itemData)
     } else if (itemData.type == "path") {
@@ -526,7 +536,7 @@ export class PunkapocalypticActorSheet extends ActorSheet {
               }
             }
             await this.actor.createEmbeddedDocuments("Item", [newItem]);
-            }
+          }
         }
 
 

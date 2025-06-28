@@ -8,3 +8,7 @@
 .chat-message.blind {
     background: url(/systems/punkapocalyptic/assets/backgrounds/chat-message-background-blind.png) !important;
 }
+
+.roll-damage, .apply-damage {
+    width: -webkit-fill-available;
+}

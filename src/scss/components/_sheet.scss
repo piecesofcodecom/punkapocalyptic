@@ -169,12 +169,9 @@ h3 {
   display: flex;
   align-items: center;
   gap: 1px;
-  /* Spacing between elements */
-  /*position: absolute;
-  margin-top: 249px;*/
-  margin-left: -223px;
-  margin-top: -50px;
   width: 220px;
+  position: absolute;
+    margin-top: 299px;
 }
 
 .healthContainer-pc {
@@ -348,4 +345,8 @@ button i {
   transform: translateY(-50%);
   color: white;
   font-weight: bold;
+}
+
+.no-shadow {
+  box-shadow: none;
 }

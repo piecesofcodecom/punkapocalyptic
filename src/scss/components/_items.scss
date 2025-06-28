@@ -39,7 +39,7 @@
   }
 
   // Item Name
-  .item-name {
+   .item-name {
     flex: 2;
     margin: 0;
     overflow: hidden;
@@ -54,10 +54,22 @@
     }
   }
 
+  .item-name.npc {
+    flex: 0 0 200px;
+  }
+
+  .item-name.character {
+    flex: 0 0 300px;
+  }
+
+  .item-name.vehicle {
+    flex: 0 0 300px;
+  }
+
   // Control Buttons
   .item-controls {
     display: flex;
-    flex: 0 0 110px;
+    /*flex: 0 0 110px;*/
     justify-content: flex-end;
     a {
       font-size: 12px;

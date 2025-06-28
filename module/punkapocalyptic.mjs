@@ -11,7 +11,6 @@ import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { PUNKAPOCALYPTIC } from './helpers/config.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
-import {createLuckTracker} from './helpers/luck-tracker.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -36,7 +35,7 @@ Hooks.on('ready', async function () {
             description: label,
           }
         }
-    });
+      });
 
   }
 })
@@ -51,8 +50,6 @@ Hooks.once('init', async function () {
 
   // Add custom constants for configuration.
   CONFIG.PUNKAPOCALYPTIC = PUNKAPOCALYPTIC;
-
-  // CONFIG.statusEffects.push(...PUNKAPOCALYPTIC.statusEffects);
 
   /**
    * Set an initiative formula for the system
@@ -136,9 +133,9 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 
 Handlebars.registerHelper("hasProperty", function (obj, key, options) {
   if (obj && Object.prototype.hasOwnProperty.call(obj, key)) {
-      return options.fn(this);
+    return options.fn(this);
   } else {
-      return options.inverse(this);
+    return options.inverse(this);
   }
 });
 
@@ -148,38 +145,21 @@ Handlebars.registerHelper('healthStyle', function healthStyle(current, max) {
     progress = (current / max) * 100;
   }
   let color;
-  
+
   if (progress === 0) {
-      color = "black";
+    color = "black";
   } else if (progress < 30) {
-      color = "darkred";
+    color = "darkred";
   } else if (progress < 100) {
-      color = "red";
+    color = "red";
   } else {
-      color = "#aa0000"; // Fully red at max
+    color = "#aa0000"; // Fully red at max
   }
-  
+
   return `width: ${progress}%; background-color: ${color};`;
 })
 
-
-// Handlebars.registerHelper('comparestring', function(a, b, options) {
-//   if (typeof options === "undefined" || typeof options.fn !== "function") {
-//     console.error("Handlebars Helper 'comparestring' called without proper options:", { a, b, options });
-//     return "";
-//   }
-
-
-//   // Ensure 'a' is defined before comparison
-//   if (a === undefined || a === null) a = "";
-
-//   // If values match, return the true block
-//   if (a === b) return options.fn(this);
-
-//   // Only call `options.inverse` if it's provided
-//   return typeof options.inverse === "function" ? options.inverse(this) : "";
-// });
-Handlebars.registerHelper('comparestring', function(a = "", b, options) {
+Handlebars.registerHelper('comparestring', function (a = "", b, options) {
   if (typeof options.fn !== "function") {
     console.error("Handlebars Helper 'comparestring' called without proper options:", { a, b, options });
     return "";
@@ -188,23 +168,12 @@ Handlebars.registerHelper('comparestring', function(a = "", b, options) {
   return a === b ? options.fn(this) : (typeof options.inverse === "function" ? options.inverse(this) : "");
 });
 
-// Handlebars.registerHelper('capitalize', function(str) {
-//   if (typeof str !== "string" || str.length === 0) return "";
-//   return str.charAt(0).toUpperCase() + str.slice(1);
-// });
-Handlebars.registerHelper('capitalize', function(str) {
+Handlebars.registerHelper('capitalize', function (str) {
   if (!str || typeof str !== "string") return "";
   return str.charAt(0).toUpperCase() + str.slice(1);
 });
 
-// Handlebars.registerHelper('healthPercentage', function(currentLife, maxLife) {
-//   if (maxLife <= 0) return "0%"; // Avoid division by zero
-//   if (currentLife > maxLife) maxLife = currentLife;
-//   let percentage = (currentLife / maxLife) * 100;
-//   return percentage + "%"; // Return as a percentage string
-// });
-
-Handlebars.registerHelper('healthPercentage', function(currentLife, maxLife) {
+Handlebars.registerHelper('healthPercentage', function (currentLife, maxLife) {
   if (maxLife <= 0) return "0%"; // Avoid division by zero
   let percentage = (currentLife / Math.max(currentLife, maxLife)) * 100;
   return percentage + "%"; // Return as a percentage string
@@ -217,107 +186,272 @@ function parseList(list) {
   return list;
 }
 
-Handlebars.registerHelper('ifIn', function(item, list, options) {
+Handlebars.registerHelper('ifIn', function (item, list, options) {
   list = parseList(list);
   return list.indexOf(item) > -1 ? options.fn(this) : options.inverse(this);
 });
 
-Handlebars.registerHelper('ifNotIn', function(item, list, options) {
+Handlebars.registerHelper('ifNotIn', function (item, list, options) {
   list = parseList(list);
   return list.indexOf(item) === -1 ? options.fn(this) : options.inverse(this);
 });
-// Handlebars.registerHelper('ifIn', function(item, list, options) {
-//   if (typeof list === 'string') {
-//     list = list.split(',').map(function(str) {
-//       return str.trim();
-//     });
-//   }
-  
-//   // Check if the item is NOT in the list.
-//   if (list.indexOf(item) > -1) {
-//     return options.fn(this);
-//   }
-  
-//   // Otherwise, render the inverse (else) block.
-//   return options.inverse(this);
-// });
-
-// Handlebars.registerHelper('ifNotIn', function(item, list, options) {
-//   // If the list is provided as a string, split it into an array by commas.
-//   if (typeof list === 'string') {
-//     list = list.split(',').map(function(str) {
-//       return str.trim();
-//     });
-//   }
-  
-//   // Check if the item is NOT in the list.
-//   if (list.indexOf(item) === -1) {
-//     return options.fn(this);
-//   }
-  
-//   // Otherwise, render the inverse (else) block.
-//   return options.inverse(this);
-// });
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
+Hooks.once('init', async function () {
+  game.settings.register("punkapocalyptic", "groupLuck", {
+    name: "Group Luck",
+    hint: "Stores the group's luck for the mission.",
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 0,  // Default value (can be anything)
+    onChange: value => {
+      console.log(`Group Luck updated to: ${value}`);
+    }
+  });
+});
+
 Hooks.once('ready', function () {
-  // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
-  createLuckTracker();
-});
+  if (!game.user.isGM) {
+    ui.notifications.warn("Only the GM can roll for group luck.");
+    return false;
+  }
+  const sidebarMenu = document.querySelector("#sidebar-tabs menu");
+  if (!sidebarMenu) return;
 
-Hooks.on("renderChatMessage", (message, html, data) => {
-  // Handle weapon damage rolls
-  html.find(".roll-damage").click(async (event) => {
-    event.preventDefault();
-    let button = event.currentTarget;
-    let weaponId = button.dataset.itemId;
-    let actorId = button.dataset.actorId;
-    let tokenId = button.dataset.tokenId;
-    
-    let actor = game.actors.get(actorId);
-    if (tokenId) {
-      let token = canvas.tokens.get(tokenId);
-      if (!token) return ui.notifications.warn("Token not found.");
-      actor = token.actor;
+  // Create the <li> container
+  const li = document.createElement("li");
+
+  // Create the button
+  const button = document.createElement("button");
+  button.type = "button";
+  button.classList.add("ui-control", "plain", "icon", "fa-solid", "fa-clover", "green");
+  button.setAttribute("aria-label", "Session's Luck");
+  button.setAttribute("data-tooltip", "Session's Luck"); // if you want a tooltip
+  button.dataset.action = "roll-dice";
+
+  // Add click behavior
+  button.addEventListener("click", async () => {
+
+    if (!game.user.isGM) {
+      ui.notifications.warn("Only the GM can roll for group luck.");
+      return false;
     }
-    
-    if (!actor) return ui.notifications.warn("Actor not found.");
-    
-    // Retrieve the weapon from the actor's items.
-    let item = actor.items.get(weaponId) || CONFIG.PUNKAPOCALYPTIC.attackDefaultItems[weaponId];
-    if (!item) return ui.notifications.warn("Weapon not found on actor.");
-    item.rollDamage();
+
+    // Create a dialog to ask the GM how many d6 to roll
+    const response = await foundry.applications.api.DialogV2.wait({
+      title: await game.i18n.localize("PUNKAPOCALYPTIC.Dialogs.FortuneRoll.title"),
+      content: `
+          <p>${await game.i18n.localize("PUNKAPOCALYPTIC.Dialogs.FortuneRoll.description")}</p>
+          <form>
+              <div class="form-group">
+                  <input type="number" id="numDice" name="numDice" value="1" min="1" style="width: 50px;">
+              </div>
+          </form>
+      `,
+      buttons: [
+        {
+          label: "Roll",
+          default: true,
+          callback: async (event, button, dialog) => {
+            console.warn("Dialog action triggered:", button.form.numDice.value);
+            let numDice = Math.max(1, parseInt(button.form.numDice.value) || 1); // Ensure at least 1
+            let rollFormula = `${numDice}d6`;
+
+            let roll = await new Roll(rollFormula).evaluate({ evaluateSync: true }); // Async evaluation for modern Foundry
+            let luckValue = roll.total;
+
+            // Store the luck value in game settings
+            await game.settings.set("punkapocalyptic", "groupLuck", luckValue);
+
+            // Send a private roll result to the GM
+            ChatMessage.create({
+              content: `<strong>${await game.i18n.localize("PUNKAPOCALYPTIC.ChatMessage.FortuneResult")}:</strong> ${luckValue}`,
+              whisper: [game.user.id], // Only the GM sees this
+              blind: true,
+              speaker: ChatMessage.getSpeaker({ alias: "Game Master" }),
+              rolls: [roll].filter(Boolean)
+            });
+            ui.players?.render(true);
+            return "wew2"; // Return a value to indicate the action	
+          }
+        },
+        {
+          label: "Cancel",
+          action: "cancel"
+        }
+      ]
+    });
+
   });
 
-  html.find(".roll-range").click(async (event) => {
-    event.preventDefault();
-    let button = event.currentTarget;
-    let weaponId = button.dataset.itemId;
-    let actorId = button.dataset.actorId;
-    let tokenId = button.dataset.tokenId;
-    
-    let actor = game.actors.get(actorId);
-    if (tokenId) {
-      let token = canvas.tokens.get(tokenId);
-      if (!token) return ui.notifications.warn("Token not found.");
-      actor = token.actor;
-    }
-    
-    if (!actor) return ui.notifications.warn("Actor not found.");
-    
-    // Retrieve the weapon from the actor's items.
-    let item = actor.items.get(weaponId) || CONFIG.PUNKAPOCALYPTIC.attackDefaultItems[weaponId];
-    if (!item) return ui.notifications.warn("Weapon not found on actor.");
-    item.rollRange();
-  });
+
+
+  // Append everything
+  li.appendChild(button);
+  sidebarMenu.insertBefore(li, sidebarMenu.lastElementChild); // insert before collapse button
 });
 
+Hooks.on("renderChatMessageHTML", (message, html, data) => {
+
+  const damageButtons = html.querySelectorAll(".roll-damage");
+
+  damageButtons.forEach(button => {
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      let button = event.currentTarget;
+      let weaponId = button.dataset.itemId;
+      let actorId = button.dataset.actorId;
+      let tokenId = button.dataset.tokenId;
+
+      let actor = game.actors.get(actorId);
+      if (tokenId) {
+        let token = canvas.tokens.get(tokenId);
+        if (!token) return ui.notifications.warn("Token not found.");
+        actor = token.actor;
+      }
+
+      if (!actor) return ui.notifications.warn("Actor not found.");
+
+      // Retrieve the weapon from the actor's items.
+      let item = actor.items.get(weaponId) || CONFIG.PUNKAPOCALYPTIC.attackDefaultItems[weaponId];
+      if (!item) return ui.notifications.warn("Weapon not found on actor.");
+      item.rollDamage();
+    });
+  });
+
+  const rangeButtons = html.querySelectorAll(".roll-range");
+
+  rangeButtons.forEach(button => {
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      let button = event.currentTarget;
+      let weaponId = button.dataset.itemId;
+      let actorId = button.dataset.actorId;
+      let tokenId = button.dataset.tokenId;
+
+      let actor = game.actors.get(actorId);
+      if (tokenId) {
+        let token = canvas.tokens.get(tokenId);
+        if (!token) return ui.notifications.warn("Token not found.");
+        actor = token.actor;
+      }
+
+      if (!actor) return ui.notifications.warn("Actor not found.");
+
+      // Retrieve the weapon from the actor's items.
+      let item = actor.items.get(weaponId) || CONFIG.PUNKAPOCALYPTIC.attackDefaultItems[weaponId];
+      if (!item) return ui.notifications.warn("Weapon not found on actor.");
+      item.rollRange();
+    });
+  });
+
+  const applyDamageButtons = html.querySelectorAll(".apply-damage");
+
+  applyDamageButtons.forEach(button => {
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const dataset = event.target.dataset;
+      const targets = Array.from(game.user.targets);
+      if (targets.length == 0) {
+        ui.notifications.warn("Não há alvos selecionados");
+      } else {
+        for (let i=0; i< targets.length; i++) {
+          targets[i].actor.applyDamage(dataset.damage);
+        }
+      }
+    })
+  })
+});
+
+Hooks.on('userConnected', async (user, connected) => {
+  const gm = game.users.activeGM;
+  const useGroupLuck = game.settings.get('punkapocalyptic', 'groupLuck');
+  if (user.isGM || !gm?.isSelf || !useGroupLuck) return;
+  ui.players?.render(true);
+});
+
+Hooks.on("renderPlayers", (_list, html, options) => {
+  const users = html.querySelectorAll(".player");
+  users.forEach((el) => new GroupLuckDisplay(el));
+});
+
+class GroupLuckDisplay {
+  constructor(element) {
+    this.element = element;
+    this.userId = element.dataset.userId;
+    this.player = game.users.get(this.userId);
+    if (this.player?.isGM) return; // Only show for players
+    this.render();
+  }
+
+  async render() {
+    const counter = document.createElement("span");
+    counter.classList.add("luck-counter");
+    counter.style.textAlign = "right";
+
+    const currentLuck = await game.settings.get("punkapocalyptic", "groupLuck") ?? 0;
+    if (game.user.isGM)
+      counter.innerHTML = `<i class="fa-solid fa-clover green"></i> ${currentLuck}`;
+    else
+      counter.innerHTML = `<i class="fa-solid fa-clover green"></i> ???`;
+    counter.dataset.tooltip = "Group Luck";
+
+    counter.addEventListener("click", async (event) => {
+      // Get the current value
+      const currentLuck = game.settings.get("punkapocalyptic", "groupLuck");
+
+      // Create the chat message
+      ChatMessage.create({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ user: game.user }),
+        content: `
+    <p><strong><i class="fa-solid fa-clover green"></i> ${game.i18n.format("PUNKAPOCALYPTIC.ChatMessage.FortuneUseTitle", { username: game.user.name })}</strong></p>
+    <button style="width: 100%;" type="button" class="use-luck">${game.i18n.localize("PUNKAPOCALYPTIC.ChatMessage.FortuneUseButton")}</button>
+  `
+      });
+    });
+
+    this.element.append(counter);
+  }
+}
+
+Hooks.on("renderChatMessageHTML", (message, html, data) => {
+  const fortuneButton = html.querySelectorAll(".use-luck");
+  fortuneButton.forEach(button => {
+    button.addEventListener("click", async () => {
+      const current = game.settings.get("punkapocalyptic", "groupLuck");
+
+      // Prevent going below zero
+      if (current <= 0) {
+        ui.notifications.warn("No more luck points!");
+        return;
+      }
+
+      // Decrease luck
+      await game.settings.set("punkapocalyptic", "groupLuck", current - 1);
+
+      // Update display
+      const luckCount = html.querySelector("#luck-count");
+      if (luckCount) luckCount.textContent = current - 1;
+
+      // Optional: disable button after use
+      const useLuckButtons = html.querySelectorAll(".use-luck");
+      useLuckButtons.forEach(button => button.disabled = true);
 
 
+      // Optional: notify all 🍀 
+      ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ user: game.user }),
+        content: `<p><i class="fa-solid fa-clover green"></i> ${game.i18n.format("PUNKAPOCALYPTIC.ChatMessage.FortuneUsed", { username: game.user.name })}</p>`
+      });
+      ui.players?.render(true); // Refresh player list to show updated luck
+    });
+  });
+});
 
 
 /* -------------------------------------------- */

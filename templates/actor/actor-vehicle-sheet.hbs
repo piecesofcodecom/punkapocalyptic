@@ -44,11 +44,11 @@
               {{#each system.otherStatistics as |statistic key|}}
               {{#ifIn key "fuel,breaking,occupants,cargo,topVelocity,braking" }}
               <div class="flexrow flex-group-center">
-                <label class="ability-name" style="text-align: left;">{{statistic.label}}</label>
+                <label class="ability-name" style="text-align: left;" data-tooltip="{{statistic.tooltip}}">{{statistic.label}}</label>
                 {{#comparestring key "acceleration"}}
                 <select name="system.otherStatistics.{{key}}.value" type="text" data-dtype='Number'>
                   {{#comparestring statistic.value ""}}
-                  <option value="" selected>Nenhuma</option>
+                  <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option>
                   {{/comparestring}}
                   {{#each @root/accelerationOptions as |acc id|}}
                   <option value="{{id}}" {{#comparestring @root/system.otherStatistics.acceleration.value id }} selected
@@ -69,7 +69,7 @@
               {{/ifIn}}
               {{/each}}
               <div class="flexrow flex-group-center">
-                <label class="ability-name min-115" style="text-align: left;">Defesa</label>
+                <label class="ability-name min-115" style="text-align: left;">{{localize "PUNKAPOCALYPTIC.SheetLabels.Defense"}}</label>
                 <input class="align-right" type="text" name="system.defense.current" value="{{system.defense.current}}"
                   data-dtype="Number" style="text-align: right;" readonly />
               </div>
@@ -85,7 +85,7 @@
               {{#comparestring key "acceleration"}}
               <select name="system.otherStatistics.{{key}}.value" type="text" data-dtype='Number'>
                 {{#comparestring statistic.value ""}}
-                <option value="" selected>Nenhuma</option>
+                <option value="" selected>{{localize "PUNKAPOCALYPTIC.SheetLabels.None"}}</option>
                 {{/comparestring}}
                 {{#each @root/accelerationOptions as |acc id|}}
                 <option value="{{id}}" {{#comparestring @root/system.otherStatistics.acceleration.value id }} selected

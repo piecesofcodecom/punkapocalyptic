@@ -1,9 +1,9 @@
 <ol class='items-list'>
   <li class='item flexrow items-header'>
-    <div class='item-name'>{{localize 'PUNKAPOCALYPTIC.SheetLabels.Name'}}</div>
-    <div class='item-equipped'>{{localize 'PUNKAPOCALYPTIC.SheetLabels.Equipped'}}</div>
-    <div class='item-ability'>{{localize 'PUNKAPOCALYPTIC.SheetLabels.Ability'}}</div>
-    <div class='item-dano'>{{localize 'PUNKAPOCALYPTIC.SheetLabels.Damage'}}</div>
+    <div class='item-name {{ actor.type }}'>{{localize 'PUNKAPOCALYPTIC.SheetLabels.Name'}}</div>
+    <div class='item-equipped' data-tooltip="{{localize 'PUNKAPOCALYPTIC.SheetLabels.Equipped.long'}}" >{{localize 'PUNKAPOCALYPTIC.SheetLabels.Equipped.abbr'}}</div>
+    <div class='item-ability' data-tooltip="{{localize 'PUNKAPOCALYPTIC.SheetLabels.Ability'}}">{{localize 'PUNKAPOCALYPTIC.Other.Ability.abbr'}}</div>
+    <div class='item-dano' data-tooltip="{{localize 'PUNKAPOCALYPTIC.SheetLabels.Damage'}}">{{localize 'PUNKAPOCALYPTIC.Other.Damage.abbr'}}</div>
     <div class='item-controls'>
       <a class='item-control item-create' title='{{localize "PUNKAPOCALYPTIC.CreateNewItemFem" type=(localize 'TYPES.Item.item')}}' data-type='item'>
         <i class='fas fa-plus'></i>
@@ -13,7 +13,7 @@
   </li>
   {{#each inventory as |item id|}}
   <li class='item flexrow' data-item-id='{{item._id}}'>
-    <div class='item-name'>
+    <div class='item-name {{ @root/actor.type }}'>
       <div class='item-image'>
         <a class='rollable' data-roll-type='item'>
           <img src='{{item.img}}' title='{{item.name}}' width='24' height='24' />
@@ -34,10 +34,14 @@
     {{#comparestring (lookup item.system.roll "ability") ""}}
     <div class='item-ability item-prop'>{{localize (concat 'PUNKAPOCALYPTIC.Other.None.long')}}</div>
     {{else}}
-    <div class='item-ability item-prop rollable' data-roll-type="attack">{{localize (concat 'PUNKAPOCALYPTIC.Ability.'
-      (capitalize item.system.roll.ability) '.long')}}</div>
+    <div class='item-ability item-prop rollable' data-roll-type="attack" data-tooltip ="{{localize (concat 'PUNKAPOCALYPTIC.Ability.'
+      (capitalize item.system.roll.ability) '.long')}}"><i class="fa-solid fa-dice-d20"></i></div>
     {{/comparestring}}
-    <div class='item-dano item-prop rollable' data-roll-type='damage'>{{item.system.damage.formula}}</div>
+    {{#comparestring item.system.damage.formula ""}}
+    <div class='item-dano item-prop rollable' data-roll-type='damage' data-tooltip=""></div>
+    {{else}}
+    <div class='item-dano item-prop rollable' data-roll-type='damage' data-tooltip="{{item.system.damage.formula}}"><i class="fa-solid fa-dice-d6"></i></div>
+    {{/comparestring}}
     <div class='item-controls'>
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=' Item'}}'>
         <i class='fas fa-edit'></i>

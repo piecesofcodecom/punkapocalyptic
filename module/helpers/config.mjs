@@ -276,6 +276,17 @@ PUNKAPOCALYPTIC.vehicleStatistics = {
   cargo:        "PUNKAPOCALYPTIC.Vehicle.Cargo.long",
 }
 
+PUNKAPOCALYPTIC.vehicleStatisticTooltips = {
+  handling:     "PUNKAPOCALYPTIC.Vehicle.Handling.long",
+  acceleration: "PUNKAPOCALYPTIC.Vehicle.Acceleration.long",
+  braking :     "PUNKAPOCALYPTIC.Vehicle.Braking.long",
+  topVelocity:  "PUNKAPOCALYPTIC.Vehicle.TopVelocity.long",
+  fuel:         "PUNKAPOCALYPTIC.Vehicle.Fuel.long",
+  //locations:    "PUNKAPOCALYPTIC.Vehicle.Locations.long",
+  occupants:    "PUNKAPOCALYPTIC.Vehicle.Occupants.long",
+  cargo:        "PUNKAPOCALYPTIC.Vehicle.Cargo.long",
+}
+
 PUNKAPOCALYPTIC.vehicleAccelerationValue = {
   0: "standard",
   1: "slow",
