@@ -2,7 +2,17 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" style=" height: 299px; width: 217px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; border: 0px;">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"
+      style=" height: 299px; width: 217px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; border: 0px;">
+      <div class="healthContainer">
+          <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button>
+          <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button>
+          <div class="healthBarShell">
+            <div class="healthBarValue" style="width: {{healthPercentage system.health.value system.health.max}}"></div>
+            <div class="healthDisplay"><input type="text" class="vida" name="system.health.value"
+                value="{{system.health.value}}" data-dtype="Number"></div> <!-- Larger health display -->
+          </div>
+        </div>
     <div class="header-fields">
       <div class="grid-span-2">
         <h1 class="charname title-punk">
@@ -42,32 +52,34 @@
         </div>
         <div class="grid-span-1">
           <div class="flexcol">
-            <div class="flexrow">
-              <label class="ability-name min-115">Dificuldade</label>
-              <input class="align-right" type="text" name="system.challange" value="{{system.challange}}"
-                data-dtype="Number" style="text-align: right;" />
+            <div class="ability flexrow">
+              <label class="ability-name flexlarge" for="system.challange">{{localize "PUNKAPOCALYPTIC.SheetLabels.Challange"}}</label>
+              <input class="" type="text" name="system.challange" value="{{system.challange}}"
+                data-dtype="Number"  />
             </div>
-            <div class="flexrow flex-group-center">
-              <label class="ability-name min-115">Tamanho</label>
+            <div class="ability flexrow">
+              <label class="ability-name flexlarge" for="system.size">{{localize
+                "PUNKAPOCALYPTIC.SheetLabels.Size"}}</label>
               <input type="text" name="system.size" value="{{system.size}}" data-dtype="Number"
-                style="text-align: right;" />
+                 />
             </div>
-            <div class="flexrow flex-group-center">
-              <label class="ability-name min-115">Velocidade</label>
+            <div class="ability flexrow">
+              <label class="ability-name min-115" for="system.speed.current">{{localize "PUNKAPOCALYPTIC.SheetLabels.Speed"}}</label>
               <input type="text" name="system.speed.current" value="{{system.speed.current}}" data-dtype="Number"
-                style="text-align: right;" />
+                 />
             </div>
-            <div class="flexrow flex-group-center">
-              <label class="ability-name min-115 align-left">Defesa</label>
-              <input type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number" 
-                style="text-align: right;" />
+            <div class="ability flexrow">
+              <label class="ability-name min-115 align-left" for="system.defense.current">{{localize "PUNKAPOCALYPTIC.SheetLabels.Defense"}}</label>
+              <input type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
+                 />
             </div>
-            <div class="flexrow flex-group-center">
-              <label class="ability-name min-115 align-left">Vida</label>
-              
-                <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" style="text-align: right;" />
-                
-              
+            <div class="ability flexrow">
+              <label class="ability-name min-115 align-left" for="system.health.max">{{localize "PUNKAPOCALYPTIC.SheetLabels.Health"}}</label>
+
+              <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"
+                 />
+
+
             </div>
           </div>
         </div>
@@ -75,17 +87,18 @@
 
       </div>
       <div class="resources grid">
-        <div class="healthContainer">
-  <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button> 
-  <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button> 
-  <div class="healthBarShell">
-    <div class="healthBarValue" style="width: {{healthPercentage system.health.value system.health.max}}"></div>
-    <div class="healthDisplay"><input type="text" class="vida" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"></div> <!-- Larger health display -->
-  </div>
-</div>
+        {{!-- <div class="healthContainer">
+          <button class="decrease"><i class="fa-solid fa-minus icon-center"></i></button>
+          <button class="increase"><i class="fa-solid fa-plus icon-center"></i></button>
+          <div class="healthBarShell">
+            <div class="healthBarValue" style="width: {{healthPercentage system.health.value system.health.max}}"></div>
+            <div class="healthDisplay"><input type="text" class="vida" name="system.health.value"
+                value="{{system.health.value}}" data-dtype="Number"></div> <!-- Larger health display -->
+          </div>
+        </div> --}}
       </div>
     </div>
-    
+
   </header>
 
 
@@ -93,11 +106,11 @@
   {{!-- Sheet Body --}}
   <section class="sheet-body">
     <nav class="sheet-tabs tabs nav-punk" data-group="primary">
-        {{!-- Default tab is specified in actor-sheet.mjs --}}
-        <a class="item header-tab" data-tab="features">{{localize "PUNKAPOCALYPTIC.SheetLabels.Main"}}</a>
-        <a class="item header-tab" data-tab="description">{{localize "PUNKAPOCALYPTIC.SheetLabels.Background"}}</a>
-        <!--a class="item header-tab" data-tab="effects">Effects</a-->
-      </nav>
+      {{!-- Default tab is specified in actor-sheet.mjs --}}
+      <a class="item header-tab" data-tab="features">{{localize "PUNKAPOCALYPTIC.SheetLabels.Main"}}</a>
+      <a class="item header-tab" data-tab="description">{{localize "PUNKAPOCALYPTIC.SheetLabels.Background"}}</a>
+      <!--a class="item header-tab" data-tab="effects">Effects</a-->
+    </nav>
     <div class="tab features" data-group="primary" data-tab="features">
       <div class="resources grid grid-2col">
         <div class="grid-span-1">
@@ -119,8 +132,8 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
-      
-     {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+
+      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
 
 

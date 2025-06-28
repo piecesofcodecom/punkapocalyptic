@@ -7,7 +7,7 @@
         {{!-- Top header --}}
         <div class="flex-group-right grid-span-3">
           <h1 class="charname">
-            <input class="title-punk" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+            <input class="title-punk no-shadow" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
           </h1>
         </div>
       </div>
@@ -56,7 +56,7 @@
               <div class="resource-balas" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.Defense"}}" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-defense.png); background-size: contain;
       background-position: center;
       background-repeat: no-repeat; ">
-                <input class="bold-text" type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
+                <input class="bold-text no-shadow" type="text" name="system.defense.current" value="{{system.defense.current}}" data-dtype="Number"
                   style="z-index:9999;" readonly />
               </div>
             </div>
@@ -78,7 +78,7 @@
     background-repeat: no-repeat;
   background-position: topf; position: relative; text-align: left">
             {{#each showeffects as |effect| }}
-            <img src="{{effect.img}}" data-tooltip="{{effect.name}}" style="
+            <img src="{{effect.img}}" data-tooltip="{{effect.description}}" style="
     width: 24px;
     height: 24px;
     left: 0; border: 0px;
@@ -137,9 +137,9 @@
               <div class="resource-balas" style="background-image: url(/systems/punkapocalyptic/assets/icons/icon-mojo.png); background-size: contain;
       background-position: center;
       background-repeat: no-repeat; ">
-                <input class="bold-text"  type="text" name="system.mojo.current" value="{{system.mojo.current}}" data-dtype="Number"
+                <input class="bold-text no-shadow"  type="text" name="system.mojo.current" value="{{system.mojo.current}}" data-dtype="Number"
                   style="z-index:9999;" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.MojoCurrent"}}" />
-                <input type="text" name="system.mojo.max" value="{{system.mojo.max}}" data-dtype="Number" style="z-index:9999; position: absolute;
+                <input class="no-shadow" type="text" name="system.mojo.max" value="{{system.mojo.max}}" data-dtype="Number" style="z-index:9999; position: absolute;
     margin-top: 55px;
     border: 2px solid #000;
     border-radius: 50%;
@@ -160,7 +160,7 @@
       background-position: center;
       background-repeat: no-repeat; ">
                 
-                <input class="bold-text" type="text" name="system.missions" value="{{system.missions}}" data-dtype="Number" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.Mission"}}"  />
+                <input class="bold-text no-shadow" type="text" name="system.missions" value="{{system.missions}}" data-dtype="Number" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.Mission"}}"  />
     <i class="fa-solid fa-turn-up pc-progress boxhover" data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.MissionProgress"}}" style="z-index:9999; position: absolute;
     margin-top: 55px;
     border: 2px solid #000;
@@ -192,7 +192,7 @@
               </div>
               <div class="progress-text" id="text1">
                 <div class="grid-span-3 flexrow flex-group-center">
-                  <input style="color: white;; font-weight: bold; text-size: small" type="text" class="vida"
+                  <input style="color: white; font-weight: bold; text-size: small" type="text" class="vida"
                     name="system.health.value" value="{{system.health.value}}"
                     data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.HealthCurrent"}}">
                   <p style="font-size: 25px;">/</p>
@@ -224,7 +224,7 @@
               <div class="resource-balas" data-tooltip="{{localize (lookup @root.config.resources key)}}" style="background-image: url({{resource.icon}}); background-size: contain;
       background-position: center;
       background-repeat: no-repeat;">
-                <input class="bold-text" type="text" name="system.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number"
+                <input class="bold-text no-shadow" type="text" name="system.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number"
                   style="z-index:9999;" />
               </div>
             </div>
@@ -282,9 +282,9 @@
                 key)}}</label>
               <span class="ability-mod-pc" data-roll="d20+@otherAttributes.{{key}}.base"
                 data-label="{{localize (lookup @root.config.otherAttributes key)}}"
-                data-tooltip="Valor base">{{ability.base}}</span>
+                data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.BaseValue"}}">{{ability.base}}</span>
               <input class="ability-value-pc" type="text" name="system.otherAttributes.{{key}}.current"
-                data-tooltip="Valor corrente de {{localize (lookup @root.config.otherAttributes key)}}"
+                data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.CurrentValue" name=(localize (lookup @root.config.otherAttributes key))}}"
                 value="{{ability.current}}" data-dtype="Number" />
             </div>
             {{/each}}
@@ -295,7 +295,7 @@
                 data-roll="d20+@speed.current" data-label="{{system.speed.label}}"
                 data-tooltip="{{system.speed.label}}">{{system.speed.label}}</label>
               <span class="ability-mod-pc" data-roll="d20+@speed.current" data-label="{{system.speed.label}}"
-                data-tooltip="Valor base">{{system.speed.base}}</span>
+                data-tooltip="{{localize "PUNKAPOCALYPTIC.SheetLabels.BaseValue"}}">{{system.speed.base}}</span>
               <input class="ability-value-pc" type="text" name="system.speed.current" value="{{system.speed.current}}"
                 data-dtype="Number" />
             </div>

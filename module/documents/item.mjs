@@ -86,14 +86,6 @@ export class PunkapocalypticItem extends Item {
     }
     // Otherwise, create a roll and send a chat message from it.
     else {
-      // let formula = " 1d20";
-      // const final_mod = this.actor.system.abilities[this.system.roll.ability].mod + mod;
-      // if (final_mod > 0) {
-      //   formula += "+" + final_mod;
-      // }
-      // const roll = new Roll(formula, this.actor);
-
-
       let text = `<button class="roll-damage" data-item-id="${item._id}" data-actor-id="${this.actor.id}">${game.i18n.localize('PUNKAPOCALYPTIC.SheetLabels.RollDamage')}</button><br />`;
       const targets = Array.from(game.user.targets);
 
@@ -160,22 +152,26 @@ export class PunkapocalypticItem extends Item {
       // Retrieve roll data.
       const title = game.i18n.format('PUNKAPOCALYPTIC.ChatMessage.TitleDamageRoll', {weapon: item.name});
       const rollData = this.getRollData();
-      //const damage_formula = item.system.damage.diceNum + "d" + item.system.damage.diceSize + "+" + item.system.damage.diceBonus
-      const label = `<img src="${item.img}" alt="Icon" class="message-icon">
-      <p style="font-family: 'Poison Hope', sans-serif; text-shadow: 2px 2px 5px gray;">${title}</p>`;
+
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(item.system.damage.formula, rollData.actor);
-      roll.toMessage({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-      });
+      const roll = await new Roll(item.system.damage.formula, rollData.actor).evaluate({evaluateSync: true});
+
+      const label = `<img src="${item.img}" alt="Icon" class="message-icon">
+      <p style="font-family: 'Poison Hope', sans-serif; text-shadow: 2px 2px 5px gray;">${title}</p>
+      <br />
+      <button class="apply-damage" data-damage="${roll.total}" style="">Applicar Dano</button>
+      <br />`;
+      ChatMessage.create({
+              speaker: speaker,
+                flavor: label,
+                rollMode: rollMode,
+                rolls: [roll].filter(Boolean)
+            });
       return roll;
     }
   }
 
   messageHeader(img, name, ability="") {
-    //const item = this;
     if (ability == "") {
       return `<img src="${img}" alt="Icon" class="message-icon"><p style="font-family: 'Poison Hope', sans-serif;">${name}</p>`;
     } else {

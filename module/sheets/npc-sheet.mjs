@@ -97,7 +97,7 @@ export class PunkapocalypticNPCSheet extends ActorSheet {
     // This is where you can enrich character-specific editor fields
     // or setup anything else that's specific to this type
     for (const ability in context.actor.system.abilities) {
-      context.actor.system.abilities[ability].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Ability.${ability.capitalize()}.Tooltip`);
+      context.actor.system.abilities[ability].tooltip = game.i18n.localize(`PUNKAPOCALYPTIC.Ability.${ability.capitalize()}.tooltip`);
       context.actor.system.abilities[ability].img = CONFIG.PUNKAPOCALYPTIC.abilityImages[ability];
     }
 
@@ -391,13 +391,23 @@ export class PunkapocalypticNPCSheet extends ActorSheet {
             Complicações / Recursos 
             <div style="display: flex; align-items: center; gap: 5px;">
                 <button onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) - Number(1)" style="width: 10px; text-align: center;" type="button" class="decrement">-</button>
-                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10"  autofocus readonly>
+                <input style="text-align: center" id="complica" name="mod" type="number" value="0" min="-10" max="10"  autofocus readonly>
                 <button style="width: 10px; text-align: center;" onClick="document.getElementById('complica').value = Number(document.getElementById('complica').value) + Number(1)" type="button" class="increment">+</button>
             </div>
         `,
         ok: {
           label: "Rollar",
           callback: (event, button, dialog) => button.form.elements.mod.valueAsNumber || 0
+        },
+        render: (event, dialog) => {
+          console.log("Dialog rendered", dialog.element);
+          const input = dialog.element.querySelector("#complica");
+          dialog.element.querySelector(".decrement")?.addEventListener("click", () => {
+            input.value = Math.max(Number(input.min), Number(input.value) - 1);
+          });
+          dialog.element.querySelector(".increment")?.addEventListener("click", () => {
+            input.value = Math.min(Number(input.max), Number(input.value) + 1);
+          });
         }
       });
     } catch (e) {

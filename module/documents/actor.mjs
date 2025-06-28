@@ -120,6 +120,12 @@ export class PunkapocalypticActor extends Actor {
         return result;
     }
 
+    async applyDamage(damage) {
+        const newHealth = this.system.health.value - damage;
+        await this.update({ "system.health.value": newHealth });
+        //this.system.
+    }
+
     /**
      * Roll an ability check for this actor.
      * @param {string} id - The ability ID to roll
@@ -205,17 +211,21 @@ export class PunkapocalypticActor extends Actor {
 
         // Construct the final message content
         const messageContent = `
-        <div class="dice-roll">
+        <div class="dice-roll" data-action="expandRoll">
             <div class="dice-result">
                 <div class="dice-formula">1d20${modifierDisplay}</div>
                 <div class="dice-tooltip">
+                <div class="wrapper">
                     <section class="tooltip-part">${baseDiceHTML}</section>
+                    </div>
                 </div>
 
                 ${extraRoll ? `
                 <div class="dice-formula">${Math.abs(extraMod)}d6 ${extraMod < 0 ? "(complicações)" : "(Recursos)"}</div>
                 <div class="dice-tooltip">
+                <div class="wrapper">
                     <section class="tooltip-part">${extraDiceHTML}</section>
+                    </div>
                 </div>` : ""}
 
                 <h4 class="dice-total">${finalTotal}</h4>
